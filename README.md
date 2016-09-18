@@ -4,4 +4,5 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-artwork-themes
 * deepin-desktop-base
 * deepin-icon-theme
+* deepin-sound-theme
 * deepin-wallpapers
