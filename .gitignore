@@ -1,0 +1,7 @@
+*.swp
+*.swo
+BUILD/*
+SOURCES/*
+BUILDROOT/*
+RPMS/*
+SRPMS/*
