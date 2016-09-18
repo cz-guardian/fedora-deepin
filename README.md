@@ -9,3 +9,4 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-mutter
 * deepin-sound-theme
 * deepin-wallpapers
+* deepin-wm
