@@ -6,6 +6,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-desktop-schemas
 * deepin-gtk-theme
 * deepin-icon-theme
+* deepin-metacity
 * deepin-mutter
 * deepin-sound-theme
 * deepin-wallpapers
