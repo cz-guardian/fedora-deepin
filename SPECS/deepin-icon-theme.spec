@@ -8,7 +8,6 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 BuildArch:      noarch
-Requires:       deepin-wallpapers
 BuildRequires:  inkscape
 # faenza-icon-theme flattr-icon-theme
 
