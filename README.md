@@ -10,3 +10,4 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-sound-theme
 * deepin-wallpapers
 * deepin-wm
+* go-gir-generator
