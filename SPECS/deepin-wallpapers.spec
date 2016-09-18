@@ -16,6 +16,7 @@ Deepin Wallpapers provides wallpapers of dde
 
 
 %prep
+%autosetup %{version}.tar.gz#%{name}
 
 %build
 
@@ -30,9 +31,9 @@ cp -r %{_builddir}/%{name}-%{version}/image-blur %{buildroot}/%{_localstatedir}/
 rm -rf %{buildroot}
 
 %files
-%{_prefix}/
-%{_localstatedir}/
+%{_prefix}/*
+%{_localstatedir}/*
 
 %changelog
 * Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
-- Initial package
+- Initial package build
