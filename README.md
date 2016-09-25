@@ -9,6 +9,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-metacity
 * deepin-mutter
 * deepin-sound-theme
+* deepin-tool-kit
 * deepin-wallpapers
 * deepin-wm
 * go-dbus-generator
