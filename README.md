@@ -8,6 +8,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-icon-theme
 * deepin-metacity
 * deepin-mutter
+* deepin-notifications
 * deepin-sound-theme
 * deepin-tool-kit
 * deepin-wallpapers
