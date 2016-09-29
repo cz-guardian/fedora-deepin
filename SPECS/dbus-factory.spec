@@ -29,10 +29,10 @@ QML DBus factory for DDE
   %define _lib_dir %{_usr}/lib
 %endif
 
-make build-qml
+make
 
 %install
-%make_install DESTDIR="%{buildroot}" install-qml
+%make_install DESTDIR="%{buildroot}" install
 %ifarch x86_64
   mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
 %endif
