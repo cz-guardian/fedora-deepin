@@ -20,18 +20,21 @@ Generate static golang bindings for GObject
 %autosetup %{version}.tar.gz#%{name}
 
 %build
-export GOPATH="$(pwd)/vendor:$(pwd)"
+export GOPATH="$(pwd)/vendor:$(pwd):/usr/share/gocode/src/gir/"
 make
 
 %install
 %make_install DESTDIR="%{buildroot}" install
+mv %{buildroot}/usr/share/gocode/src %{buildroot}/usr/
+rmdir %{buildroot}/usr/share/gocode/
+rmdir %{buildroot}/usr/share
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %{_bindir}/gir-generator
-%{_datarootdir}/*
+%{_prefix}/src/*
 
 
 %changelog
