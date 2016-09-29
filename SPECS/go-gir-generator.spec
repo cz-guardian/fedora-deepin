@@ -1,6 +1,6 @@
 Name:           go-gir-generator
 Version:        0.9.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generate static golang bindings for GObject
 
 License:        GPL3
@@ -21,19 +21,21 @@ Generate static golang bindings for GObject
 
 %build
 export GOPATH="$(pwd)/vendor:$(pwd)"
-cd ./src/gir-generator/
-go build -gccgoflags "$(pkg-config --libs gobject-introspection-1.0) $CFLAGS $LDFLAGS" -o gir-generator
+make
 
 %install
-install -D -m 755 src/gir-generator/gir-generator %{buildroot}/usr/bin/gir-generator
+%make_install DESTDIR="%{buildroot}" install
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %{_bindir}/gir-generator
+%{_datarootdir}/*
 
 
 %changelog
-* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Thu Sep 29 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.9.5-2
+- Compilation rework
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.9.5-1
 - Initial package build
