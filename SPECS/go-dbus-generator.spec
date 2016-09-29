@@ -1,11 +1,12 @@
 Name:           go-dbus-generator
 Version:        0.6.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert dbus interfaces to go-lang or qml wrapper code
 
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+Patch0:         go-dbus-generator_0.6.5_fedora-qmake-rename.patch
 
 Requires:       glibc
 BuildRequires:  gcc-go go-lib
@@ -17,7 +18,7 @@ Convert dbus interfaces to go-lang or qml wrapper code
 
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
+%autosetup -p1 %{version}.tar.gz#%{name}
 
 %build
 export GOPATH="$(pwd)/build"
@@ -34,5 +35,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Thu Sep 29 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.6.5-2
+- Qmake path fix for Fedora
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.6.5-1
 - Initial package build

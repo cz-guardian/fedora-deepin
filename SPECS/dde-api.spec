@@ -1,7 +1,7 @@
 Name:           dde-api
 Version:        3.0.14
 Release:        1%{?dist}
-Summary:        Deepin GoLang Library
+Summary:        Deepin GoLang API Library
 
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
@@ -13,7 +13,7 @@ Provides:       %{name}
 %global debug_package %{nil}
 
 %description
-Deepin GoLang Library
+Deepin GoLang API Library
 
 
 %prep

@@ -1,0 +1,29 @@
+diff -Naur a/build_test.go b/build_test.go
+--- a/build_test.go	2016-02-03 03:11:43.000000000 +0100
++++ b/build_test.go	2016-09-29 20:27:43.466926534 +0200
+@@ -53,7 +53,7 @@
+ 	generateMain(infos)
+ 	renderedEnd(infos)
+ 
+-	_, err = exec.Command("bash", "-c", fmt.Sprintf("cd %s && ls && qmake && make", output)).CombinedOutput()
++	_, err = exec.Command("bash", "-c", fmt.Sprintf("cd %s && ls && qmake-qt5 && make", output)).CombinedOutput()
+ 	c.Check(err, C.Equals, nil)
+ 
+ 	exec.Command("rm", "-rf", output).Run()
+diff -Naur a/template_qml.go b/template_qml.go
+--- a/template_qml.go	2016-02-03 03:11:43.000000000 +0100
++++ b/template_qml.go	2016-09-29 20:27:19.819554773 +0200
+@@ -293,11 +293,11 @@
+ 		pkgName = getQMLPkgName("DBus." + infos.DestName())
+ 	}
+ 	os.MkdirAll(infos.OutputDir()+"/"+strings.Replace(pkgName, ".", "/", -1), 0755)
+-	cmd_str := fmt.Sprintf("cd %s && ln -sv %s lib && qmake", infos.OutputDir(), strings.Replace(pkgName, ".", "/", -1))
++	cmd_str := fmt.Sprintf("cd %s && ln -sv %s lib && qmake-qt5", infos.OutputDir(), strings.Replace(pkgName, ".", "/", -1))
+ 	cmd := exec.Command("bash", "-c", cmd_str)
+ 	err := cmd.Run()
+ 	if err != nil {
+-		log.Fatal("Run: " + cmd_str + " failed(Did you have an valid qmake?) testQML code will not generated!")
++		log.Fatal("Run: " + cmd_str + " failed(Did you have an valid qmake-qt5?) testQML code will not generated!")
+ 	}
+ 	qmldir, err := os.Create(path.Join(infos.OutputDir(), "lib", "qmldir"))
+ 	if err != nil {
