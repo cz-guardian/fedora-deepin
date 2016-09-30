@@ -33,6 +33,8 @@ make
 
 %install
 %make_install DESTDIR="%{buildroot}" install
+mv %{buildroot}/usr/lib/go/src/ %{buildroot}/usr/src/
+rmdir %{buildroot}/usr/lib/go/
 %ifarch x86_64
   mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
 %endif
@@ -42,8 +44,11 @@ rm -rf %{buildroot}
 
 %files
 %{_lib_dir}/*
+%{_prefix}/src/*
 
 
 %changelog
-* Wed Sep 28 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Thu Sep 29 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.6-2
+- Compilation rework
+* Wed Sep 28 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.6-1
 - Initial package build
