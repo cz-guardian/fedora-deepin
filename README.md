@@ -3,6 +3,7 @@
 This repository contains the following .specs for integrating the deepin desktop environment into Fedora
 * dbus-factory
 * dde-api
+* dde-daemon
 * deepin-artwork-themes
 * deepin-desktop-base
 * deepin-desktop-schemas
