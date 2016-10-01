@@ -9,6 +9,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-desktop-schemas
 * deepin-gtk-theme
 * deepin-icon-theme
+* deepin-menu
 * deepin-metacity
 * deepin-mutter
 * deepin-notifications
