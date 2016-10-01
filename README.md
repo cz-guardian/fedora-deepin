@@ -16,6 +16,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-tool-kit
 * deepin-wallpapers
 * deepin-wm
+* deepin-wm-switcher
 * go-dbus-generator
 * go-gir-generator
 * go-lib
