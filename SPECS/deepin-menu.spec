@@ -54,7 +54,7 @@ install -m 644 *.service %{buildroot}/usr/share/dbus-1/services/
 install -m 644 *.desktop %{buildroot}/etc/xdg/autostart/
 
 %clean
-#rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %{_sysconfdir}/*
