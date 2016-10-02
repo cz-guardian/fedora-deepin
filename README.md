@@ -15,6 +15,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-menu
 * deepin-metacity
 * deepin-mutter
+* deepin-nautilus-properties
 * deepin-notifications
 * deepin-sound-theme
 * deepin-tool-kit
