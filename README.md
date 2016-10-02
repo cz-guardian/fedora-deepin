@@ -22,4 +22,5 @@ This repository contains the following .specs for integrating the deepin desktop
 * go-dbus-generator
 * go-gir-generator
 * go-lib
+* gsettings-qt
 * startdde
