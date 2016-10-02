@@ -4,6 +4,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * dbus-factory
 * dde-api
 * dde-daemon
+* dde-desktop
 * dde-dock
 * dde-launcher
 * deepin-artwork-themes
