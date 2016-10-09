@@ -2,6 +2,7 @@
 
 This repository contains the following .specs for integrating the deepin desktop environment into Fedora
 * dbus-factory
+* dde-account-faces
 * dde-api
 * dde-calendar
 * dde-daemon
