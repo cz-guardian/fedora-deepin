@@ -12,7 +12,7 @@ BuildRequires:  go-dbus-generator go-gir-generator libgo-devel poppler-glib-deve
 
 Provides:       %{name}
 
-#%global debug_package %{nil}
+%global debug_package %{nil}
 
 %description
 Deepin file manager backend
@@ -40,6 +40,7 @@ make USE_GCCGO=0
 make DESTDIR="%{buildroot}" install
 %ifarch x86_64
   mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
+    sed -i 's:/usr/lib/deepin-daemon:/usr/lib64/deepin-daemon/:g' %{buildroot}/usr/share/dbus-1/services/*.service
 %endif
 
 %clean
