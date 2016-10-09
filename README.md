@@ -5,6 +5,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * dde-account-faces
 * dde-api
 * dde-calendar
+* dde-control-center
 * dde-daemon
 * dde-desktop
 * dde-dock
