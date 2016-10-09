@@ -43,6 +43,9 @@ make DESTDIR="%{buildroot}" install
     sed -i 's:/usr/lib/deepin-daemon:/usr/lib64/deepin-daemon/:g' %{buildroot}/usr/share/dbus-1/services/*.service
 %endif
 
+%post
+glib-compile-schemas /usr/share/glib-2.0/schemas/
+
 %clean
 rm -rf %{buildroot}
 
