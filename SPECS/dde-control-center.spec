@@ -37,9 +37,6 @@ make
 
 %install
 make INSTALL_ROOT="%{buildroot}" install
-%ifarch x86_64
-  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
-%endif
 
 %clean
 rm -rf %{buildroot}
