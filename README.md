@@ -21,6 +21,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-mutter
 * deepin-nautilus-properties
 * deepin-notifications
+* deepin-shortcut-viewer
 * deepin-sound-theme
 * deepin-tool-kit
 * deepin-wallpapers
