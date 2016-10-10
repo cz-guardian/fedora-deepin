@@ -10,6 +10,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * dde-desktop
 * dde-dock
 * dde-launcher
+* dde-file-manager
 * deepin-artwork-themes
 * deepin-desktop-base
 * deepin-desktop-schemas
