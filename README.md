@@ -32,4 +32,5 @@ This repository contains the following .specs for integrating the deepin desktop
 * go-gir-generator
 * go-lib
 * gsettings-qt
+* python2-deepin-stormv
 * startdde
