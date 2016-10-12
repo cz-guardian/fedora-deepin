@@ -37,16 +37,13 @@ sed -e 's/qmake/qmake-qt5/' -e '/lupdate/d' -i Makefile
 
 %install
 make DESTDIR="%{buildroot}" install
-%ifarch x86_64
-  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
-%endif
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %{_bindir}/*
-%{_lib_dir}/*
+%{_prefix}/lib/*
 
 
 %changelog
