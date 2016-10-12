@@ -34,4 +34,5 @@ This repository contains the following .specs for integrating the deepin desktop
 * gsettings-qt
 * python2-deepin-gsettings
 * python2-deepin-stormv
+* python2-deepin-utils
 * startdde
