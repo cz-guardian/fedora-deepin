@@ -15,6 +15,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-desktop-base
 * deepin-desktop-schemas
 * deepin-file-manager-backend
+* deepin-gettext-tools
 * deepin-gtk-theme
 * deepin-icon-theme
 * deepin-menu
