@@ -44,10 +44,6 @@ make
 make DESTDIR="%{buildroot}" install
 install -Dm644 %{_sourcedir}/dde-daemon.sysusers "%{buildroot}/usr/lib/sysusers.d/deepin-daemon.conf"
 install -Dm644 %{_sourcedir}/polkit-gnome-authentication-agent-1-deepin.desktop "%{buildroot}/etc/xdg/autostart/polkit-gnome-authentication-agent-1-deepin.desktop"
-%ifarch x86_64
-  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
-  sed -i 's:/usr/lib/deepin-daemon:/usr/lib64/deepin-daemon/:g' %{buildroot}/usr/share/dbus-1/services/*.service
-%endif
 
 %post
 systemd-sysusers deepin-daemon.conf
@@ -60,7 +56,7 @@ rm -rf %{buildroot}
 
 %files
 %{_datarootdir}/*
-%{_lib_dir}/*
+%{_prefix}/lib/*
 %{_var}/cache/*
 %{_sysconfdir}/xdg/autostart/polkit-gnome-authentication-agent-1-deepin.desktop
 
