@@ -1,5 +1,5 @@
 Name:           deepin-wm
-Version:        1.1.2
+Version:        1.2
 Release:        1%{?dist}
 Summary:        Deepin Window Manager
 
@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 Requires:       deepin-mutter deepin-desktop-schemas clutter-gtk bamf gnome-desktop libgee libwnck3 libcanberra libcanberra-gtk3
-BuildRequires:  gnome-common intltool vala vala-tools bamf-devel clutter-gtk-devel libgee-devel libwnck3-devel libcanberra-devel
+BuildRequires:  gnome-common intltool vala vala-tools bamf-devel clutter-gtk-devel libgee-devel libwnck3-devel libcanberra-devel deepin-mutter
 
 Provides:       %{name}
 
@@ -52,5 +52,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.2.0
+- Update to version 1.2.0
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.1.2-1
 - Initial package build
