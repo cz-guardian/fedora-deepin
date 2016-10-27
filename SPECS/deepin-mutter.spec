@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 Requires:       clutter dconf gobject-introspection deepin-desktop-schemas libcanberra startup-notification zenity libSM gnome-desktop upower libxkbcommon-x11 libgudev gtk3 gsettings-desktop-schemas clutter gnome-desktop3 libxkbfile xkeyboard-config libxkbcommon-x11 libgudev
-BuildRequires:  gnome-common gnome-doc-utils gobject-introspection-devel gtk-doc intltool gtk3-devel gsettings-desktop-schemas-devel clutter-devel upower-devel gnome-desktop3-devel libxkbfile-devel xkeyboard-config-devel libxkbcommon-x11-devel libgudev-devel
+BuildRequires:  gnome-common gnome-doc-utils gobject-introspection-devel gtk-doc intltool gtk3-devel gsettings-desktop-schemas-devel clutter-devel upower-devel gnome-desktop3-devel libxkbfile-devel xkeyboard-config-devel libxkbcommon-x11-devel libgudev-devel zenity
 
 Provides:       %{name}
 
