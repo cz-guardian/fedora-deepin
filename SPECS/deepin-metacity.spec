@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 Requires:       dconf deepin-desktop-schemas libcanberra startup-notification zenity gtk3 libgtop2 libSM yelp bamf
-BuildRequires:  intltool itstool python yelp-devel autoconf-archive
+BuildRequires:  intltool itstool python yelp-devel autoconf-archive glib2-devel
 
 Provides:       %{name}
 
