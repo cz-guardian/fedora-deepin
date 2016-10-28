@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/go-gir-generator
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 Requires:       gobject-introspection
-BuildRequires:  gcc-go
+BuildRequires:  gcc-go gobject-introspection-devel
 
 Provides:       %{name}
 
