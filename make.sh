@@ -21,6 +21,7 @@ function buildPackage()
       ###
       rpmfile=$(grep 'src.rpm' ${RESULT_DIR}/build.log | head -n 1 | sed -e 's#^.*/##g')
       upload2Copr "${arch}" "${RESULT_DIR}/${rpmfile}"
+      exit
     done
   else
     echo "An error occured. Exiting..."

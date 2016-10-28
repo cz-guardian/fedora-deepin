@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 Requires:       deepin-mutter deepin-desktop-schemas clutter-gtk bamf gnome-desktop libgee libwnck3 libcanberra libcanberra-gtk3
-BuildRequires:  gnome-common intltool vala vala-tools bamf-devel clutter-gtk-devel libgee-devel libwnck3-devel libcanberra-devel deepin-mutter
+BuildRequires:  gnome-common intltool vala vala-tools bamf-devel clutter-gtk-devel libgee-devel libwnck3-devel libcanberra-devel deepin-mutter gnome-desktop3-devel gnome-desktop3
 
 Provides:       %{name}
 
