@@ -1,6 +1,6 @@
 Name:           go-gir-generator
-Version:        0.9.5
-Release:        2%{?dist}
+Version:        0.9.6
+Release:        1%{?dist}
 Summary:        Generate static golang bindings for GObject
 
 License:        GPL3
@@ -38,6 +38,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Oct 28 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.9.6-1
+- Compilation rework
 * Thu Sep 29 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.9.5-2
 - Compilation rework
 * Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.9.5-1
