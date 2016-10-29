@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 Requires:       qt5-qtmultimedia qt5-qtx11extras startup-notification xcb-util
-BuildRequires:  xcb-util-devel qt5-qtmultimedia-devel qt5-qtx11extras-devel
+BuildRequires:  xcb-util-devel qt5-qtmultimedia-devel qt5-qtx11extras-devel startup-notification-devel
 
 Provides:       %{name}
 
