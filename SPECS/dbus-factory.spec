@@ -9,7 +9,7 @@ Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 Patch0:         dbus-factory_3.0.6_fix-arch.patch
 
 Requires:       qt5-qtdeclarative
-BuildRequires:  go-dbus-generator 
+BuildRequires:  go-dbus-generator qt5-qtdeclarative-devel
 
 Provides:       %{name}
 
