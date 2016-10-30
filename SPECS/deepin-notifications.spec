@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 Requires:       deepin-tool-kit qt5-qtsvg qt5-qtdeclarative gtk2
-BuildRequires:  qt5-qtsvg-devel qt5-qtdeclarative-devel
+BuildRequires:  qt5-qtsvg-devel qt5-qtdeclarative-devel deepin-tool-kit gtk2-devel
 
 Provides:       %{name}
 

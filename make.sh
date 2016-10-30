@@ -6,6 +6,10 @@ RESULT_DIR=/tmp/build_$(date +%Y%m%d_%H%M)
 # COPR specific config
 COPR_PROJECT=deepin
 
+if [ "$2" ]; then
+  ARCHS=($2)
+fi
+
 function buildPackage()
 {
   local package=$1
