@@ -1,5 +1,5 @@
 Name:           dde-daemon
-Version:        3.0.22
+Version:        3.0.23
 Release:        1%{?dist}
 Summary:        Daemon handling the DDE session settings
 
@@ -62,5 +62,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Oct 31 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.23-1
+- Upgrade to version 3.0.23
 * Sun Sep 25 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.22-1
 - Initial package build
