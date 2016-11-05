@@ -1,5 +1,5 @@
 Name:           deepin-wm-switcher
-Version:        1.0.7
+Version:        1.1.0
 Release:        1%{?dist}
 Summary:        Window manager switcher for Deepin
 
@@ -46,5 +46,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Oct 01 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.1.0-1
+- Update package to version 1.1.0
 * Sat Oct 01 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.7-1
 - Initial package build
