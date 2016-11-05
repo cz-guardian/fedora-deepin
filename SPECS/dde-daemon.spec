@@ -6,9 +6,11 @@ Summary:        Daemon handling the DDE session settings
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+Source1:        dde-daemon.sysusers
+Source2:        polkit-gnome-authentication-agent-1-deepin.desktop
     
 Requires:       deepin-desktop-schemas gvfs libcanberra deepin-notifications upower libxkbfile deepin-desktop-base bamf libgnome-keyring pulseaudio qt5-qtaccountsservice libudisks2 polkit-gnome mobile-broadband-provider-info iso-codes bluez-libs acpid rfkill poppler-glib dde-api
-BuildRequires:  go-dbus-generator go-gir-generator dde-api librsvg2-devel pulseaudio-libs-devel libXtst-devel gdk-pixbuf2-xlib-devel
+BuildRequires:  go-dbus-generator go-gir-generator dde-api librsvg2-devel pulseaudio-libs-devel libXtst-devel gdk-pixbuf2-xlib-devel gcc-go git dbus-factory go-lib libcanberra-devel bamf-devel libgudev-devel systemd-devel gettext
 
 Provides:       %{name}
 
@@ -28,8 +30,6 @@ Daemon handling the DDE session settings
 %ifarch i386 i686
   %define _lib_dir %{_usr}/lib
 %endif
-
-#sed -i "s|\"\${GOLDFLAGS}\"|\"\${GOLDFLAGS} $CFLAGS $LDFLAGS\"|" Makefile
 
 export GOPATH="$(pwd)/build"
 
