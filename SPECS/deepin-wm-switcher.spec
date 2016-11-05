@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
 Requires:       dde-daemon deepin-wm deepin-metacity qt5-qtx11extras
-BuildRequires:  cmake xcb-util-keysyms-devel
+BuildRequires:  cmake xcb-util-keysyms-devel glib2-devel libX11-devel qt5-qtbase-devel qt5-qtx11extras-devel
 
 Provides:       %{name}
 
