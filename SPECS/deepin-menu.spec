@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
 Requires:       python-qt5 qt5-qtx11extras
-BuildRequires:  qt5-qtdeclarative-devel python2-setuptools
+BuildRequires:  qt5-qtdeclarative-devel python2-setuptools qt5-qtx11extras-devel
 
 Provides:       %{name}
 
