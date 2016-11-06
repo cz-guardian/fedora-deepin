@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
 Requires:       deepin-metacity libcanberra poppler-glib
-BuildRequires:  go-dbus-generator go-gir-generator libgo-devel poppler-glib-devel
+BuildRequires:  go-dbus-generator go-gir-generator libgo-devel poppler-glib-devel gcc-go git dbus-factory go-lib dde-api libcanberra-devel librsvg2-devel deepin-metacity gdk-pixbuf2-xlib-devel gettext
 
 Provides:       %{name}
 
