@@ -10,6 +10,7 @@ URL:            https://launchpad.net/%{name}
 Source0:        http://bazaar.launchpad.net/~system-settings-touch/%{name}/trunk/tarball/%{_revision}?start_revid=%{_revision}
 
 Requires:       qt5-qtdeclarative
+BuildRequires:  qt5-qtdeclarative-devel glib2-devel
 
 Provides:       %{name}
 
@@ -21,7 +22,7 @@ Qml bindings for GSettings
 %prep
 cd %{_builddir}
 rm -rf ~system-settings-touch
-gzip -dc %{_sourcedir}/%{_revision}?start_revid=%{_revision} | tar -xvvf -
+gzip -dc %{_sourcedir}/%{_revision} | tar -xvvf -
 if [ $? -ne 0 ]; then
   exit $?
 fi
