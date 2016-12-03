@@ -1,5 +1,5 @@
 Name:           deepin-desktop-base
-Version:        2016.02.02
+Version:        2016.02.03
 Release:        1%{?dist}
 Summary:        Base component for Deepin
 
@@ -49,5 +49,7 @@ rm -rf %{buildroot}
 %{_usr}/share/*
 
 %changelog
-* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Sat Dec 03 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.02.03-1
+- Update package to version 2016.02.03
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.02.02-1
 - Initial package build
