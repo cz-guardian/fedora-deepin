@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 Requires:       deepin-tool-kit
-BuildRequires:  qt5-qttools-devel
+BuildRequires:  qt5-qttools-devel deepin-tool-kit
 
 Provides:       %{name}
 

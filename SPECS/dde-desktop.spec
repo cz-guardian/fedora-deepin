@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
 Requires:       deepin-file-manager-backend gtk2 qt5-qtsvg deepin-nautilus-properties deepin-tool-kit deepin-menu dde-dock gsettings-qt deepin-nautilus-properties qt5-qtx11extras libqtxdg
-BuildRequires:  qt5-qttools-devel boost-devel libqtxdg-devel
+BuildRequires:  qt5-qttools-devel boost-devel libqtxdg-devel gtk2-devel xcb-util-wm-devel gsettings-qt deepin-tool-kit qt5-qtx11extras-devel
 
 Provides:       %{name}
 

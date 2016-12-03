@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
 Requires:       gtk2 qt5-qtsvg deepin-file-manager-backend deepin-tool-kit deepin-menu dde-daemon
-BuildRequires:  qt5-qttools-devel xcb-util-image-devel
+BuildRequires:  qt5-qttools-devel xcb-util-image-devel xcb-util-wm-devel gtk2-devel deepin-tool-kit qt5-qtx11extras-devel qt5-qtsvg-devel libXtst-devel
 
 Provides:       %{name}
 

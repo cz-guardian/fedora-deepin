@@ -7,8 +7,12 @@ License:        GPL
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
-Requires:       nautilus libnotify
-BuildRequires:  intltool gobject-introspection-devel libnotify-devel libexif-devel libexif-devel
+Requires:       nautilus libnotify exempi glib2 gtk3 gnome-desktop3 libxml2 libX11
+BuildRequires:  intltool gobject-introspection-devel libnotify-devel libexif-devel exempi-devel glib2-devel gtk3-devel gnome-desktop3-devel libxml2-devel libX11-devel
+
+##   gail-3.0
+#  x11
+
 
 Provides:       %{name}
 
