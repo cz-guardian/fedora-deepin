@@ -7,8 +7,8 @@ License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
-Requires:       deepin-tool-kit desktop-file-utils gtk2 dde-account-faces dde-api dde-daemon dbus-factory startdde
-BuildRequires:  qt5-qttools-devel dde-dock
+Requires:       deepin-tool-kit desktop-file-utils gtk2 dde-account-faces dde-api dde-daemon dbus-factory startdde qt5-qtmultimedia qt5-qtx11extras
+BuildRequires:  qt5-qttools-devel dde-dock gtk2-devel qt5-qtsvg-devel qt5-qtmultimedia-devel qt5-qtx11extras-devel
 
 Provides:       %{name}
 
