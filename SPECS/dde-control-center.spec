@@ -24,14 +24,6 @@ New control center for linux deepin
 %build
 sed -i 's/lrelease/lrelease-qt5/g' translate_generation.sh
 
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
 qmake-qt5 QMAKE_CFLAGS_ISYSTEM= PREFIX=%{_usr} WITH_MODULE_GRUB=NO WITH_MODULE_REMOTE_ASSIST=NO WITH_MODULE_SYSINFO_UPDATE=NO
 make
 
@@ -44,7 +36,7 @@ rm -rf %{buildroot}
 %files
 %{_bindir}/*
 %{_datarootdir}/*
-%{_lib_dir}/*
+%{_exec_prefix}/lib/*
 
 
 %changelog
