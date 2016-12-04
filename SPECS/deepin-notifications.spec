@@ -1,6 +1,6 @@
 Name:           deepin-notifications
 Version:        2.3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        System notifications for linuxdeepin desktop environment
 
 License:        GPL3
@@ -49,5 +49,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+- Rebuild with newer deepin-tool-kit
 * Sun Sep 25 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
 - Initial package build
