@@ -1,6 +1,6 @@
 Name:           dde-desktop
 Version:        3.0.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deepin desktop-environment - Desktop module
 
 License:        GPL3
@@ -11,8 +11,6 @@ Requires:       deepin-file-manager-backend gtk2 qt5-qtsvg deepin-nautilus-prope
 BuildRequires:  qt5-qttools-devel boost-devel libqtxdg-devel gtk2-devel xcb-util-wm-devel gsettings-qt deepin-tool-kit qt5-qtx11extras-devel
 
 Provides:       %{name}
-
-#%global debug_package %{nil}
 
 %description
 Deepin desktop-environment - Desktop module
@@ -46,5 +44,7 @@ rm -rf %{buildroot}
 %{_datarootdir}/*
 
 %changelog
+* Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.15-2
+- Rebuild with newer deepin-tool-kit
 * Sun Oct 02 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.15-1
 - Initial package build
