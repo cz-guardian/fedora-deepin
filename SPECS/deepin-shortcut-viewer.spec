@@ -1,5 +1,5 @@
 Name:           deepin-shortcut-viewer
-Version:        1.01
+Version:        1.02
 Release:        1%{?dist}
 Summary:        Deepin Shortcut Viewer
 
@@ -36,5 +36,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.02-1
+- Updated to version 1.02-1
 * Mon Oct 10 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.01-1
 - Initial package build
