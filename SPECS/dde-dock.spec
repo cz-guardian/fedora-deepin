@@ -1,6 +1,6 @@
 Name:           dde-dock
 Version:        4.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deepin desktop-environment - Dock module
 
 License:        GPL3
@@ -48,5 +48,7 @@ rm -rf %{buildroot}
 %{_includedir}/*
 
 %changelog
+* Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.5-2
+- Rebuild with newer deepin-tool-kit
 * Sun Oct 02 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.5-1
 - Initial package build

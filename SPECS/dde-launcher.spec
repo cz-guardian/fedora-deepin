@@ -1,5 +1,5 @@
 Name:           dde-launcher
-Version:        4.0.2
+Version:        4.0.3
 Release:        1%{?dist}
 Summary:        Deepin desktop-environment - Launcher module
 
@@ -37,5 +37,7 @@ rm -rf %{buildroot}
 %{_datarootdir}/*
 
 %changelog
+* Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.3-1
+- Updated to version 4.0.3
 * Sat Oct 01 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.2-1
 - Initial package build
