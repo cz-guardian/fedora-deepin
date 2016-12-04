@@ -12,6 +12,8 @@ BuildRequires:  qt5-qttools-devel boost-devel libqtxdg-devel gtk2-devel xcb-util
 
 Provides:       %{name}
 
+%global debug_package %{nil}
+
 %description
 Deepin desktop-environment - Desktop module
 
