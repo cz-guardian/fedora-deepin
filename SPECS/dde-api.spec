@@ -7,15 +7,12 @@ License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
-Requires:		gdk-pixbuf2-xlib poppler-glib librsvg2 libcanberra libgudev
-BuildRequires:  bzr gcc-go gdk-pixbuf2-xlib-devel poppler-glib-devel librsvg2-devel libcanberra-devel libgudev-devel
-
-#depends=('glib2' 'gdk-pixbuf2' 'gtk3' 'libcanberra-pulse' 'libxi' 'libxfixes' 'rfkill' 'poppler-glib' 'deepin-metacity' 'xcur2png' 'blur-effect') # 'gcc-libs>=5.3.0-3')
-#makedepends=('git' 'deepin-dbus-factory' 'deepin-gir-generator' 'deepin-go-lib' 'bzr' 'go') # 'gcc-go')
+Requires:		    gdk-pixbuf2-xlib poppler-glib librsvg2 libcanberra libgudev go-lib go-gir-generator deepin-metacity deepin-metacity dbus-factory
+BuildRequires:  bzr gcc-go gdk-pixbuf2-xlib-devel poppler-glib-devel librsvg2-devel libcanberra-devel libgudev-devel git go-lib go-gir-generator deepin-metacity dbus-factory
 
 Provides:       %{name}
 
-%global debug_package %{nil}
+#%global debug_package %{nil}
 
 %description
 Deepin GoLang API Library
