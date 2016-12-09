@@ -1,6 +1,6 @@
 Name:           dde-calendar
 Version:        1.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Calendar for Deepin Desktop Environment
 
 License:        GPL3
@@ -47,5 +47,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Dec 09 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.2-2
+- Rebuild with newer deepin-tool-kit
 * Sun Oct 09 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.2-1
 - Initial package build
