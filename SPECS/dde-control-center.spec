@@ -1,5 +1,5 @@
 Name:           dde-control-center
-Version:        3.0.21
+Version:        3.0.24
 Release:        1%{?dist}
 Summary:        New control center for linux deepin
 
@@ -40,5 +40,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Dec 09 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.24-1
+- Upgrade to 3.0.24
 * Sun Oct 09 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.21-1
 - Initial package build
