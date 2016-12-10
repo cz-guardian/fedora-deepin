@@ -50,7 +50,7 @@ function upload2Copr()
   local package=$2
 
   #echo copr-cli build -r ${arch} --nowait ${COPR_PROJECT} ${package}
-  copr-cli build -r ${arch} --nowait ${COPR_PROJECT} ${package}
+  copr-cli build --nowait ${COPR_PROJECT} ${package}
 }
 
 function mockBuild()

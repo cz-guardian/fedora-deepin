@@ -7,8 +7,8 @@ License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
-Requires:       deepin-tool-kit gtk2 deepin-shortcut-viewer file qt5-qtsvg libsecret gsettings-qt poppler-cpp deepin-tool-kit qt5-qtx11extras ffmpegthumbnailer
-BuildRequires:  qt5-qttools-devel libsecret-devel file-devel poppler-cpp-devel gtk2-devel gsettings-qt deepin-tool-kit qt5-qtsvg-devel qt5-qtx11extras-devel ffmpegthumbnailer-devel
+Requires:       deepin-tool-kit gtk2 deepin-shortcut-viewer file qt5-qtsvg libsecret gsettings-qt poppler-cpp deepin-tool-kit qt5-qtx11extras ffmpegthumbnailer polkit-gnome polkit-qt5-1
+BuildRequires:  qt5-qttools-devel libsecret-devel file-devel poppler-cpp-devel gtk2-devel gsettings-qt deepin-tool-kit qt5-qtsvg-devel qt5-qtx11extras-devel ffmpegthumbnailer-devel polkit-devel polkit-qt5-1-devel
 
 Provides:       %{name}
 
@@ -38,6 +38,9 @@ make
 
 %install
 make INSTALL_ROOT="%{buildroot}" install
+%ifarch x86_64
+  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
+%endif
 
 %clean
 rm -rf %{buildroot}
@@ -46,6 +49,9 @@ rm -rf %{buildroot}
 %{_bindir}/*
 %{_datarootdir}/*
 %{_sysconfdir}/xdg/autostart/*
+%{_lib_dir}/*
+%{_includedir}/*
+%{_sysconfdir}/dbus-1/system.d/*
 
 
 %changelog
