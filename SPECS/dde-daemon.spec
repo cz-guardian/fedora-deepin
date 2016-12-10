@@ -1,6 +1,6 @@
 Name:           dde-daemon
 Version:        3.0.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Daemon handling the DDE session settings
 
 License:        GPL3
