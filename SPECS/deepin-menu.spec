@@ -1,6 +1,6 @@
 Name:           deepin-menu
 Version:        3.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deepin menu service for building beautiful menus
 
 License:        GPL3
@@ -50,9 +50,11 @@ install -dm 755 %{buildroot}/etc/xdg/autostart/
 
 rm -r %{buildroot}/usr/deepin_menu
 
+# Modify lib path to reflect the platform
+sed -i 's;/usr/lib/;%{_lib_dir}/;g' com.deepin.menu.service
+
 install -m 644 *.service %{buildroot}/usr/share/dbus-1/services/
 install -m 644 *.desktop %{buildroot}/etc/xdg/autostart/
-
 %clean
 rm -rf %{buildroot}
 
@@ -62,5 +64,7 @@ rm -rf %{buildroot}
 %{_datarootdir}/*
 
 %changelog
+* Sun Dec 11 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.6-2
+- Fixed library path on x86_64 systems
 * Sat Oct 01 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.6-1
 - Initial package build
