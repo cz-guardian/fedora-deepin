@@ -8,7 +8,7 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
 Requires:       deepin-tool-kit gsettings-qt dde-daemon dde-control-center startdde lightdm-qt5 qt5-qtsvg gtk2 qt5-qtx11extras pam
-BuildRequires:  deepin-tool-kit gsettings-qt dde-daemon dde-control-center startdde lightdm-qt5-devel qt5-qtsvg-devel gtk2-devel qt5-qtx11extras-devel pam-devel
+BuildRequires:  deepin-tool-kit gsettings-qt dde-daemon dde-control-center startdde lightdm-qt5-devel qt5-qtsvg-devel gtk2-devel qt5-qtx11extras-devel pam-devel qt5-qttools-devel
 
 Provides:       %{name}
 
