@@ -43,9 +43,9 @@ make INSTALL_ROOT="%{buildroot}" install
 mv %{buildroot}/share/kde4 %{buildroot}/usr/share/kde4
 rmdir %{buildroot}/share
 
-%ifarch x86_64
-  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
-%endif
+#%ifarch x86_64
+#  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
+#%endif
 
 %clean
 rm -rf %{buildroot}
