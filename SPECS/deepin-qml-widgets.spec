@@ -7,7 +7,7 @@ License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
-Requires:       gtk2 qt5-qtx11extras dbus-factory qt5-qtquick qt5-qtdeclarative
+Requires:       gtk2 qt5-qtx11extras dbus-factory qt5-qtquick1 qt5-qtdeclarative
 BuildRequires:  gtk2-devel qt5-qtx11extras-devel dbus-factory qt5-qtquick1-devel qt5-qtdeclarative-devel
 
 Provides:       %{name}
