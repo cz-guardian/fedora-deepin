@@ -1,6 +1,6 @@
 Name:           deepin-notifications
 Version:        2.3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        System notifications for linuxdeepin desktop environment
 
 License:        GPL3
@@ -38,6 +38,7 @@ make
 make INSTALL_ROOT="%{buildroot}" install
 %ifarch x86_64
   mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
+  sed -i 's:/usr/lib/deepin-notifications/deepin-notifications:/usr/lib64/deepin-notifications/deepin-notifications/:g' %{buildroot}/usr/share/dbus-1/services/*.service
 %endif
 
 %clean
@@ -49,7 +50,9 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Thu Dec 15 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2.3.8-3
+- Fixed path in dbus services
+* Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2.3.8-2
 - Rebuild with newer deepin-tool-kit
-* Sun Sep 25 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Sun Sep 25 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2.3.8-1
 - Initial package build
