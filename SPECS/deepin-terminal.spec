@@ -1,6 +1,6 @@
 Name:           deepin-terminal
 Version:        2.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Default terminal emulation application for Deepin
 
 License:        GPL3
@@ -20,6 +20,7 @@ Default terminal emulation application for Deepin
 %prep
 %autosetup %{version}.tar.gz#%{name}
 mkdir -p build
+sed -i 's|return __FILE__;|return "/usr/share/deepin-terminal/project_path.c";|' ./project_path.c
 
 %build
 cd build
@@ -33,12 +34,14 @@ make
 make -C build DESTDIR="%{buildroot}" install
 
 %clean
-rm -rf %{buildroot}
+srm -rf %{buildroot}
 
 %files
 %{_bindir}/*
 %{_datarootdir}/*
 
 %changelog
+* Thu Dec 15 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2.1.5-2
+- Fixed icon path
 * Mon Dec 12 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2.1.5-1
 - Initial package build
