@@ -38,7 +38,7 @@ make
 make INSTALL_ROOT="%{buildroot}" install
 %ifarch x86_64
   mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
-  sed -i 's:/usr/lib/deepin-notifications/deepin-notifications:/usr/lib64/deepin-notifications/deepin-notifications/:g' %{buildroot}/usr/share/dbus-1/services/*.service
+  sed -i 's:/usr/lib/deepin-notifications/deepin-notifications:/usr/lib64/deepin-notifications/deepin-notifications:g' %{buildroot}/usr/share/dbus-1/services/*.service
 %endif
 
 %clean
