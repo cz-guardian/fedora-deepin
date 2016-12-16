@@ -1,5 +1,5 @@
 Name:           go-lib
-Version:        0.5.1
+Version:        0.5.2
 Release:        1%{?dist}
 Summary:        Deepin GoLang Library
 
@@ -32,5 +32,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.2-1
+- Update to version 0.5.2
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.1-1
 - Initial package build

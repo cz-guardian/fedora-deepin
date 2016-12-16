@@ -1,5 +1,5 @@
 Name:           deepin-desktop-base
-Version:        2016.02.03
+Version:        2016.11.28
 Release:        1%{?dist}
 Summary:        Base component for Deepin
 
@@ -31,9 +31,6 @@ rm %{buildroot}/etc/lsb-release
 # Don't override systemd timeouts
 rm -r %{buildroot}/etc/systemd
 
-# Rename default desktop file to avoid conflicts
-mv %{buildroot}/usr/share/backgrounds/{desktop.jpg,deepin_default_background.jpg}
-
 # Make a symlink for deepin-version
 ln -s /usr/lib/deepin/desktop-version %{buildroot}/etc/deepin-version
 
@@ -49,6 +46,8 @@ rm -rf %{buildroot}
 %{_usr}/share/*
 
 %changelog
+* Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.11.28-1
+- Update package to version 2016.11.28
 * Sat Dec 03 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.02.03-1
 - Update package to version 2016.02.03
 * Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.02.02-1
