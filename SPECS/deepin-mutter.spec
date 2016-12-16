@@ -1,5 +1,5 @@
 Name:           deepin-mutter
-Version:        3.20.5
+Version:        3.20.6
 Release:        1%{?dist}
 Summary:        Base window manager for deepin, fork of gnome mutter
 
@@ -60,5 +60,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.20.6-1
+- Update to version 3.20.6
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.20.5-1
 - Initial package build
