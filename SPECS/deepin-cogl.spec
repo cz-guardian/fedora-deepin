@@ -1,6 +1,6 @@
 Name:           deepin-cogl
 Version:        1.22.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An object oriented GL/GLES Abstraction/Utility Layer for Deepin
 
 License:        GPL2
@@ -10,7 +10,16 @@ Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 Requires:       glib2 mesa-libGLES mesa-libGL mesa-libwayland-egl libwayland-client mesa-libgbm libwayland-server mesa-libEGL libXrandr libXcomposite libXdamage libXfixes libXext libX11 cairo pango gdk-pixbuf2
 BuildRequires:  intltool glib2-devel gtk-doc libtool mesa-libGLES-devel mesa-libGL-devel mesa-libwayland-egl-devel libwayland-client-devel mesa-libgbm-devel libwayland-server-devel mesa-libEGL-devel libXrandr-devel libXcomposite-devel libXdamage-devel libXfixes-devel libXext-devel libX11-devel cairo-devel pango-devel gdk-pixbuf2-devel
 
-Provides:       %{name}
+Conflicts:      cogl < %{version}
+Conflicts:      cogl%{?_isa} < %{version}
+Conflicts:      cogl-devel < %{version}
+Obsoletes:      cogl < %{version}
+Obsoletes:      cogl%{?_isa} < %{version}
+Obsoletes:      cogl-devel < %{version}
+Provides:       cogl = %{version}-%{release}
+Provides:       cogl%{?_isa} = %{version}-%{release}
+Provides:       cogl-devel = %{version}-%{release}
+Provides:       deepin-cogl = %{version}-%{release}
 
 %description
 An object oriented GL/GLES Abstraction/Utility Layer for Deepin
@@ -56,5 +65,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Dec 17 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.22.3-1
+- Added conflict and obsolete for cogl library
 * Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.22.3-1
 - Initial package build
