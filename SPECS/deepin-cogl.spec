@@ -7,8 +7,8 @@ License:        GPL2
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
-Requires:       glib2 mesa-libGLES mesa-libGL mesa-libwayland-egl libwayland-client mesa-libgbm libwayland-server mesa-libEGL libXrandr libXcomposite libXdamage libXfixes libXext libX11 cairo pango gdk-pixbuf2
-BuildRequires:  intltool glib2-devel gtk-doc libtool mesa-libGLES-devel mesa-libGL-devel mesa-libwayland-egl-devel libwayland-client-devel mesa-libgbm-devel libwayland-server-devel mesa-libEGL-devel libXrandr-devel libXcomposite-devel libXdamage-devel libXfixes-devel libXext-devel libX11-devel cairo-devel pango-devel gdk-pixbuf2-devel
+Requires:       glib2 mesa-libGLES mesa-libGL mesa-libwayland-egl libwayland-client mesa-libgbm libwayland-server mesa-libEGL libXrandr libXcomposite libXdamage libXfixes libXext libX11 cairo pango gdk-pixbuf2 gobject-introspection
+BuildRequires:  intltool glib2-devel gtk-doc libtool mesa-libGLES-devel mesa-libGL-devel mesa-libwayland-egl-devel libwayland-client-devel mesa-libgbm-devel libwayland-server-devel mesa-libEGL-devel libXrandr-devel libXcomposite-devel libXdamage-devel libXfixes-devel libXext-devel libX11-devel cairo-devel pango-devel gdk-pixbuf2-devel gobject-introspection-devel
 
 Conflicts:      cogl < %{version}
 Conflicts:      cogl%{?_isa} < %{version}
@@ -32,7 +32,7 @@ Provides:       cogl-devel = %{version}-%{release}
 Provides:       deepin-cogl-devel = %{version}-%{release}
 
 %description  devel
-An object oriented GL/GLES Abstraction/Utility Layer for Deepin
+Header files and libraries for building and developing apps with %{name}.
 
 
 %prep
@@ -72,14 +72,16 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc COPYING NEWS README ChangeLog
 %{_libdir}/*.so.*
+%{_libdir}/girepository-1.0/Cogl*.typelib
 
 %files devel
 %defattr(-,root,root)
 %{_libdir}/*.so
 %{_includedir}/cogl/
-%{_libdir}/pkgconfig/
-%{_datadir}
-
+%{_libdir}/pkgconfig/*.pc
+%{_datadir}/gir-1.0/Cogl*.gir
+%{_datadir}/cogl
+%{_datadir}/locale
 
 %changelog
 * Sat Dec 17 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.22.3-3
