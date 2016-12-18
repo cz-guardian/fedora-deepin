@@ -1,6 +1,6 @@
 Name:           dde-api
-Version:        3.0.14
-Release:        2%{?dist}
+Version:        3.0.15
+Release:        1%{?dist}
 Summary:        Deepin GoLang API Library
 
 License:        GPL3
@@ -22,7 +22,7 @@ Deepin GoLang API Library
 %autosetup %{version}.tar.gz#%{name}
 
 %build
-export GOPATH="%{_builddir}/build:%{_builddir}:/usr/share/gocode/src/"
+export GOPATH="%{_builddir}/build:%{_builddir}:%{_datadir}/gocode/"
 
 install -d -m 755 ../dde-api_src
 cp -r ./* ../dde-api_src
@@ -32,23 +32,24 @@ go get gopkg.in/alecthomas/kingpin.v2
 make
 
 %install
-export GOPATH="%{_builddir}/build:%{_builddir}:/usr/share/gocode/src/"
+export GOPATH="%{_builddir}/build:%{_builddir}:%{_datadir}/gocode/"
 make DESTDIR="%{buildroot}" SYSTEMD_LIB_DIR=/usr/lib install
 
-install -d -m 755 %{buildroot}/usr/src/pkg.deepin.io/dde/api
-cp -r %{_builddir}/dde-api_src/* %{buildroot}/usr/src/pkg.deepin.io/dde/api/
+install -d -m 755 %{buildroot}%{_datadir}/gocode/pkg.deepin.io/dde/api
+cp -r %{_builddir}/dde-api_src/* %{buildroot}%{_datadir}/gocode/pkg.deepin.io/dde/api/
 
 %clean
 rm -rf %{buildroot}
 rm -rf %{_builddir}/dde-api_src/
 
 %files
-%{_prefix}/src/*
 %{_prefix}/lib/*
 %{_prefix}/share/*
 
 
 %changelog
+* Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.15-1
+- Update to version 3.0.15
 * Wed Dec 07 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.14-2
 - Changed compilation procedure
 * Wed Sep 28 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.14-1
