@@ -1,6 +1,6 @@
 Name:           deepin-cogl
 Version:        1.22.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An object oriented GL/GLES Abstraction/Utility Layer for Deepin
 
 License:        GPL2
@@ -12,16 +12,26 @@ BuildRequires:  intltool glib2-devel gtk-doc libtool mesa-libGLES-devel mesa-lib
 
 Conflicts:      cogl < %{version}
 Conflicts:      cogl%{?_isa} < %{version}
-Conflicts:      cogl-devel < %{version}
 Obsoletes:      cogl < %{version}
 Obsoletes:      cogl%{?_isa} < %{version}
-Obsoletes:      cogl-devel < %{version}
 Provides:       cogl = %{version}-%{release}
 Provides:       cogl%{?_isa} = %{version}-%{release}
-Provides:       cogl-devel = %{version}-%{release}
 Provides:       deepin-cogl = %{version}-%{release}
 
 %description
+An object oriented GL/GLES Abstraction/Utility Layer for Deepin
+
+
+%package  devel
+Summary:  Header and development files
+Requires: %{name} = %{version}
+
+Conflicts:      cogl-devel < %{version}
+Obsoletes:      cogl-devel < %{version}
+Provides:       cogl-devel = %{version}-%{release}
+Provides:       deepin-cogl-devel = %{version}-%{release}
+
+%description  devel
 An object oriented GL/GLES Abstraction/Utility Layer for Deepin
 
 
@@ -29,14 +39,6 @@ An object oriented GL/GLES Abstraction/Utility Layer for Deepin
 %autosetup %{version}.tar.gz#%{name}
 
 %build
-
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
 
 NOCONFIGURE=1 ./autogen.sh
 
@@ -51,21 +53,38 @@ make -j1
 
 %install
 %make_install DESTDIR="%{buildroot}"
+
+#Remove libtool archives
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
+
 %ifarch x86_64
   mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
 %endif
+
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%{_usr}/include/*
-%{_lib_dir}/*
-%{_datarootdir}/*
+%defattr(-,root,root)
+%doc COPYING NEWS README ChangeLog
+%{_libdir}/*.so.*
+
+%files devel
+%defattr(-,root,root)
+%{_libdir}/*.so
+%{_includedir}/cogl/
+%{_libdir}/pkgconfig/
+%{_datadir}
 
 
 %changelog
-* Sat Dec 17 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.22.3-1
+* Sat Dec 17 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.22.3-3
+- Redone package in a newer format
+* Sat Dec 17 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.22.3-2
 - Added conflict and obsolete for cogl library
 * Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.22.3-1
 - Initial package build
