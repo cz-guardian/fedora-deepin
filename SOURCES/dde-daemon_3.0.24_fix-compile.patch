@@ -1,0 +1,57 @@
+--- b/langselector/handle_event.go	2016-11-29 11:43:10.000000000 +0100
++++ a/langselector/handle_event.go	2016-12-18 17:39:27.191139315 +0100
+@@ -76,7 +76,7 @@
+ 	if err != nil {
+ 		return err
+ 	}
+-	_, err = u.SetLocale(locale)
++	err = u.SetLocale(locale)
+ 	ddbus.DestroyUser(u)
+ 	return err
+ }
+--- b/mpris/manager.go	2016-11-29 11:43:10.000000000 +0100
++++ a/mpris/manager.go	2016-12-18 17:33:56.793908299 +0100
+@@ -204,11 +204,7 @@
+ 		return nil, fmt.Errorf("Can not connect audio daemon")
+ 	}
+ 
+-	sinkPath, err := m.audioDaemon.GetDefaultSink()
+-	if err != nil {
+-		return nil, err
+-	}
+-
++	sinkPath := m.audioDaemon.DefaultSink.Get()
+ 	sink, err := audio.NewAudioSink("com.deepin.daemon.Audio", sinkPath)
+ 	if err != nil {
+ 		return nil, err
+--- b/appearance/manager.go	2016-11-29 11:43:10.000000000 +0100
++++ a/appearance/manager.go	2016-12-18 17:32:24.313444986 +0100
+@@ -277,7 +277,7 @@
+ 		return fmt.Errorf("Create user object failed")
+ 	}
+ 
+-	_, err := m.userObj.SetGreeterBackground(value)
++	err := m.userObj.SetGreeterBackground(value)
+ 	return err
+ }
+ 
+--- b/inputdevices/keyboard.go	2016-11-29 11:43:10.000000000 +0100
++++ a/inputdevices/keyboard.go	2016-12-18 17:30:59.231099485 +0100
+@@ -267,7 +267,7 @@
+ 		return
+ 	}
+ 
+-	_, err := kbd.userObj.SetLayout(kbd.CurrentLayout.Get())
++	err := kbd.userObj.SetLayout(kbd.CurrentLayout.Get())
+ 	if err != nil {
+ 		logger.Debugf("Set '%s' greeter layout failed: %v", name, err)
+ 	}
+@@ -283,7 +283,7 @@
+ 		return
+ 	}
+ 
+-	_, err := kbd.userObj.SetHistoryLayout(kbd.UserLayoutList.Get())
++	err := kbd.userObj.SetHistoryLayout(kbd.UserLayoutList.Get())
+ 	if err != nil {
+ 		logger.Debugf("Set '%s' greeter layout list failed: %v",
+ 			name, err)
