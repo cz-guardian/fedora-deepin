@@ -1,5 +1,5 @@
 Name:           deepin-tool-kit
-Version:        0.1.7
+Version:        0.2.0
 Release:        1%{?dist}
 Summary:        Base development tool of all C++/Qt Developer work on Deepin
 
@@ -23,15 +23,8 @@ Base development tool of all C++/Qt Developer work on Deepin
 
 %build
 
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
-qmake-qt5 PREFIX=%{buildroot}/usr
+sed -i 's/lrelease/lrelease-qt5/g' tool/translate_generation.sh
+qmake-qt5 PREFIX=/usr
 make
 
 %install
@@ -50,10 +43,12 @@ rm -rf %{buildroot}
 
 %files
 %{_usr}/include/*
-%{_lib_dir}/*
+%{_libdir}/*
 
 %changelog
-* Sat Dec 03 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.7-1
+* Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.2.0-1
 - Updated package to 1.7
-* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.6-1
+* Sat Dec 03 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.1.7-1
+- Updated package to 1.7
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.1.6-1
 - Initial package build
