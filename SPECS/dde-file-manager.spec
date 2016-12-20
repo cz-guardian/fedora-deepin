@@ -1,5 +1,5 @@
 Name:           dde-file-manager
-Version:        1.3.3
+Version:        1.3.4
 Release:        1%{?dist}
 Summary:        Deepin File Manager
 
@@ -25,22 +25,11 @@ Deepin File Manager
 sed -i 's/lrelease/lrelease-qt5/g' dde-file-manager-lib/generate_translations.sh
 sed -i 's/qmake/qmake-qt5/g' vendor/prebuild
 
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
 qmake-qt5 QMAKE_CFLAGS_ISYSTEM= PREFIX=%{_usr}
 make
 
 %install
 make INSTALL_ROOT="%{buildroot}" install
-%ifarch x86_64
-  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
-%endif
 
 %clean
 rm -rf %{buildroot}
@@ -49,12 +38,14 @@ rm -rf %{buildroot}
 %{_bindir}/*
 %{_datarootdir}/*
 %{_sysconfdir}/xdg/autostart/*
-%{_lib_dir}/*
+%{_libdir}/*
 %{_includedir}/*
 %{_sysconfdir}/dbus-1/system.d/*
 
 
 %changelog
+* Mon Dec 19 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.3.4-1
+- Update package to 1.3.4
 * Mon Oct 10 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.3.3-1
 - Update package to 1.3.3
 * Mon Oct 10 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.2.3-1
