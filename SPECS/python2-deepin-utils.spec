@@ -7,8 +7,8 @@ License:        GPL3
 URL:            https://github.com/martyr-deepin/deepin-utils
 Source0:        %{url}/archive/master.zip#%{name}
 
-Requires:       pygtk2 pycairo freetype webkitgtk python-xlib pywebkitgtk
-BuildRequires:  python2-setuptools
+Requires:       pygtk2 pycairo freetype webkitgtk python-xlib pywebkitgtk glib2 pygobject2
+BuildRequires:  python2-setuptools glib2-devel pygtk2 pygobject2-devel pycairo-devel webkitgtk-devel
 
 Provides:       %{name}
 
@@ -37,6 +37,7 @@ chmod -R a+rX,g-w,o-w .
 %endif
 
 cd %{_builddir_pkg}
+
 python2 setup.py build
 
 %install
