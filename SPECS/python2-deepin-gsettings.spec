@@ -8,7 +8,7 @@ URL:            https://github.com/martyr-deepin/deepin-gsettings
 Source0:        %{url}/archive/master.zip#%{name}
 
 Requires:       python2 glib2
-BuildRequires:  python2-setuptools
+BuildRequires:  python2-setuptools python-devel glib2-devel
 
 Provides:       %{name}
 
