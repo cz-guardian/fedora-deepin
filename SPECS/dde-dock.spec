@@ -40,7 +40,7 @@ rm -rf %{buildroot}
 %{_includedir}/*
 
 %changelog
-* Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.6-1
+* Mon Dec 19 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.6-1
 - Update to version 4.0.6
 * Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.5-2
 - Rebuild with newer deepin-tool-kit
