@@ -1,5 +1,5 @@
 Name:           startdde
-Version:        3.0.12
+Version:        3.0.13
 Release:        1%{?dist}
 Summary:        Starter of deepin desktop environment
 
@@ -20,16 +20,7 @@ Starter of deepin desktop environment
 %autosetup %{version}.tar.gz#%{name}
 
 %build
-
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
-export GOPATH="$(pwd)/build"
+export GOPATH="$(pwd)/build:%{_datadir}/gocode"
 go get github.com/BurntSushi/xgb github.com/BurntSushi/xgbutil github.com/howeyc/fsnotify
 make
 
@@ -47,11 +38,13 @@ rm -rf %{buildroot}
 %files
 %{_bindir}/*
 %{_datarootdir}/*
-%{_lib_dir}/*
+%{_libdir}/*
 %{_usr}/lib/*
 
 
 %changelog
+* Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.13-1
+- Update to package 3.0.13
 * Sat Oct 01 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.12-1
 - Update to package 3.0.12
 * Sat Oct 01 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.11-1

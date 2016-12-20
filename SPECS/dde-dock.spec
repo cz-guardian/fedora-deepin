@@ -1,6 +1,6 @@
 Name:           dde-dock
-Version:        4.0.5
-Release:        2%{?dist}
+Version:        4.0.6
+Release:        1%{?dist}
 Summary:        Deepin desktop-environment - Dock module
 
 License:        GPL3
@@ -23,14 +23,6 @@ Deepin desktop-environment - Dock module
 
 %build
 
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
 sed -i 's/lrelease/lrelease-qt5/g' translate_generation.sh
 qmake-qt5 PREFIX=%{_prefix}
 make
@@ -48,6 +40,8 @@ rm -rf %{buildroot}
 %{_includedir}/*
 
 %changelog
+* Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.6-1
+- Update to version 4.0.6
 * Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.5-2
 - Rebuild with newer deepin-tool-kit
 * Sun Oct 02 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.5-1
