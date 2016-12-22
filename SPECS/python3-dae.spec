@@ -1,13 +1,13 @@
 Name:           python3-dae
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deepin desktop application engine
 
 License:        GPL3
 URL:            https://github.com/linuxdeepin/dae
 Source0:        %{url}/archive/%{version}.tar.gz#dae
   
-Requires:       python3 python3-qt5 python-xlib
+Requires:       python3 python3-qt5 python3-qt5-webkit python3-xlib
 BuildRequires:  python3 python3-qt5-devel
 
 BuildArch:      noarch
@@ -46,5 +46,7 @@ rm -rf %{buildroot}
 %{_prefix}/lib/python3.5/site-packages/*
 
 %changelog
+* Thu Dec 22 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.1-1
+- Fixed dependency for xlib
 * Wed Dec 21 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.1-1
 - Initial package build
