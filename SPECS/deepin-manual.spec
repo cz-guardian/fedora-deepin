@@ -7,13 +7,16 @@ License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 Patch0:         deepin-manual_1.0.5_angular.patch
-  
-Requires:       deepin-qml-widgets python-qt5 pygobject2 python3-dae
-BuildRequires:  npm sassc pygobject2-devel
+
+Requires:       deepin-qml-widgets python3-qt5 pygobject2 python3-dae
+BuildRequires:  npm sassc
 
 Provides:       %{name}
 
 #%global debug_package %{nil}
+
+# Set correct python version
+%global __python %{__python3}
 
 %description
 Deepin User Manual
