@@ -9,7 +9,8 @@ License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
-BuildRequires:  go-dbus-generator gcc-go
+Requires:       qt5-qtdeclarative
+BuildRequires:  go-dbus-generator qt5-qtdeclarative-devel
 
 Provides:       %{name}
 
