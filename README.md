@@ -5,7 +5,7 @@
     sudo dnf install startdde deepin-wm deepin-wm-switcher dde-control-center dde-daemon dde-desktop dde-dock dde-file-manager dde-launcher dde-1. session-ui deepin-desktop-base deepin-desktop-schemas deepin-file-manager-backend deepin-gtk-theme deepin-icon-theme deepin-image-viewer deepin-menu deepin-metacity deepin-mutter deepin-nautilus-properties deepin-notifications deepin-screenshot deepin-shortcut-viewer deepin-sound-theme deepin-wallpapers lightdm
     sudo systemctl disable gdm.service && sudo systemctl enable lightdm.service
     sudo sed -e "s/SELINUX=enforcing/SELINUX=disabled/g" -i /etc/selinux/config
-    echo -e '[Seat:*]\ngreeter-session=lightdm-deepin-greeter' > /etc/lightdm/lightdm.conf.d/deepin.conf
+    sudo su -c "echo -e '[Seat:*]\ngreeter-session=lightdm-deepin-greeter' > /etc/lightdm/lightdm.conf.d/deepin.conf"
 
 After this is done, simply reboot into your new nice environment.
 If you have any questions the feel free to contact me on the email address filled in the contact.
