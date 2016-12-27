@@ -1,6 +1,6 @@
 Name:           dde-control-center
 Version:        3.0.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        New control center for linux deepin
 
 License:        GPL3
@@ -40,6 +40,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Dec 27 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.24-2
+- Bump to newer release because of copr signature
 * Sun Dec 09 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.24-1
 - Upgrade to 3.0.24
 * Sun Oct 09 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.21-1
