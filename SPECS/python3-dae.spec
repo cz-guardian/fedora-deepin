@@ -35,7 +35,6 @@ rm -rf %{buildroot}
 
 %files
 %{python3_sitelib}/*
-%exclude %{python3_sitelib}/dae/__pycache__
 
 %changelog
 * Thu Dec 29 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.1-3
