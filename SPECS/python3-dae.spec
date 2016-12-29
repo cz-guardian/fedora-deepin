@@ -3,7 +3,7 @@
 
 Name:           python3-%{srcname}
 Version:        1.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Deepin desktop application engine
 
 License:        GPL3
