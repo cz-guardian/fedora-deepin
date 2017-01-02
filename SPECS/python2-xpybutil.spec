@@ -5,8 +5,8 @@
 %global 	shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 Name:           python2-%{srcname}
-Version:        0
-Release:        0.2.git%{shortcommit}%{?dist}
+Version:        0.0.2.git%{shortcommit}
+Release:    	1.git%{shortcommit}%{?dist}
 Summary:        An incomplete xcb-util port plus some extras
 
 License:        WTFPL
@@ -21,7 +21,7 @@ Provides:       %{name}
 %global debug_package %{nil}
 
 %description
-An incomplete xcb-util port plus some extras
+%{summary}
 
 %prep
 %setup -q -n %{srcname}-%{commit}
@@ -40,7 +40,7 @@ rm -rf %{buildroot}
 %{python2_sitelib}/*
 
 %changelog
-* Thu Dec 29 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.0.2.gitc2d438d
+* Thu Dec 29 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.0.2-1.gitc2d438d
 - Major rewrite of SPEC file 
 * Mon Dec 12 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.0.1.20151007-1
 - Initial package build
