@@ -2,7 +2,7 @@
     sudo dnf install http://download1.rpmfusion.org/free/fedora/releases/$(. /etc/os-release ; echo $VERSION_ID)/Everything/$(uname -i)/os/Packages/r/rpmfusion-free-release-$(. /etc/os-release ; echo $VERSION_ID)-1.noarch.rpm
     sudo dnf copr enable jstepanek/deepin
     sudo dnf update
-    sudo dnf install startdde deepin-wm deepin-wm-switcher dde-control-center dde-daemon dde-desktop dde-dock dde-file-manager dde-launcher dde-session-ui deepin-desktop-base deepin-desktop-schemas deepin-file-manager-backend deepin-gtk-theme deepin-icon-theme deepin-image-viewer deepin-menu deepin-metacity deepin-mutter deepin-nautilus-properties deepin-notifications deepin-screenshot deepin-shortcut-viewer deepin-sound-theme deepin-wallpapers lightdm
+    sudo dnf install startdde deepin-wm deepin-wm-switcher dde-control-center dde-daemon dde-desktop dde-dock deepin-file-manager dde-launcher dde-session-ui deepin-desktop-base deepin-desktop-schemas deepin-file-manager-backend deepin-gtk-theme deepin-icon-theme deepin-image-viewer deepin-menu deepin-metacity deepin-mutter deepin-nautilus-properties deepin-notifications deepin-screenshot deepin-shortcut-viewer deepin-sound-theme deepin-wallpapers lightdm
     sudo systemctl disable gdm.service && sudo systemctl enable lightdm.service
     sudo sed -e "s/SELINUX=enforcing/SELINUX=disabled/g" -i /etc/selinux/config
     sudo su -c "echo -e '[Seat:*]\ngreeter-session=lightdm-deepin-greeter' > /etc/lightdm/lightdm.conf.d/deepin.conf"
@@ -21,7 +21,7 @@ This repository contains the following .specs for integrating the deepin desktop
 * dde-daemon
 * dde-desktop
 * dde-dock
-* dde-file-manager
+* deepin-file-manager
 * dde-launcher
 * dde-session-ui
 * deepin-artwork-themes
