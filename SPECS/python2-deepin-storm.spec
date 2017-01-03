@@ -1,47 +1,47 @@
-Name:           python2-deepin-storm
-Version:        0.3.20140625
+%global 		srcname deepin-storm
+%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+
+%global 		commit          e6fe6aab1cadca5ed2ed6f086fb2db9699e00416
+%global 		shortcommit     %(c=%{commit}; echo ${c:0:7})
+
+Name:           python2-%{srcname}
+Version:        0.4.git%{shortcommit}
 Release:        1%{?dist}
 Summary:        A download library and powerful download manager
 
 License:        GPL
-URL:            https://github.com/martyr-deepin/deepin-storm
-Source0:        %{url}/archive/master.zip#%{name}
+URL:            https://github.com/martyr-deepin/%{srcname}
+Source0:        %{url}/archive/%{commit}/%{srcname}-%{shortcommit}.tar.gz#%{name}
+
+BuildArch:      noarch
 
 Requires:       python2
-#BuildRequires:  
+BuildRequires:  python2-devel
 
 Provides:       %{name}
 
 %description
-A download library and powerful download manager
+%{summary}
 
 
 %prep
-cd %{_builddir}
-rm -rf deepin-storm-master/
-/usr/bin/unzip -qq %{_sourcedir}/master.zip#%{name}
-if [ $? -ne 0 ]; then
-  exit $?
-fi
-%define _builddir_pkg %{_builddir}/deepin-storm-master
-cd %{_builddir_pkg}
-chmod -R a+rX,g-w,o-w .
+%setup -q -n %{srcname}-%{commit}
 
 %build
-cd %{_builddir_pkg}
-python2 setup.py build
+%{__python2} setup.py build
 
 %install
-cd %{_builddir_pkg}
-python2 setup.py install -O1 --root="%{buildroot}"
+%{__python2} setup.py install -O1 --root="%{buildroot}"
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%{_prefix}/lib/python2.7/site-packages/*
+%{python2_sitelib}/*
 
 
 %changelog
+* Tue Jan 03 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.4.gite6fe6aa-1
+- Initial package build
 * Wed Oct 12 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.3.20140625
 - Initial package build
