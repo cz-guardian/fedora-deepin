@@ -1,11 +1,17 @@
-Name:           python2-deepin-utils
-Version:        0.1.20140509
+%global 		srcname deepin-utils
+%global     	python2_sitelib %(%{__python2} -c "import site; print(site.getsitepackages()[0])")
+
+%global 		commit          8aaf2a6f002eeba5506c11c64b25d1404de78744
+%global 		shortcommit     %(c=%{commit}; echo ${c:0:7})
+
+Name:           python2-%{srcname}
+Version:        0.2.git%{shortcommit}
 Release:        1%{?dist}
 Summary:        Basic utils for all project in Linux Deepin
 
 License:        GPL3
-URL:            https://github.com/martyr-deepin/deepin-utils
-Source0:        %{url}/archive/master.zip#%{name}
+URL:            https://github.com/martyr-deepin/%{srcname}
+Source0:        %{url}/archive/%{commit}/%{srcname}-%{shortcommit}.tar.gz#%{name}
 
 Requires:       pygtk2 pycairo freetype webkitgtk python-xlib pywebkitgtk glib2 pygobject2
 BuildRequires:  python2-setuptools glib2-devel pygtk2 pygobject2-devel pycairo-devel webkitgtk-devel
@@ -13,44 +19,27 @@ BuildRequires:  python2-setuptools glib2-devel pygtk2 pygobject2-devel pycairo-d
 Provides:       %{name}
 
 %description
-Basic utils for all project in Linux Deepin
+%{summary}
 
 
 %prep
-cd %{_builddir}
-rm -rf deepin-utils-master/
-/usr/bin/unzip -qq %{_sourcedir}/master.zip#%{name}
-if [ $? -ne 0 ]; then
-  exit $?
-fi
-%define _builddir_pkg %{_builddir}/deepin-utils-master
-cd %{_builddir_pkg}
-chmod -R a+rX,g-w,o-w .
+%setup -q -n %{srcname}-%{commit}
 
 %build
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
-cd %{_builddir_pkg}
-
-python2 setup.py build
+%{__python2} setup.py build
 
 %install
-cd %{_builddir_pkg}
-python2 setup.py install --optimize=1 --root="%{buildroot}"
+%{__python2} setup.py install -O1 --root="%{buildroot}"
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%{_lib_dir}/python2.7/site-packages/*
+%{python2_sitelib}/*
 
 
 %changelog
+* Thu Dec 29 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.2.git8aaf2a6-1
+- Major rewrite of SPEC file
 * Wed Oct 12 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.1.20140509-1
 - Initial package build
