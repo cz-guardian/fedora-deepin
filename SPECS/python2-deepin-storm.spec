@@ -42,6 +42,6 @@ rm -rf %{buildroot}
 
 %changelog
 * Tue Jan 03 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.4.gite6fe6aa-1
-- Initial package build
+- Major rewrite of SPEC file
 * Wed Oct 12 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.3.20140625
 - Initial package build
