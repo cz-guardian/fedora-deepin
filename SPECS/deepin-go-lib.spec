@@ -1,37 +1,44 @@
-Name:           go-lib
+%global 		srcname go-lib
+
+Name:           deepin-%{srcname}
 Version:        0.5.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Deepin GoLang Library
 
 License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
+URL:            https://github.com/linuxdeepin/%{srcname}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 Provides:       %{name}
+Provides:       %{srcname}
+
+Obsoletes: 		%{srcname} < 0.5.2-3
 
 %global debug_package %{nil}
 
 %description
-Deepin GoLang Library
+%{summary}
 
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
+%setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version}
 
 %build
 
 %install
-install -d -m 755 %{buildroot}%{_datadir}/gocode/src/pkg.deepin.io/lib
-cp -r %{_builddir}/%{name}-%{version}/* %{buildroot}%{_datadir}/gocode/src/pkg.deepin.io/lib/
+install -d -m 755 %{buildroot}%{gopath}/src/pkg.deepin.io/lib
+cp -r %{_builddir}/%{srcname}-%{version}/* %{buildroot}%{gopath}/src/pkg.deepin.io/lib/
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%{_datadir}/gocode/*
+%{gopath}/*
 
 
 %changelog
+* Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.2-3
+- Package renamed to deepin-go-lib
 * Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.2-2
 - Fixed lib path
 * Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.2-1
