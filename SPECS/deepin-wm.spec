@@ -1,6 +1,6 @@
 Name:           deepin-wm
 Version:        1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deepin Window Manager
 
 License:        GPL3
@@ -13,29 +13,32 @@ BuildRequires:  gnome-common intltool vala vala-tools bamf-devel clutter-gtk-dev
 Provides:       %{name}
 
 %description
-Deepin Window Manager
+%{summary}
+
+
+%package devel
+Summary: Development package for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+Header files and libraries for %{name}
 
 
 %prep
 %autosetup %{version}.tar.gz#%{name}
 
 %build
-
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
 ./autogen.sh \
-    --prefix='/usr' \
+    --prefix='%{_usr}' \
     --disable-schemas-compile
 make
 
 %install
 %make_install PREFIX="%{_prefix}"
+#Remove libtool archives.
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
+
+# Correct the library path for x86_64
 %ifarch x86_64
   mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
 %endif
@@ -45,14 +48,20 @@ rm -rf %{buildroot}
 
 %files
 %{_bindir}/deepin-wm
-%{_usr}/include/*
-%{_lib_dir}/*
+%{_libdir}/lib*.so.*
 %{_datarootdir}/locale/*
+%{_libdir}/%{name}/*
+%{_libdir}/pkgconfig/*
 %{_datarootdir}/*
 
+%files devel
+%{_includedir}/*
+%{_libdir}/lib*.so
 
 %changelog
-* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.2.0
+* Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.2.0-2
+- Split the package to main and devel
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.2.0-1
 - Update to version 1.2.0
 * Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.1.2-1
 - Initial package build
