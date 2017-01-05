@@ -51,7 +51,6 @@ rm -rf %{buildroot}
 %files
 %{_libdir}/lib*.so.*
 %{_libdir}/pkgconfig/*
-%{_datarootdir}/*
 
 %files devel
 %{_includedir}/*
