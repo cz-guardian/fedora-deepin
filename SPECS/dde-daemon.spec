@@ -1,6 +1,6 @@
 Name:           dde-daemon
 Version:        3.0.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Daemon handling the DDE session settings
 
 License:        GPL3
@@ -11,7 +11,7 @@ Source2:        polkit-gnome-authentication-agent-1-deepin.desktop
 Patch0:         dde-daemon_3.0.24_fix-compile.patch
     
 Requires:       deepin-desktop-schemas gvfs libcanberra deepin-notifications upower libxkbfile deepin-desktop-base bamf libgnome-keyring pulseaudio qt5-qtaccountsservice libudisks2 polkit-gnome mobile-broadband-provider-info iso-codes bluez-libs acpid rfkill poppler-glib dde-api libinput
-BuildRequires:  go-dbus-generator go-gir-generator dde-api librsvg2-devel pulseaudio-libs-devel libXtst-devel gdk-pixbuf2-xlib-devel golang-bin git dbus-factory go-lib libcanberra-devel bamf-devel libgudev-devel systemd-devel gettext libinput-devel
+BuildRequires:  go-dbus-generator go-gir-generator dde-api librsvg2-devel pulseaudio-libs-devel libXtst-devel gdk-pixbuf2-xlib-devel golang-bin git dbus-factory go-lib libcanberra-devel bamf-devel libgudev-devel systemd-devel gettext libinput-devel golang-github-BurntSushi-xgb-devel golang-github-BurntSushi-xgbutil-devel golang-github-howeyc-fsnotify-devel golang-github-mattn-go-sqlite3-devel
 
 Provides:       %{name}
 
@@ -34,11 +34,7 @@ Daemon handling the DDE session settings
 
 export GOPATH="$(pwd)/build:%{_datadir}/gocode/"
 
-go get github.com/BurntSushi/xgb \
-  github.com/BurntSushi/xgbutil \
-  github.com/howeyc/fsnotify \
-  github.com/mattn/go-sqlite3 \
-  gopkg.in/alecthomas/kingpin.v2 \
+go get gopkg.in/alecthomas/kingpin.v2 \
   github.com/disintegration/imaging \
   github.com/BurntSushi/freetype-go/freetype \
   github.com/BurntSushi/freetype-go/freetype/truetype \
@@ -70,6 +66,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.24-2
+- Changed GOLANG dependencies
 * Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.24-1
 - Upgrade to version 3.0.24
 * Mon Oct 31 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.23-1
