@@ -43,6 +43,9 @@ make
 %endif
 %ifarch i386 i686
   rm -rf %{buildroot}/usr/lib64/
+  # Remove the tests
+  rm -rf %{buildroot}%{_libdir}/qt5/tests
+  rmdir %{buildroot}%{_libdir}/qt5
 %endif
 
 %clean
