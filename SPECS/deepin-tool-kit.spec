@@ -1,6 +1,6 @@
 Name:           deepin-tool-kit
 Version:        0.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Base development tool of all C++/Qt Developer work on Deepin
 
 License:        GPL3
@@ -15,20 +15,27 @@ Provides:       %{name}
 %global debug_package %{nil}
 
 %description
-Base development tool of all C++/Qt Developer work on Deepin
+%{summary}
+
+
+%package devel
+Summary: Development package for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+Header files and libraries for %{name}
 
 
 %prep
 %autosetup %{version}.tar.gz#%{name}
 
 %build
-
 sed -i 's/lrelease/lrelease-qt5/g' tool/translate_generation.sh
 qmake-qt5 PREFIX=/usr
 make
 
 %install
-make INSTALL_ROOT="%{buildroot}" install
+%make_install INSTALL_ROOT="%{buildroot}"
 %ifarch x86_64
   rm -rf %{buildroot}/usr/lib64/qt5
   mv %{buildroot}/usr/lib/* %{buildroot}/usr/lib64/
@@ -42,10 +49,17 @@ make INSTALL_ROOT="%{buildroot}" install
 rm -rf %{buildroot}
 
 %files
-%{_usr}/include/*
-%{_libdir}/*
+%{_libdir}/lib*.so.*
+%{_libdir}/pkgconfig/*
+%{_datarootdir}/*
+
+%files devel
+%{_includedir}/*
+%{_libdir}/lib*.so
 
 %changelog
+* Thu Jan 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.2.0-2
+- Split the package to main and devel
 * Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.2.0-1
 - Updated package to 1.7
 * Sat Dec 03 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.1.7-1
