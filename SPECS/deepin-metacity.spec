@@ -1,6 +1,6 @@
 Name:           deepin-metacity
 Version:        3.20.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        2D window manager for Deepin
 
 License:        GPL
@@ -13,7 +13,15 @@ BuildRequires:  intltool itstool python yelp-devel autoconf-archive glib2-devel 
 Provides:       %{name}
 
 %description
-2D window manager for Deepin
+%{summary}
+
+
+%package devel
+Summary: Development package for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+Header files and libraries for %{name}
 
 
 %prep
@@ -39,18 +47,25 @@ make
 %ifarch x86_64
   mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
 %endif
+#Remove libtool archives.
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %{_bindir}/*
-%{_usr}/include/*
-%{_lib_dir}/*
+%{_libdir}/lib*.so.*
+%{_libdir}/pkgconfig/*
 %{_datarootdir}/*
 
+%files devel
+%{_includedir}/*
+%{_libdir}/lib*.so
 
 %changelog
+* Thu Jan 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.20.6-2
+- Split the package to main and devel
 * Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.20.6-1
 - Update to version 3.20.6
 * Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.20.5-1
