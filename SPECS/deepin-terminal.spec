@@ -34,7 +34,7 @@ make
 make -C build DESTDIR="%{buildroot}" install
 
 %clean
-srm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %{_bindir}/*
