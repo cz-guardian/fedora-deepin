@@ -1,6 +1,6 @@
 Name:           deepin-qml-widgets
 Version:        2.3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deepin QML widgets
 
 License:        GPL3
@@ -46,5 +46,7 @@ rm -rf %{buildroot}
 %{_lib_dir}/*
 
 %changelog
+* Thu Jan 12 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.3.4-2
+- Bump to newer version because of copr
 * Sun Dec 11 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2.3.4-1
 - Initial package build
