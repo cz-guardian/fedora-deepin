@@ -1,6 +1,6 @@
 Name:           deepin-screenshot
 Version:        3.1.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Easy-to-use screenshot tool for linuxdeepin desktop environment
 
 License:        GPL3
@@ -38,5 +38,7 @@ rm -rf %{buildroot}
 %{_datarootdir}/*
 
 %changelog
+* Thu Jan 12 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.10-2
+- Dependecy bump
 * Sun Dec 11 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.10-1
 - Initial package build
