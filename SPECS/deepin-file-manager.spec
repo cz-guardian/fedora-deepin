@@ -2,7 +2,7 @@
 
 Name:           deepin-file-manager
 Version:        1.3.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Deepin File Manager
 
 License:        GPL3
@@ -36,6 +36,9 @@ make
 %install
 make INSTALL_ROOT="%{buildroot}" install
 
+# Fix broken icon link
+sed -i 's/^\(Icon=\).*/\1system-file-manager/' %{buildroot}/%{_datarootdir}/applications/dde-file-manager.desktop
+
 %clean
 rm -rf %{buildroot}
 
@@ -47,8 +50,9 @@ rm -rf %{buildroot}
 %{_includedir}/*
 %{_sysconfdir}/dbus-1/system.d/*
 
-
 %changelog
+* Thu Jan 12 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.3.6-3
+- Fixed broken icon link noticed by Brenton Horne <brentonhorne77@gmail.com>
 * Fri Jan 06 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.3.6-2
 - Fixed build dependecies
 * Fri Dec 30 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.3.6-1
