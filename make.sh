@@ -8,9 +8,6 @@ RESULT_DIR=/tmp/build_$(date +%Y%m%d_%H%M)
 COPR_PROJECT=deepin
 MOCK=0
 
-mkdir "${RESULT_DIR}"
-chmod 777 "${RESULT_DIR}"
-
 if [ "$2" ]; then
   ARCHS=($2)
 fi
@@ -29,7 +26,7 @@ function buildPackage()
   if [ $? == 0 ]; then
     for arch in ${ARCHS[@]}; do
       rm -rf ${RESULT_DIR}
-      mkdir -p ${RESULT_DIR}
+      mkdir -p ${RESULT_DIR} && chmod 777 "${RESULT_DIR}"
       #echo mock -r ${arch} --spec=SPECS/${package}.spec --sources=SOURCES/ --buildsrpm --resultdir=${RESULT_DIR}
       mock -r ${arch} --spec=${package} --sources=SOURCES/ --buildsrpm --resultdir=${RESULT_DIR}
       ###
