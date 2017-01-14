@@ -13,7 +13,7 @@ Provides:       %{name}
 #%global debug_package %{nil}
 
 %description
-Account faces for Linux Deepin
+%{description}
 
 
 %prep
