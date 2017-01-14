@@ -8,6 +8,9 @@ RESULT_DIR=/tmp/build_$(date +%Y%m%d_%H%M)
 COPR_PROJECT=deepin
 MOCK=0
 
+mkdir "${RESULT_DIR}"
+chmod 777 "${RESULT_DIR}"
+
 if [ "$2" ]; then
   ARCHS=($2)
 fi
