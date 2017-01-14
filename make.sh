@@ -21,14 +21,14 @@ function buildPackage()
   local package=$1
 
   # Download source for given package
-  spectool -g -R SPECS/${package}.spec
+  spectool -g -R ${package}
   
   if [ $? == 0 ]; then
     for arch in ${ARCHS[@]}; do
       rm -rf ${RESULT_DIR}
       mkdir -p ${RESULT_DIR}
       #echo mock -r ${arch} --spec=SPECS/${package}.spec --sources=SOURCES/ --buildsrpm --resultdir=${RESULT_DIR}
-      mock -r ${arch} --spec=SPECS/${package}.spec --sources=SOURCES/ --buildsrpm --resultdir=${RESULT_DIR}
+      mock -r ${arch} --spec=${package} --sources=SOURCES/ --buildsrpm --resultdir=${RESULT_DIR}
       ###
       rpmfile=$(grep 'src.rpm' ${RESULT_DIR}/build.log | head -n 1 | sed -e 's#^.*/##g')
 
