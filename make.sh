@@ -62,7 +62,7 @@ function mockBuild()
 }
 
 buildPackage $PACKAGE
-
+echo ${RESULT_DIR}
 #for pkg in $(ls -1 ./SPECS/*.spec); do
 #  spectool -g -R $pkg
   # rpmbuild -ba $pkg
