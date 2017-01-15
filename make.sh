@@ -3,7 +3,7 @@
 ARCHS=("fedora-24-i386" "fedora-24-x86_64" "fedora-25-i386" "fedora-25-x86_64" "fedora-rawhide-i386" "fedora-rawhide-x86_64")
 # "fedora-24-i386 fedora-24-x86_64 fedora-25-i386 fedora-25-x86_64 fedora-rawhide-i386 fedora-rawhide-x86_64"
 PACKAGE=$1
-RESULT_DIR=/tmp/build_$(date +%Y%m%d_%H%M)
+RESULT_DIR=/tmp/build_$(date +%Y%m%d_%H%M%S)
 # COPR specific config
 COPR_PROJECT=deepin
 MOCK=0
