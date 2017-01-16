@@ -2,7 +2,7 @@
 
 Name:           deepin-%{srcname}
 Version:        0.6.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Convert dbus interfaces to go-lang or qml wrapper code
 
 License:        GPL3
@@ -33,7 +33,7 @@ export GOPATH="$(pwd)/build/:%{gopath}/"
 make
 
 %install
-install -d -m 755 go-dbus-generator/out/dbus-generator %{buildroot}/%{_bindir}/dbus-generator
+%make_install GOPATH="%{gopath}" DESTDIR="%{buildroot}"
 
 %clean
 rm -rf %{buildroot}
@@ -43,6 +43,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.6.5-4
+- Fixed missing binary file
 * Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.6.5-3
 - Renamed package to deepin-go-dbus-generator
 * Thu Sep 29 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.6.5-2
