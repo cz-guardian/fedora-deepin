@@ -56,6 +56,13 @@ for file in $(find . -iname "*.go" \! -iname "*_test.go") ; do
     echo "%%{gopath}/src/%%{import_path}/$file" >> devel.file-list
 done
 
+# Add symlink to older name
+install -d -p %{buildroot}/%{gopath}/src/gopkg.in/alecthomas/
+echo "%%dir %%{gopath}/src/gopkg.in/alecthomas/." >> devel.file-list
+
+ln -s %{gopath}/src/%{import_path}/ %{buildroot}/%{gopath}/src/gopkg.in/alecthomas/kingpin.v2
+echo "%%{gopath}/src/gopkg.in/alecthomas/kingpin.v2" >> devel.file-list
+
 sort -u -o devel.file-list devel.file-list
 
 %clean
