@@ -1,25 +1,30 @@
-Name:           dde-dock
-Version:        4.0.6
+%global 		srcname dde-dock
+
+Name:           deepin-dock
+Version:        4.0.7
 Release:        1%{?dist}
 Summary:        Deepin desktop-environment - Dock module
 
 License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
+URL:            https://github.com/linuxdeepin/%{srcname}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
 Requires:       gtk2 qt5-qtsvg deepin-file-manager-backend deepin-tool-kit deepin-menu dde-daemon
-BuildRequires:  qt5-qttools-devel xcb-util-image-devel xcb-util-wm-devel gtk2-devel deepin-tool-kit qt5-qtx11extras-devel qt5-qtsvg-devel libXtst-devel
+BuildRequires:  qt5-qttools-devel xcb-util-image-devel xcb-util-wm-devel gtk2-devel deepin-tool-kit-devel qt5-qtx11extras-devel qt5-qtsvg-devel libXtst-devel
 
 Provides:       %{name}
+Provides:       %{srcname}
+
+Obsoletes: 		%{srcname} < 4.0.7-1
 
 #%global debug_package %{nil}
 
 %description
-Deepin desktop-environment - Dock module
+%{summary}
 
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
+%setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version}
 
 %build
 
@@ -40,6 +45,8 @@ rm -rf %{buildroot}
 %{_includedir}/*
 
 %changelog
+* Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.7-1
+- Update to version 4.0.7 and renamed to deepin-dock
 * Mon Dec 19 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.6-1
 - Update to version 4.0.6
 * Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.5-2
