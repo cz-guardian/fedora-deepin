@@ -1,8 +1,8 @@
 %global 		srcname go-lib
 
 Name:           deepin-%{srcname}
-Version:        0.5.2
-Release:        3%{?dist}
+Version:        0.5.3
+Release:        1%{?dist}
 Summary:        Deepin GoLang Library
 
 License:        GPL3
@@ -37,6 +37,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.3-1
+- Update to version 0.5.3
 * Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.2-3
 - Package renamed to deepin-go-lib
 * Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.2-2
