@@ -17,7 +17,7 @@ if [ "$3" == "mock" ]; then
 fi
 
 if [ "$4" ]; then
-  NEW_RESULT_DIR="${4}"
+  COPR_PROJECT="${4}"
 fi
 
 function buildPackage()
@@ -66,8 +66,3 @@ function mockBuild()
 }
 
 buildPackage $PACKAGE
-
-if [ "${NEW_RESULT_DIR}" ]; then  
-  mv ${RESULT_DIR}/* ${NEW_RESULT_DIR}/
-  rmdir ${RESULT_DIR}/
-fi
