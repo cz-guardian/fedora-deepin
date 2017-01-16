@@ -2,7 +2,7 @@
 %{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
 Name:           python3-%{srcname}
-Version:        1.0.1
+Version:        1.0.2
 Release:        3%{?dist}
 Summary:        Deepin desktop application engine
 
@@ -37,6 +37,8 @@ rm -rf %{buildroot}
 %{python3_sitelib}/*
 
 %changelog
+* Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.2-1
+- Update to version 1.0.2
 * Thu Dec 29 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.1-3
 - Major rewrite of SPEC file
 * Thu Dec 22 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.1-2
