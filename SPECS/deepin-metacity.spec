@@ -1,5 +1,5 @@
 Name:           deepin-metacity
-Version:        3.20.6
+Version:        3.22.0
 Release:        2%{?dist}
 Summary:        2D window manager for Deepin
 
@@ -64,6 +64,8 @@ rm -rf %{buildroot}
 %{_libdir}/lib*.so
 
 %changelog
+* Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.22.0-1
+- Update to version 3.22.0
 * Thu Jan 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.20.6-2
 - Split the package to main and devel
 * Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.20.6-1
