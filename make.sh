@@ -66,3 +66,4 @@ function mockBuild()
 }
 
 buildPackage $PACKAGE
+echo "RESULT IN: ${RESULT_DIR}"
