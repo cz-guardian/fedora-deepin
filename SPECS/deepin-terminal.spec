@@ -1,6 +1,6 @@
 Name:           deepin-terminal
-Version:        2.1.5
-Release:        2%{?dist}
+Version:        2.1.6
+Release:        1%{?dist}
 Summary:        Default terminal emulation application for Deepin
 
 License:        GPL3
@@ -15,7 +15,7 @@ Provides:       %{name}
 #%global debug_package %{nil}
 
 %description
-Default terminal emulation application for Deepin
+%{summary}
 
 %prep
 %autosetup %{version}.tar.gz#%{name}
@@ -41,6 +41,8 @@ rm -rf %{buildroot}
 %{_datarootdir}/*
 
 %changelog
+* Thu Jan 12 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.1.6-1
+- Updated to version 2.1.6
 * Thu Dec 15 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2.1.5-2
 - Fixed icon path
 * Mon Dec 12 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2.1.5-1
