@@ -16,6 +16,10 @@ if [ "$3" == "mock" ]; then
   MOCK=1
 fi
 
+if [ "$4" ]; then
+  RESULT_DIR="${4}"
+fi
+
 function buildPackage()
 {
   local package=$1
@@ -62,9 +66,3 @@ function mockBuild()
 }
 
 buildPackage $PACKAGE
-echo ${RESULT_DIR}
-#for pkg in $(ls -1 ./SPECS/*.spec); do
-#  spectool -g -R $pkg
-  # rpmbuild -ba $pkg
-# done
-
