@@ -1,5 +1,5 @@
 Name:           deepin-artwork-themes
-Version:        15.12.3
+Version:        15.12.4
 Release:        1%{?dist}
 Summary:        Deepin artwork themes
 
@@ -14,7 +14,7 @@ BuildRequires:  python2
 Provides:       %{name}
 
 %description
-Deepin artwork themes
+%{summary}
 
 
 %prep
@@ -33,5 +33,7 @@ rm -rf %{buildroot}
 %{_usr}/share/personalization/*
 
 %changelog
-* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 15.12.4-1
+- Update package to 15.12.4
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 15.12.3-1
 - Initial package build
