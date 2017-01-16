@@ -11,7 +11,7 @@ Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 Patch0:         go-dbus-generator_0.6.5_fedora-qmake-rename.patch
 
 Requires:       glibc
-BuildRequires:  gcc-go deepin-go-lib
+BuildRequires:  gcc-go gcc deepin-go-lib
 
 Provides:       %{name}
 Provides:       %{srcname}
