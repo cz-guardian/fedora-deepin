@@ -1,5 +1,5 @@
 Name:           deepin-desktop-schemas
-Version:        3.0.12
+Version:        3.0.13
 Release:        1%{?dist}
 Summary:        GSettings deepin desktop-wide schemas
 
@@ -36,8 +36,10 @@ rm -rf %{buildroot}
 %{_usr}/share/glib-2.0/schemas/*
 
 %changelog
+* Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.13-1
+- Update to version 3.0.13
 * Sat Dec 10 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.12-1
-- Update to version 3.0.11
+- Update to version 3.0.12
 * Thu Oct 27 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.11-1
 - Update to version 3.0.11
 * Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.10-1
