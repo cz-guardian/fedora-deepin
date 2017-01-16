@@ -30,7 +30,7 @@ function buildPackage()
   if [ $? == 0 ]; then
     for arch in ${ARCHS[@]}; do
       rm -rf ${RESULT_DIR}
-      mkdir -p ${RESULT_DIR} && chmod 777 "${RESULT_DIR}"
+      mkdir -p ${RESULT_DIR}
       #echo mock -r ${arch} --spec=SPECS/${package}.spec --sources=SOURCES/ --buildsrpm --resultdir=${RESULT_DIR}
       mock -r ${arch} --spec=${package} --sources=SOURCES/ --buildsrpm --resultdir=${RESULT_DIR}
       ###
