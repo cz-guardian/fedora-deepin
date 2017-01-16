@@ -1,6 +1,6 @@
 Name:           deepin-menu
-Version:        3.0.6
-Release:        3%{?dist}
+Version:        3.0.7
+Release:        1%{?dist}
 Summary:        Deepin menu service for building beautiful menus
 
 License:        GPL3
@@ -15,7 +15,7 @@ Provides:       %{name}
 %global debug_package %{nil}
 
 %description
-Deepin menu service for building beautiful menus
+%{summary}
 
 
 %prep
@@ -65,6 +65,8 @@ rm -rf %{buildroot}
 %{_datarootdir}/*
 
 %changelog
+* Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.7-1
+- Update package to 3.0.7
 * Fri Jan 06 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.6-3
 - Fixed library path for autostart on x86_64 systems
 * Sun Dec 11 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.6-2
