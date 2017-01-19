@@ -1,5 +1,5 @@
 Name:           deepin-terminal
-Version:        2.1.6
+Version:        2.1.7
 Release:        1%{?dist}
 Summary:        Default terminal emulation application for Deepin
 
@@ -41,6 +41,8 @@ rm -rf %{buildroot}
 %{_datarootdir}/*
 
 %changelog
+* Thu Jan 19 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.1.7-1
+- Updated to version 2.1.7
 * Thu Jan 12 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.1.6-1
 - Updated to version 2.1.6
 * Thu Dec 15 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2.1.5-2
