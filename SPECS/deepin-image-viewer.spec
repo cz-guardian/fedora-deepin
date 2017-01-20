@@ -1,6 +1,6 @@
 Name:           deepin-image-viewer
-Version:        1.1.3
-Release:        2%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Deepin Image Viewer
 
 License:        GPL3
@@ -39,10 +39,6 @@ make
 %install
 make INSTALL_ROOT="%{buildroot}" install
 
-# Fix broken /share folder
-mv %{buildroot}/share/kde4 %{buildroot}/usr/share/kde4
-rmdir %{buildroot}/share
-
 %clean
 rm -rf %{buildroot}
 
@@ -52,6 +48,8 @@ rm -rf %{buildroot}
 %{_lib_dir}/*
 
 %changelog
+* Fri Jan 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.2.1-1
+- Update to version 1.2.1
 * Fri Jan 06 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.1.3-2
 - Fixed build dependecies
 * Sat Dec 10 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.1.3-1
