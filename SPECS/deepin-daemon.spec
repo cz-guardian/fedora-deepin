@@ -1,26 +1,31 @@
-Name:           dde-daemon
-Version:        3.0.24
-Release:        2%{?dist}
+%global         srcname dde-daemon
+
+Name:           deepin-daemon
+Version:        3.0.25.2
+Release:        1%{?dist}
 Summary:        Daemon handling the DDE session settings
 
 License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
+URL:            https://github.com/linuxdeepin/%{srcname}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 Source1:        dde-daemon.sysusers
 Source2:        polkit-gnome-authentication-agent-1-deepin.desktop
-Patch0:         dde-daemon_3.0.24_fix-compile.patch
+#Patch0:         dde-daemon_3.0.24_fix-compile.patch
     
-Requires:       deepin-desktop-schemas gvfs libcanberra deepin-notifications upower libxkbfile deepin-desktop-base bamf libgnome-keyring pulseaudio qt5-qtaccountsservice libudisks2 polkit-gnome mobile-broadband-provider-info iso-codes bluez-libs acpid rfkill poppler-glib dde-api libinput
-BuildRequires:  go-dbus-generator go-gir-generator dde-api librsvg2-devel pulseaudio-libs-devel libXtst-devel gdk-pixbuf2-xlib-devel golang-bin git dbus-factory go-lib libcanberra-devel bamf-devel libgudev-devel systemd-devel gettext libinput-devel golang-github-BurntSushi-xgb-devel golang-github-BurntSushi-xgbutil-devel golang-github-howeyc-fsnotify-devel golang-github-mattn-go-sqlite3-devel
+Requires:       deepin-desktop-schemas gvfs libcanberra deepin-notifications upower libxkbfile deepin-desktop-base bamf libgnome-keyring pulseaudio qt5-qtaccountsservice libudisks2 polkit-gnome mobile-broadband-provider-info iso-codes bluez-libs acpid rfkill poppler-glib deepin-api libinput
+BuildRequires:  deepin-go-dbus-generator deepin-go-gir-generator deepin-api librsvg2-devel pulseaudio-libs-devel libXtst-devel gdk-pixbuf2-xlib-devel golang-bin git deepin-dbus-factory deepin-go-lib libcanberra-devel bamf-devel libgudev-devel systemd-devel gettext libinput-devel golang-github-BurntSushi-xgb-devel golang-github-BurntSushi-xgbutil-devel golang-github-howeyc-fsnotify-devel golang-github-mattn-go-sqlite3-devel
 
 Provides:       %{name}
+Provides:       %{srcname}
+
+Obsoletes:      %{srcname} < 3.0.25.2-1
 
 %description
 Daemon handling the DDE session settings
 
 
 %prep
-%autosetup -p1 %{version}.tar.gz#%{name}
+%setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version}
 
 %build
 
@@ -32,7 +37,7 @@ Daemon handling the DDE session settings
   %define _lib_dir %{_usr}/lib
 %endif
 
-export GOPATH="$(pwd)/build:%{_datadir}/gocode/"
+export GOPATH="$(pwd)/build:%{gopath}"
 
 go get gopkg.in/alecthomas/kingpin.v2 \
   github.com/disintegration/imaging \
@@ -66,6 +71,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.25.2-1
+- Updated to version 3.0.25.2
 * Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.24-2
 - Changed GOLANG dependencies
 * Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.24-1
