@@ -1,7 +1,7 @@
 %global     srcname dde-api
 
 Name:           deepin-api
-Version:        3.0.16
+Version:        3.0.16.1
 Release:        1%{?dist}
 Summary:        Deepin GoLang API Library
 
@@ -56,6 +56,8 @@ rm -rf %{_builddir}/dde-api_src/
 
 
 %changelog
+* Fri Jan 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.16.1-1
+- Update to version 3.0.16.1
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.16-1
 - Update to version 3.0.16
 * Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.15-1
