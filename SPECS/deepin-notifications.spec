@@ -1,18 +1,17 @@
 Name:           deepin-notifications
-Version:        2.3.9
+Version:        2.3.10
 Release:        1%{?dist}
 Summary:        System notifications for linuxdeepin desktop environment
-
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
-Requires:       deepin-tool-kit qt5-qtsvg qt5-qtdeclarative gtk2
-BuildRequires:  qt5-qtsvg-devel qt5-qtdeclarative-devel deepin-tool-kit-devel gtk2-devel
+BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  qt5-qtdeclarative-devel
+BuildRequires:  deepin-tool-kit-devel
+BuildRequires:  gtk2-devel
 
-Provides:       %{name}
-
-#%global debug_package %{nil}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 
 %description
 %{summary}
@@ -20,36 +19,28 @@ Provides:       %{name}
 
 %prep
 %autosetup %{version}.tar.gz#%{name}
+# Fix paths
+sed -i 's/lib/libexec/' deepin-notifications.pro files/com.deepin.Notifications.service.in
 
 %build
-
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
-qmake-qt5 PREFIX=%{_usr}
-make
+%qmake_qt5 PREFIX=%{_prefix}
+%make_build
 
 %install
-make INSTALL_ROOT="%{buildroot}" install
-%ifarch x86_64
-  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
-  sed -i 's:/usr/lib/deepin-notifications/deepin-notifications:/usr/lib64/deepin-notifications/deepin-notifications:g' %{buildroot}/usr/share/dbus-1/services/*.service
-%endif
+%make_install INSTALL_ROOT=%{buildroot}
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%{_datarootdir}/*
-%{_lib_dir}/*
-
+%doc README.md
+%license LICENSE
+%{_libexecdir}/%{name}/*
+%{_datadir}/dbus-1/services/*
 
 %changelog
+* Sat Jan 21 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.3.10-1
+- Updated to 2.3.10
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.3.9-1
 - Updated to 2.3.9
 * Thu Jan 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.3.8-4
