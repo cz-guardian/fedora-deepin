@@ -1,16 +1,32 @@
 Name:           deepin-wm
-Version:        1.2
-Release:        2%{?dist}
+Version:        1.9.2
+Release:        %{?dist}
 Summary:        Deepin Window Manager
-
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
-Requires:       deepin-mutter deepin-desktop-schemas clutter-gtk bamf gnome-desktop libgee libwnck3 libcanberra libcanberra-gtk3
-BuildRequires:  gnome-common intltool vala vala-tools bamf-devel clutter-gtk-devel libgee-devel libwnck3-devel libcanberra-devel deepin-mutter-devel gnome-desktop3-devel gnome-desktop3 upower-devel libxkbcommon-x11-devel libgudev-devel libxkbfile-devel
+Requires:       deepin-desktop-schemas
+Requires:       gnome-desktop
+Requires:       libcanberra-gtk3
+BuildRequires:  intltool
+BuildRequires:  gnome-common
+BuildRequires:  gnome-desktop3-devel
+BuildRequires:  granite-devel
+BuildRequires:  vala
+BuildRequires:  vala-tools
+BuildRequires:  bamf-devel
+BuildRequires:  clutter-gtk-devel
+BuildRequires:  deepin-mutter-devel
+BuildRequires:  upower-devel
+BuildRequires:  libgee-devel
+BuildRequires:  libgudev-devel
+BuildRequires:  libwnck3-devel
+BuildRequires:  libcanberra-devel
+BuildRequires:  libxkbcommon-x11-devel
+BuildRequires:  libxkbfile-devel
 
-Provides:       %{name}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 
 %description
 %{summary}
@@ -27,38 +43,45 @@ Header files and libraries for %{name}
 %prep
 %autosetup %{version}.tar.gz#%{name}
 
+# fix background path
+sed -i 's/default_background.jpg/default.png/' src/Background/BackgroundSource.vala
+
 %build
-./autogen.sh \
-    --prefix='%{_usr}' \
-    --disable-schemas-compile
-make
+./autogen.sh
+%configure --disable-schemas-compile
+%make_build
 
 %install
 %make_install PREFIX="%{_prefix}"
+
 #Remove libtool archives.
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
-# Correct the library path for x86_64
-%ifarch x86_64
-  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
-%endif
+%find_lang %{name}
 
 %clean
 rm -rf %{buildroot}
 
-%files
-%{_bindir}/deepin-wm
+%files -f %{name}.lang
+%doc README.md
+%license LICENSE
+%{_bindir}/*
 %{_libdir}/lib*.so.*
-%{_datarootdir}/locale/*
-%{_libdir}/%{name}/*
-%{_libdir}/pkgconfig/*
-%{_datarootdir}/*
+%{_libdir}/%{name}/
+%{_datadir}/%{name}/
+%{_datadir}/glib-2.0/schemas/*
+%{_datadir}/applications/*.desktop
+%{_datadir}/icons/hicolor/*/apps/*
+%{_datadir}/vala/vapi/%{name}*
 
 %files devel
-%{_includedir}/*
+%{_includedir}/%{name}/%{name}.h
+%{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/lib*.so
 
 %changelog
+* Sat Jan 21 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.9.2-1
+- Update to version 1.9.2
 * Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.2.0-2
 - Split the package to main and devel
 * Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.2.0-1
