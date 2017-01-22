@@ -1,8 +1,7 @@
 Name:           deepin-desktop-base
-Version:        2016.11.28
+Version:        2016.11.29
 Release:        1%{?dist}
 Summary:        Base component for Deepin
-
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
@@ -13,14 +12,14 @@ Requires:       deepin-wallpapers
 Provides:       %{name}
 
 %description
-Base component for Deepin
+%{summary}
 
 
 %prep
 %autosetup %{version}.tar.gz#%{name}
 
 %build
-make
+%make_build
 
 %install
 %make_install PREFIX="%{_prefix}"
@@ -46,6 +45,8 @@ rm -rf %{buildroot}
 %{_usr}/share/*
 
 %changelog
+* Sun Jan 22 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.11.29-1
+- Update package to version 2016.11.29
 * Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.11.28-1
 - Update package to version 2016.11.28
 * Sat Dec 03 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.02.03-1
