@@ -1,7 +1,7 @@
 %global 		    srcname dde-file-manager
 
 Name:           deepin-file-manager
-Version:        1.3.7
+Version:        1.3.8
 Release:        1%{?dist}
 Summary:        Deepin File Manager
 License:        GPL3
@@ -78,6 +78,8 @@ rm -rf %{buildroot}
 %{_libdir}/*.so
 
 %changelog
+* Sun Jan 22 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.3.8-1
+- Update package to 1.3.8
 * Sat Jan 21 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.3.7-1
 - Update package to 1.3.7
 * Thu Jan 12 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.3.6-3
