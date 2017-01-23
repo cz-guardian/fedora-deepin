@@ -1,46 +1,64 @@
 Name:           deepin-terminal
-Version:        2.1.7
+Version:        2.1.9
 Release:        1%{?dist}
 Summary:        Default terminal emulation application for Deepin
-
 License:        GPL3
 URL:            https://github.com/manateelazycat/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
-Requires:       vala glib2 gtk3 json-glib libsecret vte291 libgee libwnck3
-BuildRequires:  cmake vala glib2-devel gtk3-devel json-glib-devel libsecret-devel vte291-devel libgee-devel libwnck3-devel gettext
+Requires:       vala 
+BuildRequires:  cmake
+BuildRequires:  vala
+BuildRequires:  gettext
+BuildRequires:  glib2-devel
+BuildRequires:  gtk3-devel
+BuildRequires:  json-glib-devel
+BuildRequires:  libsecret-devel
+BuildRequires:  vte291-devel
+BuildRequires:  libgee-devel
+BuildRequires:  libwnck3-devel
 
-Provides:       %{name}
-
-#%global debug_package %{nil}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 
 %description
 %{summary}
 
 %prep
 %autosetup %{version}.tar.gz#%{name}
-mkdir -p build
-sed -i 's|return __FILE__;|return "/usr/share/deepin-terminal/project_path.c";|' ./project_path.c
+sed -i 's|return __FILE__;|return "%{_datadir}/%{name}/project_path.c";|' ./project_path.c
 
 %build
-cd build
-cmake \
-  -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-  -DCMAKE_BUILD_TYPE=Release \
-  ../
-make
+%cmake -DCMAKE_BUILD_TYPE=Release
+%make_build
 
 %install
-make -C build DESTDIR="%{buildroot}" install
+%make_install
+%find_lang %{name}
+
+%preun
+if [ $1 -eq 0 ]; then
+  /usr/sbin/alternatives --remove x-terminal-emulator %{_bindir}/%{name}
+fi
+
+%post
+if [ $1 -eq 1 ]; then
+  /usr/sbin/alternatives --install %{_bindir}/x-terminal-emulator \
+    x-terminal-emulator %{_bindir}/%{name} 20
+fi
 
 %clean
 rm -rf %{buildroot}
 
-%files
+%files -f %{name}.lang
 %{_bindir}/*
-%{_datarootdir}/*
+%{_datadir}/%{name}/*
+%{_datadir}/dman/%{name}/*
+%{_datadir}/icons/hicolor/*/apps/*
+%{_datadir}/applications/*.desktop
 
 %changelog
+* Mon Jan 23 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.1.9-1
+- Updated to version 2.1.9
 * Thu Jan 19 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.1.7-1
 - Updated to version 2.1.7
 * Thu Jan 12 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.1.6-1
