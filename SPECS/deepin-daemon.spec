@@ -2,41 +2,98 @@
 
 Name:           deepin-daemon
 Version:        3.0.25.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Daemon handling the DDE session settings
-
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 Source1:        dde-daemon.sysusers
 Source2:        polkit-gnome-authentication-agent-1-deepin.desktop
-#Patch0:         dde-daemon_3.0.24_fix-compile.patch
     
-Requires:       deepin-desktop-schemas gvfs libcanberra deepin-notifications upower libxkbfile deepin-desktop-base bamf libgnome-keyring pulseaudio qt5-qtaccountsservice libudisks2 polkit-gnome mobile-broadband-provider-info iso-codes bluez-libs acpid rfkill poppler-glib deepin-api libinput
-BuildRequires:  deepin-go-dbus-generator deepin-go-gir-generator deepin-api librsvg2-devel pulseaudio-libs-devel libXtst-devel gdk-pixbuf2-xlib-devel golang-bin git deepin-dbus-factory deepin-go-lib libcanberra-devel bamf-devel libgudev-devel systemd-devel gettext libinput-devel golang-github-BurntSushi-xgb-devel golang-github-BurntSushi-xgbutil-devel golang-github-howeyc-fsnotify-devel golang-github-mattn-go-sqlite3-devel
+Requires:       acpid
+Requires:       bluez-libs
+Requires:       deepin-desktop-base
+Requires:       deepin-desktop-schemas
+Requires:       deepin-grub2-themes
+Requires:       deepin-notifications
+Requires:       gvfs
+Requires:       libudisks2
+Requires:       polkit-gnome
+Requires:       qt5-qtaccountsservice
+Requires:       rfkill
+Requires:       upower
+Requires:       xdotool
+Recommends:     iso-codes
+Recommends:     mobile-broadband-provider-info
+Recommends:     NetworkManager-l2tp-gnome
+Recommends:     NetworkManager-openconnect-gnome
+Recommends:     NetworkManager-openvpn-gnome
+Recommends:     NetworkManager-pptp-gnome
+Recommends:     NetworkManager-strongswan-gnome
+Recommends:     NetworkManager-vpnc-gnome
+BuildRequires:  deepin-api-devel
+BuildRequires:  deepin-dbus-factory
+BuildRequires:  deepin-go-gir-generator
+BuildRequires:  deepin-go-lib
+BuildRequires:  gettext
+BuildRequires:  git
+BuildRequires:  golang
+BuildRequires:  golang-github-BurntSushi-xgb-devel
+BuildRequires:  golang-github-BurntSushi-xgbutil-devel
+BuildRequires:  golang-github-howeyc-fsnotify-devel
+BuildRequires:  golang-github-mattn-go-sqlite3-devel
+BuildRequires:  libgnome-keyring-devel
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(gdk-pixbuf-xlib-2.0)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gudev-1.0)
+BuildRequires:  pkgconfig(libbamf3)
+BuildRequires:  pkgconfig(libcanberra)
+BuildRequires:  pkgconfig(libinput)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(librsvg-2.0)
+BuildRequires:  pkgconfig(libudev)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xcursor)
+BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(xi)
+BuildRequires:  pkgconfig(xkbfile)
+BuildRequires:  pkgconfig(xtst)
+BuildRequires:  poppler-glib-devel
+BuildRequires:  systemd-devel
 
 Provides:       %{name}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       %{srcname}
-
+Provides:       %{srcname}%{?_isa} = %{version}-%{release}
 Obsoletes:      %{srcname} < 3.0.25.2-1
+Obsoletes:      %{srcname}%{?_isa} < 3.0.25.2-1
 
 %description
-Daemon handling the DDE session settings
+%{summary}
 
 
 %prep
 %setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version}
 
+# Fix library exec path
+sed -i '/deepin/s|lib|libexec|' Makefile
+sed -i 's|/usr/lib|%{_libexecdir}|' \
+    misc/*services/*.service \
+    misc/applications/deepin-toggle-desktop.desktop \
+    misc/dde-daemon/keybinding/system_actions.json \
+    keybinding/shortcuts/system_shortcut.go \
+    session/power/constant.go \
+    session/power/lid_switch.go \
+    bin/dde-system-daemon/main.go \
+    bin/search/main.go \
+    accounts/user.go
+
+# Fix grub.cfg path
+sed -i '/MenuFile/s|grub/|grub2/|' grub2/grub2.go
+
 %build
-
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
 export GOPATH="$(pwd)/build:%{gopath}"
 
 go get gopkg.in/alecthomas/kingpin.v2 \
@@ -47,12 +104,14 @@ go get gopkg.in/alecthomas/kingpin.v2 \
   github.com/fsnotify/fsnotify \
   golang.org/x/sys/unix
 
-make
+%make_build
 
 %install
-make DESTDIR="%{buildroot}" install
-install -Dm644 %{_sourcedir}/dde-daemon.sysusers "%{buildroot}/usr/lib/sysusers.d/deepin-daemon.conf"
-install -Dm644 %{_sourcedir}/polkit-gnome-authentication-agent-1-deepin.desktop "%{buildroot}/etc/xdg/autostart/polkit-gnome-authentication-agent-1-deepin.desktop"
+%make_install
+install -Dm644 %{S:1} %{buildroot}/usr/lib/sysusers.d/deepin-daemon.conf
+install -Dm644 %{S:2} %{buildroot}/etc/xdg/autostart/polkit-gnome-authentication-agent-1-deepin.desktop
+
+%find_lang %{srcname}
 
 %post
 systemd-sysusers deepin-daemon.conf
@@ -63,14 +122,24 @@ rm -f /var/cache/deepin/mark-setup-network-services
 %clean
 rm -rf %{buildroot}
 
-%files
-%{_datarootdir}/*
-%{_prefix}/lib/*
-%{_var}/cache/*
-%{_sysconfdir}/xdg/autostart/polkit-gnome-authentication-agent-1-deepin.desktop
-
+%files -f %{srcname}.lang
+%doc README.md
+%license LICENSE
+%{_datadir}/%{srcname}/*
+%{_datadir}/dbus-1/services/*.service
+%{_datadir}/dbus-1/system-services/*.service
+%{_datadir}/dbus-1/system.d/*.conf
+%{_datadir}/dde/data/*
+%{_datadir}/icons/hicolor/*/apps/*
+%{_datadir}/polkit-1/actions/*.policy
+%{_libexecdir}/%{name}/
+%{_prefix}/lib/sysusers.d/*.conf
+%{_sysconfdir}/xdg/autostart/*.desktop
+%{_var}/cache/appearance/thumbnail/*
 
 %changelog
+* Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.25.2-1
+- Rewrite of spec file
 * Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.25.2-1
 - Updated to version 3.0.25.2
 * Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.24-2
