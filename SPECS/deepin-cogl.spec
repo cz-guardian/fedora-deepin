@@ -1,14 +1,30 @@
 Name:           deepin-cogl
 Version:        1.22.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An object oriented GL/GLES Abstraction/Utility Layer for Deepin
-
 License:        GPL2
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
-Requires:       glib2 mesa-libGLES mesa-libGL mesa-libwayland-egl libwayland-client mesa-libgbm libwayland-server mesa-libEGL libXrandr libXcomposite libXdamage libXfixes libXext libX11 cairo pango gdk-pixbuf2 gobject-introspection
-BuildRequires:  intltool glib2-devel gtk-doc libtool mesa-libGLES-devel mesa-libGL-devel mesa-libwayland-egl-devel libwayland-client-devel mesa-libgbm-devel libwayland-server-devel mesa-libEGL-devel libXrandr-devel libXcomposite-devel libXdamage-devel libXfixes-devel libXext-devel libX11-devel cairo-devel pango-devel gdk-pixbuf2-devel gobject-introspection-devel
+BuildRequires:  cairo-devel
+BuildRequires:  gdk-pixbuf2-devel
+BuildRequires:  glib2-devel gtk-doc
+BuildRequires:  gobject-introspection-devel
+BuildRequires:  intltool libtool
+BuildRequires:  libwayland-client-devel
+BuildRequires:  libwayland-server-devel
+BuildRequires:  libX11-devel
+BuildRequires:  libXcomposite-devel
+BuildRequires:  libXdamage-devel
+BuildRequires:  libXext-devel
+BuildRequires:  libXfixes-devel
+BuildRequires:  libXrandr-devel
+BuildRequires:  mesa-libEGL-devel
+BuildRequires:  mesa-libgbm-devel
+BuildRequires:  mesa-libGL-devel
+BuildRequires:  mesa-libGLES-devel
+BuildRequires:  mesa-libwayland-egl-devel
+BuildRequires:  pango-devel
 
 Conflicts:      cogl < %{version}
 Conflicts:      cogl%{?_isa} < %{version}
@@ -19,7 +35,7 @@ Provides:       cogl%{?_isa} = %{version}-%{release}
 Provides:       deepin-cogl = %{version}-%{release}
 
 %description
-An object oriented GL/GLES Abstraction/Utility Layer for Deepin
+%{description}
 
 
 %package  devel
@@ -37,29 +53,22 @@ Header files and libraries for building and developing apps with %{name}.
 
 %prep
 %autosetup %{version}.tar.gz#%{name}
-
-%build
-
 NOCONFIGURE=1 ./autogen.sh
 
-./configure --prefix=/usr \
+%build
+%configure --prefix=%{_prefix} \
     --enable-gles2 \
     --enable-{kms,wayland}-egl-platform \
     --enable-wayland-egl-server
 
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
 make -j1
 
 %install
-%make_install DESTDIR="%{buildroot}"
+%make_install
 
 #Remove libtool archives
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
-
-%ifarch x86_64
-  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
-%endif
 
 %post -p /sbin/ldconfig
 
@@ -84,6 +93,8 @@ rm -rf %{buildroot}
 %{_datadir}/locale
 
 %changelog
+* Sat Dec 17 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.22.3-4
+- Rewrite of spec file
 * Sat Dec 17 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.22.3-3
 - Redone package in a newer format
 * Sat Dec 17 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.22.3-2
