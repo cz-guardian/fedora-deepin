@@ -1,21 +1,21 @@
 Name:           deepin-movie
 Version:        2.2.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Movie player based on QtAV
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
   
 Requires:       dbus-python
-Requires:       deepin-menu
 Requires:       deepin-dbus-factory
+Requires:       deepin-menu
 Requires:       deepin-qml-widgets
 Requires:       mediainfo
+Requires:       python-bottle
 Requires:       python-magic
 Requires:       python-qt5
 Requires:       python-xpyb
 Requires:       python2-ass
-Requires:       python2-bottle
 Requires:       python2-deepin-utils
 Requires:       python2-peewee
 Requires:       python2-pyopengl
@@ -79,6 +79,8 @@ rm -rf %{buildroot}
 %{_datadir}/icons/hicolor/*
 
 %changelog
+* Tue Jan 24 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.2.11-2
+- Fix broken python-bottle dependency
 * Tue Jan 24 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.2.11-1
 - Update to version 2.2.11
 * Wed Dec 21 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2.2.10-1
