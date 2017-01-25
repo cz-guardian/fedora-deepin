@@ -1,20 +1,24 @@
 %global 		srcname dbus-factory
+%global 		debug_package %{nil}
 
 Name:           deepin-%{srcname}
 Version:        3.0.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QML DBus factory for DDE
-
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
-BuildRequires:  deepin-go-dbus-generator gcc-go
+BuildRequires:  deepin-go-dbus-generator
+BuildRequires:  deepin-go-lib
+BuildRequires:  gcc-go
 
 Provides:       %{name}
 Provides:       %{srcname}
-
-Obsoletes: 		%{srcname} < 3.0.9-1
+Provides:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       %{srcname}%{?_isa} = %{version}-%{release}
+Obsoletes: 		%{srcname} < %{version}-%{release}
+Provides:       %{srcname}%{?_isa} < %{version}-%{release}
 
 %description
 %{summary}
@@ -23,19 +27,24 @@ Obsoletes: 		%{srcname} < 3.0.9-1
 %prep
 %setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version}
 
-make
+%build
+%make_build
 
 %install
-%make_install GOPATH="%{gopath}" DESTDIR="%{buildroot}"
+%make_install GOPATH=%{gopath}
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%{gopath}/*
+%defattr(-,root,root,-)
+%doc README.md
+%{gopath}/src/dbus/*
 
 
 %changelog
+* Wed Jan 25 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.9-2
+- Spec file rewrite
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.9-1
 - Update to version 3.0.9 and renamed to deepin-dbus-factory
 * Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.8-1
