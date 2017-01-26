@@ -2,15 +2,30 @@ Name:           deepin-metacity
 Version:        3.22.0
 Release:        2%{?dist}
 Summary:        2D window manager for Deepin
-
 License:        GPL
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
-Requires:       dconf deepin-desktop-schemas libcanberra startup-notification zenity gtk3 libgtop2 libSM yelp bamf
-BuildRequires:  intltool itstool python yelp-devel autoconf-archive glib2-devel libtool gtk3-devel gsettings-desktop-schemas-devel libcanberra-devel bamf-devel json-glib-devel zenity yelp-tools startup-notification-devel
+Requires:       dconf
+Requires:       deepin-desktop-schemas
+Requires:       libgtop2
+BuildRequires:  autoconf-archive
+BuildRequires:  bamf-devel
+BuildRequires:  glib2-devel
+BuildRequires:  gsettings-desktop-schemas-devel
+BuildRequires:  gtk3-devel
+BuildRequires:  intltool
+BuildRequires:  itstool
+BuildRequires:  json-glib-devel
+BuildRequires:  libcanberra-devel
+BuildRequires:  libtool
+BuildRequires:  startup-notification-devel
+BuildRequires:  yelp-devel
+BuildRequires:  yelp-tools
+BuildRequires:  zenity
 
 Provides:       %{name}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 
 %description
 %{summary}
@@ -28,25 +43,14 @@ Header files and libraries for %{name}
 %autosetup %{version}.tar.gz#%{name}
 
 %build
-
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
-./autogen.sh --prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=%{_lib_dir}/$pkgname \
-               --disable-static --disable-schemas-compile
-cat configure
-make
+./autogen.sh
+%configure \
+    --disable-static \
+    --disable-schemas-compile
+%make_build
 
 %install
-%make_install PREFIX="%{_prefix}"
-%ifarch x86_64
-  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
-%endif
+%make_install PREFIX=%{_prefix}
 #Remove libtool archives.
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
@@ -54,16 +58,29 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 rm -rf %{buildroot}
 
 %files
+%doc README
+%license COPYING
 %{_bindir}/*
-%{_libdir}/lib*.so.*
-%{_libdir}/pkgconfig/*
-%{_datarootdir}/*
+%{_libdir}/*.so.*
+%{_datadir}/GConf/gsettings/*.convert
+%{_datadir}/applications/*.desktop
+%{_datadir}/%{name}/
+%{_datadir}/glib-2.0/schemas/com.deepin.*.xml
+%{_datadir}/gnome-control-center/keybindings/50-%{name}-*.xml
+%{_datadir}/gnome/wm-properties/*.desktop
+%{_datadir}/help/
+%{_datadir}/locale/
+%{_datadir}/themes/
+%{_mandir}/man1/*
 
 %files devel
-%{_includedir}/*
-%{_libdir}/lib*.so
+%{_includedir}/%{name}/
+%{_libdir}/pkgconfig/*.pc
+%{_libdir}/lib%{name}*.so
 
 %changelog
+* Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.22.0-2
+- Rewrite of spec file
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.22.0-1
 - Update to version 3.22.0
 * Thu Jan 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.20.6-2
