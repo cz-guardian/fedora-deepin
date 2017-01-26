@@ -1,18 +1,22 @@
 Name:           deepin-menu
 Version:        3.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deepin menu service for building beautiful menus
-
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
-Requires:       python-qt5 qt5-qtx11extras
-BuildRequires:  qt5-qtdeclarative-devel python2-setuptools qt5-qtx11extras-devel
+Requires:       python-qt5
+Requires:       qt5-qtx11extras
+BuildRequires:  desktop-file-utils
+BuildRequires:  python-devel
+BuildRequires:  python2-setuptools
+BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qtdeclarative-devel
+BuildRequires:  qt5-qtx11extras-devel
 
 Provides:       %{name}
-
-%global debug_package %{nil}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 
 %description
 %{summary}
@@ -21,50 +25,50 @@ Provides:       %{name}
 %prep
 %autosetup %{version}.tar.gz#%{name}
 
-%build
-
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
 # fix python version
-find -iname "*.py" | xargs sed -i 's=\(^#! */usr/bin.*\)python *$=\1python2='
-python2 setup.py build
-qmake-qt5 DEFINES+=QT_NO_DEBUG_OUTPUT
-make
+find -iname "*.py" | xargs sed -i '1s|python$|python2|'
+
+sed -i '/target.path/s|lib|libexec|' deepin-menu.pro
+
+%build
+%{__python2} setup.py build
+%{qmake_qt5} DEFINES+=QT_NO_DEBUG_OUTPUT
+%{make_build}
 
 %install
-python2 setup.py install --root="%{buildroot}" --optimize=1
-make INSTALL_ROOT="%{buildroot}" install
+%{__python2} setup.py install -O1 --skip-build --prefix=%{_prefix} --root=%{buildroot}
+%{make_install} INSTALL_ROOT="%{buildroot}"
 
-%ifarch x86_64
-  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
-%endif
-
-install -dm 755 %{buildroot}/usr/share/dbus-1/services/
-install -dm 755 %{buildroot}/etc/xdg/autostart/
-
-rm -r %{buildroot}/usr/deepin_menu
+rm -rf %{buildroot}/usr/deepin_menu
+install -d %{buildroot}%{_datadir}/dbus-1/services/
+install -d %{buildroot}%{_datadir}/applications/
+install -d %{buildroot}/etc/xdg/autostart/
 
 # Modify lib path to reflect the platform
-sed -i 's;/usr/lib/;%{_lib_dir}/;g' com.deepin.menu.service
-sed -i 's;/usr/lib/;%{_lib_dir}/;g' deepin-menu.desktop
+sed -i 's|/usr/lib|%{_libexecdir}|' com.deepin.menu.service deepin-menu.desktop
 
-install -m 644 *.service %{buildroot}/usr/share/dbus-1/services/
-install -m 644 *.desktop %{buildroot}/etc/xdg/autostart/
+install -m644 *.service %{buildroot}%{_datadir}/dbus-1/services/
+install -m644 *.desktop %{buildroot}%{_datadir}/applications/
+ln -sfv %{_datadir}/applications/%{name}.desktop %{buildroot}%{_sysconfdir}/xdg/autostart/
+
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
 %clean
 rm -rf %{buildroot}
 
 %files
-%{_sysconfdir}/*
-%{_lib_dir}/*
-%{_datarootdir}/*
+%defattr(-,root,root,-)
+%{_sysconfdir}/xdg/autostart/*.desktop
+%{_libexecdir}/*
+%{python_sitelib}/*
+%{_datadir}/applications/*.desktop
+%{_datadir}/dbus-1/services/*.service
 
 %changelog
+* Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.7-2
+- Rewrite of spec file
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.7-1
 - Update package to 3.0.7
 * Fri Jan 06 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.6-3
