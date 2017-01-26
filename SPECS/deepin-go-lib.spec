@@ -1,20 +1,24 @@
 %global 		srcname go-lib
+%global 		debug_package %{nil}
 
 Name:           deepin-%{srcname}
 Version:        0.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deepin GoLang Library
-
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
+BuildArch:      noarch
+
+BuildRequires:  golang
+
 Provides:       %{name}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       %{srcname}
-
-Obsoletes: 		%{srcname} < 0.5.2-3
-
-%global debug_package %{nil}
+Provides:       %{srcname}%{?_isa} = %{version}-%{release}
+Obsoletes: 		%{srcname} < %{version}-%{release}
+Obsoletes:      %{srcname}%{?_isa} < %{version}-%{release}
 
 %description
 %{summary}
@@ -26,17 +30,23 @@ Obsoletes: 		%{srcname} < 0.5.2-3
 %build
 
 %install
-install -d -m 755 %{buildroot}%{gopath}/src/pkg.deepin.io/lib
-cp -r %{_builddir}/%{srcname}-%{version}/* %{buildroot}%{gopath}/src/pkg.deepin.io/lib/
+install -d %{buildroot}%{gopath}/src/pkg.deepin.io/lib/
+cp -r * %{buildroot}%{gopath}/src/pkg.deepin.io/lib/
+rm -rf %{buildroot}%{gopath}/src/pkg.deepin.io/lib/debian
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%{gopath}/*
+%defattr(-,root,root,-)
+%doc README.md
+%license LICENSE
+%{gopath}/src/pkg.deepin.io/lib/
 
 
 %changelog
+* Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.3-2
+- Rewrite of spec file
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.3-1
 - Update to version 0.5.3
 * Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.2-3
