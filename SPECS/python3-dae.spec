@@ -10,8 +10,12 @@ License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
 Source0:        %{url}/archive/%{version}.tar.gz#%{srcname}
   
-Requires:       python3 python3-qt5 python3-qt5-webkit python3-xlib
-BuildRequires:  python3-devel python3-qt5-devel
+Requires:       python3 
+Requires:       python3-qt5 
+Requires:       python3-qt5-webkit 
+Requires:       python3-xlib
+BuildRequires:  python3-devel 
+BuildRequires:  python3-qt5-devel
 
 BuildArch:      noarch
 

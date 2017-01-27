@@ -13,8 +13,10 @@ License:        WTFPL
 URL:            https://github.com/BurntSushi/%{srcname}
 Source0:        %{url}/archive/%{commit}/%{srcname}-%{shortcommit}.tar.gz#%{name}
     
-Requires:       python2 python-xpyb
-BuildRequires:  python2-devel python-xpyb-devel
+Requires:       python-xpyb
+Requires:       python2
+BuildRequires:  python-xpyb-devel
+BuildRequires:  python2-devel
 
 Provides:       %{name}
 

@@ -10,7 +10,9 @@ License:        GPL3
 URL:            http://code.google.com/p/gwrite/
 Source0:        https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/gwrite/python-%{srcname}-%{version}.tar.gz#%{srcname}
  
-BuildRequires:  python-devel python-setuptools Cython
+BuildRequires:  Cython
+BuildRequires:  python-devel
+BuildRequires:  python-setuptools
 
 %description
 simple GTK+ HTML5 rich text editor
