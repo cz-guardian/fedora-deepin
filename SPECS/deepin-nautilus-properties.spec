@@ -1,63 +1,62 @@
+%global debug_package %{nil}
+
 Name:           deepin-nautilus-properties
 Version:        3.14.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provide file property dialog for Deepin desktop environment
-
 License:        GPL
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
-Requires:       nautilus libnotify exempi glib2 gtk3 gnome-desktop3 libxml2 libX11
-BuildRequires:  intltool gobject-introspection-devel libnotify-devel libexif-devel exempi-devel glib2-devel gtk3-devel gnome-desktop3-devel libxml2-devel libX11-devel
-
-##   gail-3.0
-#  x11
-
+BuildRequires:  exempi-devel
+BuildRequires:  glib2-devel
+BuildRequires:  gnome-desktop3-devel
+BuildRequires:  gobject-introspection-devel
+BuildRequires:  gtk3-devel
+BuildRequires:  intltool
+BuildRequires:  libexif-devel
+BuildRequires:  libnotify-devel
+BuildRequires:  libX11-devel
+BuildRequires:  libxml2-devel
 
 Provides:       %{name}
-
-#%global debug_package %{nil}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 
 %description
-Provide file property dialog for Deepin desktop environment
+%{summary}
 
 
 %prep
 %autosetup %{version}.tar.gz#%{name}
 
 %build
-
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
 libtoolize && aclocal && autoheader && automake --add-missing && autoconf
 
-./configure --prefix=%{_prefix} \
-              --libexecdir=%{_lib_dir}/nautilus \
-              --disable-nst-extension \
-              --disable-update-mimedb \
-              --disable-packagekit \
-              --disable-introspection \
-              --disable-tracker
-
-make
+%configure \
+    --libexecdir=%{_libdir}/nautilus \
+    --disable-nst-extension \
+    --disable-update-mimedb \
+    --disable-packagekit \
+    --disable-introspection \
+    --disable-tracker
+%make_build
 
 %install
 cd src
-install -dm755 "%{buildroot}/usr/bin"
-libtool --mode=install /usr/bin/install -c deepin-nautilus-properties deepin-open-chooser "%{buildroot}/usr/bin"
+
+install -d %{buildroot}%{_bindir}
+install -m755 %{name} deepin-open-chooser %{buildroot}%{_bindir}/
 
 %clean
 rm -rf %{buildroot}
 
 %files
+%doc README
+%license COPYING
 %{_bindir}/*
 
 %changelog
+* Fri Jan 27 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.14.3-2
+- Rewrite of spec file
 * Sun Oct 02 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.14.3-1
 - Initial package build
