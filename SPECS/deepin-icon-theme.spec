@@ -1,6 +1,6 @@
 Name:           deepin-icon-theme
-Version:        15.12.32
-Release:        2%{?dist}
+Version:        15.12.33
+Release:        1%{?dist}
 Summary:        Deepin Icons
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
@@ -23,19 +23,19 @@ Provides:       %{name}%{?_isa} = %{version}-%{release}
 sed -i 's/flattr/Flattr/' deepin/index.theme
 
 %build
-mkdir -p build
-%{__python2} tools/convert.py deepin build
 
 %install
-%make_install PREFIX="%{_prefix}"
+%make_install DESTDIR="%{buildroot}"
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%{_datadir}/icons/deepin
+%{_datadir}/icons/deepin/*
 
 %changelog
+* Fri Mar 03 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 15.12.33-1
+- Update to 15.12.33
 * Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 15.12.32-2
 - Rewrite of spec file
 * Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 15.12.32-1
