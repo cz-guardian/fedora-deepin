@@ -1,51 +1,49 @@
 Name:           deepin-wm-switcher
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Window manager switcher for Deepin
-
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
-    
-Requires:       dde-daemon deepin-wm deepin-metacity qt5-qtx11extras
-BuildRequires:  cmake xcb-util-keysyms-devel glib2-devel libX11-devel qt5-qtbase-devel qt5-qtx11extras-devel
+
+Requires:       deepin-daemon
+Requires:       deepin-metacity    
+Requires:       deepin-wm
+BuildRequires:  cmake
+BuildRequires:  glib2-devel
+BuildRequires:  libX11-devel
+BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qtx11extras-devel
+BuildRequires:  xcb-util-keysyms-devel
 
 Provides:       %{name}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 
 %description
-Window manager switcher for Deepin
+%{summary}
 
 
 %prep
 %autosetup %{version}.tar.gz#%{name}
 
 %build
-
-%define _lib_dir %{nil}
-%ifarch x86_64
-  %define _lib_dir %{_usr}/lib64
-%endif
-%ifarch i386 i686
-  %define _lib_dir %{_usr}/lib
-%endif
-
-mkdir build
-cd build
-cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_BUILD_TYPE=Release ../
-make
+%cmake -DCMAKE_BUILD_TYPE=Release
+%make_build
 
 %install
-cd build
-make DESTDIR="%{buildroot}" install
+%make_install
 
 %clean
 rm -rf %{buildroot}
 
 %files
+%doc README.md
+%license LICENSE
 %{_bindir}/*
 
-
 %changelog
+* Fri Jan 27 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.1.0-2
+- Rewrite of spec file
 * Sat Oct 01 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.1.0-1
 - Update package to version 1.1.0
 * Sat Oct 01 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.7-1

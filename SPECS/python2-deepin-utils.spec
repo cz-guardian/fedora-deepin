@@ -6,17 +6,26 @@
 
 Name:           python2-%{srcname}
 Version:        0.2.git%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Basic utils for all project in Linux Deepin
-
 License:        GPL3
 URL:            https://github.com/martyr-deepin/%{srcname}
 Source0:        %{url}/archive/%{commit}/%{srcname}-%{shortcommit}.tar.gz#%{name}
 
-Requires:       pygtk2 pycairo freetype webkitgtk python-xlib pywebkitgtk glib2 pygobject2
-BuildRequires:  python2-setuptools glib2-devel pygtk2 pygobject2-devel pycairo-devel webkitgtk-devel
+Requires:       numpy
+Requires:       pywebkitgtk
+BuildRequires:  libsoup-devel
+BuildRequires:  pkgconfig(cairo)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gtk+-2.0)
+BuildRequires:  pkgconfig(pygobject-2.0)
+BuildRequires:  pkgconfig(webkit-1.0)
+BuildRequires:  pygtk2-devel
+BuildRequires:  python-devel
+BuildRequires:  python2-setuptools
 
 Provides:       %{name}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 
 %description
 %{summary}
@@ -29,16 +38,18 @@ Provides:       %{name}
 %{__python2} setup.py build
 
 %install
-%{__python2} setup.py install -O1 --root="%{buildroot}"
+%{__python2} setup.py install -O1 --prefix=%{_prefix} --root=%{buildroot}
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%{python2_sitelib}/*
-
+%defattr(-,root,root,-)
+%{python_sitearch}/*
 
 %changelog
+* Fri Jan 27 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.2.git8aaf2a6-2
+- Rewrite of SPEC file
 * Thu Dec 29 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.2.git8aaf2a6-1
 - Major rewrite of SPEC file
 * Wed Oct 12 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.1.20140509-1

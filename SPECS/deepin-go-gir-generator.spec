@@ -2,20 +2,22 @@
 
 Name:           deepin-%{srcname}
 Version:        0.9.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Generate static golang bindings for GObject
-
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
-Requires:       gobject-introspection
-BuildRequires:  gcc-go gobject-introspection-devel libgudev-devel
+BuildRequires:  gcc-go
+BuildRequires:  gobject-introspection-devel
+BuildRequires:  libgudev-devel
 
 Provides:       %{name}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       %{srcname}
-
-Obsoletes: 		%{srcname} < 0.9.6-3
+Provides:       %{srcname}%{?_isa} = %{version}-%{release}
+Obsoletes: 		%{srcname} < %{version}-%{release}
+Obsoletes:      %{srcname}%{?_isa} < %{version}-%{release}
 
 %description
 %{summary}
@@ -25,21 +27,23 @@ Obsoletes: 		%{srcname} < 0.9.6-3
 %setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version}
 
 %build
-export GOPATH="$(pwd)/vendor:$(pwd):%{gopath}/src/gir/"
-make
+export GOPATH="%{gopath}"
+%make_build
 
 %install
-%make_install DESTDIR="%{buildroot}"
+%make_install
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %{_bindir}/gir-generator
-%{gopath}/*
+%{gopath}/src/gir/*
 
 
 %changelog
+* Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.9.6-4
+- Rewrite of spec file
 * Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.9.6-3
 - Renamed package to deepin-go-gir-generator
 * Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 0.9.6-2

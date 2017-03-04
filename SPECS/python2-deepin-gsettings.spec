@@ -13,8 +13,11 @@ License:        GPL
 URL:            https://github.com/martyr-deepin/%{srcname}
 Source0:        %{url}/archive/%{commit}/%{srcname}-%{shortcommit}.tar.gz#%{name}
 
-Requires:       python2 glib2
-BuildRequires:  python2-setuptools python-devel glib2-devel
+Requires:       glib2
+Requires:       python2 
+BuildRequires:  glib2-devel
+BuildRequires:  python-devel 
+BuildRequires:  python2-setuptools 
 
 Provides:       %{name}
 

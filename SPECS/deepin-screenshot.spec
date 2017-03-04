@@ -1,43 +1,76 @@
 Name:           deepin-screenshot
 Version:        3.1.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Easy-to-use screenshot tool for linuxdeepin desktop environment
-
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
     
-Requires:       deepin-menu deepin-qml-widgets qt5-qtsvg deepin-gettext-tools python2-pyopengl gnome-python2-libwnck python2-xpybutil qt5-qtgraphicaleffects qt5-qtquickcontrols
-BuildRequires:  deepin-menu deepin-qml-widgets qt5-qtsvg-devel deepin-gettext-tools
+Requires:       deepin-menu
+Requires:       deepin-qml-widgets
+Requires:       gnome-python2-libwnck
+Requires:       python-qt5
+Requires:       python2-xpybutil
+Requires:       qt5-qtdeclarative
+Requires:       qt5-qtgraphicaleffects
+Requires:       qt5-qtmultimedia
+Requires:       qt5-qtquickcontrols
+Requires:       qt5-qtsvg
+BuildRequires:  deepin-gettext-tools
+BuildRequires:  gettext
+BuildRequires:  python-devel
+
+BuildArch:      noarch
 
 Provides:       %{name}
-
-%global debug_package %{nil}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 
 %description
-Easy-to-use screenshot tool for linuxdeepin desktop environment
+%{summary}
+
 
 %prep
 %autosetup %{version}.tar.gz#%{name}
 
-%build
-
 # fix python version
-find -iname "*.py" | xargs sed -i 's=\(^#! */usr/bin.*\)python *$=\1python2='
+find -iname "*.py" | xargs sed -i '1s|python$|python2|'
 
-make
+%build
+%make_build
 
 %install
-make DESTDIR="%{buildroot}" install
+%make_install
+
+%find_lang %{name}
+
+%preun
+if [ $1 -eq 0 ]; then
+  /usr/sbin/alternatives --remove x-window-screenshot %{_bindir}/%{name}
+fi
+
+%post
+if [ $1 -eq 1 ]; then
+  /usr/sbin/alternatives --install %{_bindir}/x-window-screenshot \
+    x-window-screenshot %{_bindir}/%{name} 20
+fi
 
 %clean
 rm -rf %{buildroot}
 
-%files
+%files -f %{name}.lang
+%defattr(-,root,root,-)
+%doc README.md
+%license LICENSE
 %{_bindir}/*
-%{_datarootdir}/*
+%{_datadir}/%{name}/
+%{_datadir}/dman/%{name}/
+%{_datadir}/applications/*.desktop
+%{_datadir}/icons/hicolor/scalable/apps/*.svg
+
 
 %changelog
+* Fri Jan 27 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.10-3
+- Rewrite of spec file
 * Thu Jan 12 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.10-2
 - Dependecy bump
 * Sun Dec 11 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.10-1

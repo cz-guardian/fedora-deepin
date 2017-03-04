@@ -1,24 +1,27 @@
 %global 		srcname go-dbus-generator
+%global 		debug_package %{nil}
 
 Name:           deepin-%{srcname}
 Version:        0.6.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Convert dbus interfaces to go-lang or qml wrapper code
-
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
-Patch0:         go-dbus-generator_0.6.5_fedora-qmake-rename.patch
 
-Requires:       glibc
-BuildRequires:  gcc-go gcc deepin-go-lib
+BuildRequires:  deepin-go-lib
+BuildRequires:  gcc-go
+BuildRequires:  golang-gopkg-check-devel
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gobject-2.0)
+BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qtdeclarative-devel
 
 Provides:       %{name}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       %{srcname}
-
-Obsoletes: 		%{srcname} < 0.6.5-3
-
-%global debug_package %{nil}
+Provides:       %{srcname}%{?_isa} = %{version}-%{release}
+Obsoletes: 		%{srcname} < %{version}-%{release}
 
 %description
 %{summary}
@@ -26,23 +29,28 @@ Obsoletes: 		%{srcname} < 0.6.5-3
 
 %prep
 %setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version} 
-%patch0 -p1
+# qmake path
+sed -i 's/qmake/qmake-qt5/' build_test.go template_qml.go
 
 %build
-export GOPATH="$(pwd)/build/:%{gopath}/"
-make
+export GOPATH="%{gopath}"
+%make_build
 
 %install
-%make_install GOPATH="%{gopath}" DESTDIR="%{buildroot}"
+%make_install GOPATH="%{gopath}"
 
 %clean
 rm -rf %{buildroot}
 
 %files
+%defattr(-,root,root,-)
+%doc README.md
 %{_bindir}/dbus-generator
 
 
 %changelog
+* Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.6.5-5
+- Rewrite of spec file
 * Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.6.5-4
 - Fixed missing binary file
 * Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.6.5-3

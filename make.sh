@@ -25,7 +25,7 @@ function buildPackage()
   local package=$1
 
   # Download source for given package
-  spectool -g -R ${package}
+  spectool -g -C ./SOURCES ${package}
   
   if [ $? == 0 ]; then
     for arch in ${ARCHS[@]}; do

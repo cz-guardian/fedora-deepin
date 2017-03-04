@@ -5,7 +5,7 @@
 #   possibly the entire file with a new copy available from the FSF.
 
 
-%{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "import site; print(site.getsitepackages()[0])")}
 
 Name:           python3-xlib
 Version:        0.15

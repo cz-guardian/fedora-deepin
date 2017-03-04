@@ -12,6 +12,7 @@ Requires:       deepin-desktop-base
 Requires:       deepin-icon-theme
 BuildRequires:  python-devel
 
+Provides:       %{name}
 Provides:       %{name}%{?_isa} = %{version}-%{release}
 
 %description
