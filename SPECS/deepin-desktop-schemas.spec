@@ -1,5 +1,5 @@
 Name:           deepin-desktop-schemas
-Version:        3.0.13
+Version:        3.1.1
 Release:        1%{?dist}
 Summary:        GSettings deepin desktop-wide schemas
 
@@ -8,7 +8,10 @@ URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 BuildArch:      noarch
-Requires:       dconf deepin-gtk-theme deepin-sound-theme deepin-artwork-themes
+Requires:       dconf 
+Requires:       deepin-artwork-themes
+Requires:       deepin-gtk-theme
+Requires:       deepin-sound-theme
 
 Provides:       %{name}
 
@@ -24,7 +27,8 @@ GSettings deepin desktop-wide schemas
 sed -i "s#^picture-uri.*#picture-uri='file:///usr/share/backgrounds/deepin_default_background.jpg'#" overrides/x86/com.deepin.wrap.gnome.desktop.override
 # don't override GNOME defaults
 rm overrides/x86/{org.gnome.desktop,other}.override
-make
+
+%make_build
 
 %install
 %make_install PREFIX="%{_prefix}"
@@ -33,9 +37,11 @@ make
 rm -rf %{buildroot}
 
 %files
-%{_usr}/share/glib-2.0/schemas/*
+%{_datarootdir}/glib-2.0/schemas/*
 
 %changelog
+* Sat Mar 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.1-1
+- Update to version 3.1.1
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.13-1
 - Update to version 3.0.13
 * Sat Dec 10 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.12-1
