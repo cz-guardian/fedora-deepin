@@ -1,5 +1,5 @@
 Name:           startdde
-Version:        3.0.14.1
+Version:        3.1.2
 Release:        1%{?dist}
 Summary:        Starter of deepin desktop environment
 
@@ -10,18 +10,18 @@ Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 Requires:       deepin-daemon
 Requires:       deepin-wm-switcher
 BuildRequires:  cmake
-BuildRequires:  gcc-go
-BuildRequires:  libgo-devel
 BuildRequires:  coffee-script
-BuildRequires:  deepin-go-gir-generator
-BuildRequires:  deepin-dbus-factory
-BuildRequires:  deepin-go-lib
 BuildRequires:  deepin-api-devel
-BuildRequires:  webkitgtk-devel
-BuildRequires:  libcanberra-devel
+BuildRequires:  deepin-dbus-factory
+BuildRequires:  deepin-go-gir-generator
+BuildRequires:  deepin-go-lib
+BuildRequires:  golang
 BuildRequires:  golang-github-BurntSushi-xgb-devel
 BuildRequires:  golang-github-BurntSushi-xgbutil-devel
 BuildRequires:  golang-github-howeyc-fsnotify-devel
+BuildRequires:  libcanberra-devel
+BuildRequires:  libgo-devel
+BuildRequires:  webkitgtk-devel
 
 Provides:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -57,6 +57,8 @@ rm -rf %{buildroot}
 %{_datadir}/xsessions/*.desktop
 
 %changelog
+* Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.2-1
+- Updated to 3.1.2
 * Sat Jan 21 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.14.1-1
 - Updated to 3.0.14.1
 * Wed Dec 28 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.13-2
