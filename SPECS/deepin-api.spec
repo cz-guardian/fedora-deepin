@@ -11,8 +11,8 @@ Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 Requires:       deepin-desktop-base
 BuildRequires:  bzr
 BuildRequires:  cairo-devel
-BuildRequires:  deepin-gir-generator
-BuildRequires:  deepin-go-dbus-factory
+BuildRequires:  deepin-dbus-factory
+BuildRequires:  deepin-go-gir-generator
 BuildRequires:  deepin-go-lib
 BuildRequires:  gcc-go
 BuildRequires:  gdk-pixbuf2-xlib-devel
