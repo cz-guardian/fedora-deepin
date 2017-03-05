@@ -1,6 +1,6 @@
 Name:           deepin-metacity
-Version:        3.22.0
-Release:        2%{?dist}
+Version:        3.22.3
+Release:        1%{?dist}
 Summary:        2D window manager for Deepin
 License:        GPL
 URL:            https://github.com/linuxdeepin/%{name}
@@ -8,7 +8,6 @@ Source0:        %{url}/archive/%{version}.tar.gz#%{name}
 
 Requires:       dconf
 Requires:       deepin-desktop-schemas
-Requires:       libgtop2
 BuildRequires:  autoconf-archive
 BuildRequires:  bamf-devel
 BuildRequires:  glib2-devel
@@ -18,9 +17,9 @@ BuildRequires:  intltool
 BuildRequires:  itstool
 BuildRequires:  json-glib-devel
 BuildRequires:  libcanberra-devel
+BuildRequires:  libgtop2-devel
 BuildRequires:  libtool
 BuildRequires:  startup-notification-devel
-BuildRequires:  yelp-devel
 BuildRequires:  yelp-tools
 BuildRequires:  zenity
 
@@ -79,6 +78,8 @@ rm -rf %{buildroot}
 %{_libdir}/lib%{name}*.so
 
 %changelog
+* Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.22.3-1
+- Update to 3.22.3
 * Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.22.0-2
 - Rewrite of spec file
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.22.0-1
