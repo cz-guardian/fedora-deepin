@@ -2,8 +2,8 @@
 %global 		debug_package %{nil}
 
 Name:           deepin-%{srcname}
-Version:        0.5.3
-Release:        2%{?dist}
+Version:        0.5.5
+Release:        1%{?dist}
 Summary:        Deepin GoLang Library
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
@@ -45,6 +45,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.5-1
+- Update to version 0.5.5
 * Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.3-2
 - Rewrite of spec file
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.3-1
