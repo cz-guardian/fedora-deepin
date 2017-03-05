@@ -1,8 +1,8 @@
 %global         srcname dde-daemon
 
 Name:           deepin-daemon
-Version:        3.0.25.2
-Release:        2%{?dist}
+Version:        3.1.3
+Release:        1%{?dist}
 Summary:        Daemon handling the DDE session settings
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
@@ -32,8 +32,8 @@ Recommends:     NetworkManager-pptp-gnome
 Recommends:     NetworkManager-strongswan-gnome
 Recommends:     NetworkManager-vpnc-gnome
 BuildRequires:  deepin-api-devel
-BuildRequires:  deepin-dbus-factory
 BuildRequires:  deepin-go-gir-generator
+BuildRequires:  deepin-dbus-factory
 BuildRequires:  deepin-go-lib
 BuildRequires:  gettext
 BuildRequires:  git
@@ -138,6 +138,8 @@ rm -rf %{buildroot}
 %{_var}/cache/appearance/thumbnail/*
 
 %changelog
+* Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.3-1
+- Update to version 3.1.3
 * Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.25.2-1
 - Rewrite of spec file
 * Sun Dec 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.25.2-1
