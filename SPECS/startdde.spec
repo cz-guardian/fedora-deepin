@@ -43,14 +43,12 @@ export GOPATH="%{gopath}"
 %install
 %make_install
 
-# Fix broken symlink
-rm -f %{buildroot}%{_unitdir}/multi-user.target.wants/dde-readahead.service
-ln -s %{_unitdir}/dde-readahead.service %{buildroot}%{_unitdir}/multi-user.target.wants/dde-readahead.service
-
 %clean
 rm -rf %{buildroot}
 
 %files
+%doc README.md
+%license LICENSE
 %{_bindir}/*
 %{_libexecdir}/*
 %{_unitdir}/*
