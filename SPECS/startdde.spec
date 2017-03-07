@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+
 Name:           startdde
 Version:        3.1.2
 Release:        1%{?dist}
@@ -32,7 +34,8 @@ Provides:       %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup %{version}.tar.gz#%{name}
 # Fix lib path
-sed -i 's;/usr/lib;%{_libexecdir};g' Makefile session.go dde-readahead/dde-readahead.service
+sed -i '/deepin-daemon/s|lib|libexec|g' Makefile session.go \
+  dde-readahead/dde-readahead.service
 # Fix systemd path
 sed -i 's;/lib/systemd;/usr/lib/systemd;g' Makefile
 
@@ -44,7 +47,7 @@ export GOPATH="%{gopath}"
 %make_install
 
 %clean
-rm -rf %{buildroot}
+#rm -rf %{buildroot}
 
 %files
 %doc README.md
