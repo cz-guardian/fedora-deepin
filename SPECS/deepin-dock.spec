@@ -1,7 +1,7 @@
 %global 		srcname dde-dock
 
 Name:           deepin-dock
-Version:        4.0.8
+Version:        4.1.4
 Release:        1%{?dist}
 Summary:        Deepin desktop-environment - Dock module
 License:        GPL3
@@ -39,11 +39,8 @@ Header files and libraries for %{name}
 %setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version}
 
 sed -i 's/lrelease/lrelease-qt5/g' translate_generation.sh
-
-%ifarch x86_64
-  sed -i '/target.path/s|lib|%{_lib}|' plugins/*/*.pro
-  sed -i 's|lib|%{_lib}|' frame/controller/dockpluginloader.cpp
-%endif
+sed -i '/target.path/s|lib|%{_lib}|' plugins/*/*.pro
+sed -i 's|lib|%{_lib}|' frame/controller/dockpluginloader.cpp
 
 %build
 %qmake_qt5 PREFIX=%{_prefix}
@@ -64,6 +61,8 @@ rm -rf %{buildroot}
 %{_includedir}/*
 
 %changelog
+* Thu Mar 09 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.1.4-1
+- Update to version 4.1.4
 * Sat Jan 21 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.8-1
 - Update to version 4.0.8
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.7-1
