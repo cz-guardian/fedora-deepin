@@ -50,25 +50,6 @@ if [ $1 -eq 1 ]; then
     x-terminal-emulator %{_bindir}/%{name} 20
 fi
 
-%triggerin -- konsole5 %_terminals
-if [ $1 -ge 1 ]; then
-  PRI=20
-  for i in konsole %{_terminals}; do
-    PRI=$((PRI-1))
-    test -x %{_bindir}/$i && \
-    %{_sbindir}/alternatives --install %{_bindir}/x-terminal-emulator \
-      x-terminal-emulator %{_bindir}/$i $PRI
-  done
-fi
-
-%triggerpostun -- konsole5 %_terminals
-if [ $2 -eq 0 ]; then
-  for i in konsole %{_terminals}; do
-    test -x %{_bindir}/$i || \
-    %{_sbindir}/alternatives --remove x-terminal-emulator %{_bindir}/$i &>/dev/null ||:
-  done
-fi
-
 %clean
 rm -rf %{buildroot}
 
