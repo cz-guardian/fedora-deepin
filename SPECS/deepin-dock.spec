@@ -44,7 +44,8 @@ sed -i 's|lib|%{_lib}|' frame/controller/dockpluginloader.cpp
 
 %build
 %qmake_qt5 PREFIX=%{_prefix}
-%make_build
+#%make_build
+make
 
 %install
 %make_install INSTALL_ROOT=%{buildroot}
