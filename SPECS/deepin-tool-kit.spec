@@ -1,5 +1,5 @@
 Name:           deepin-tool-kit
-Version:        0.2.4
+Version:        0.2.5
 Release:        1%{?dist}
 Summary:        Base development tool of all C++/Qt Developer work on Deepin
 License:        GPL3
@@ -57,6 +57,8 @@ rm -rf %{buildroot}
 %{_libdir}/lib*.so
 
 %changelog
+* Thu Mar 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.2.5-1
+- Updated package to 0.2.5
 * Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.2.4-1
 - Updated package to 0.2.4
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.2.1-2
