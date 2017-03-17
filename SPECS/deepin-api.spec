@@ -1,7 +1,7 @@
 %global     srcname dde-api
 
 Name:           deepin-api
-Version:        3.1.2
+Version:        3.1.4
 Release:        1%{?dist}
 Summary:        Deepin GoLang API Library
 License:        GPL3
@@ -83,6 +83,8 @@ rm -rf %{buildroot}
 %{gopath}/src/pkg.deepin.io/dde/api/
 
 %changelog
+* Fri Mar 17 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.4-1
+- Update to version 3.1.4
 * Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.2-1
 - Update to version 3.1.2
 * Sat Jan 21 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.16.1-2
