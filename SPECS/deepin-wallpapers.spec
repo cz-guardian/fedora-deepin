@@ -1,5 +1,5 @@
 Name:           deepin-wallpapers
-Version:        1.3
+Version:        1.4
 Release:        1%{?dist}
 Summary:        Deepin Wallpapers provides wallpapers of dde
 
@@ -35,5 +35,7 @@ rm -rf %{buildroot}
 %{_localstatedir}/*
 
 %changelog
-* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Fri Mar 17 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.4-1
+- Update to 1.4
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.3-1
 - Initial package build
