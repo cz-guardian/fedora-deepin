@@ -2,7 +2,7 @@
 
 Name:           deepin-api
 Version:        3.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deepin GoLang API Library
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
@@ -83,6 +83,8 @@ rm -rf %{buildroot}
 %{gopath}/src/pkg.deepin.io/dde/api/
 
 %changelog
+* Sat Mar 18 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.4-2
+- Rebuild
 * Fri Mar 17 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.4-1
 - Update to version 3.1.4
 * Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.2-1
