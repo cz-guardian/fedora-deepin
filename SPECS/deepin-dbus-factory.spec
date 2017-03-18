@@ -2,7 +2,7 @@
 %global 		debug_package %{nil}
 
 Name:           deepin-%{srcname}
-Version:        3.1.0
+Version:        3.1.2
 Release:        1%{?dist}
 Summary:        QML DBus factory for DDE
 License:        GPL3
@@ -43,6 +43,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Mar 18 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.2-1
+- Update to version 3.1.2
 * Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.0-1
 - Update to version 3.1.0
 * Wed Jan 25 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.9-2
