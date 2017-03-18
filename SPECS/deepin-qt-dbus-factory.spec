@@ -1,7 +1,7 @@
 %global     srcname dde-qt-dbus-factory
 
 Name:           deepin-qt-dbus-factory
-Version:        0.0.4
+Version:        0.0.6
 Release:        1%{?dist}
 Summary:        A repository stores auto-generated Qt5 dbus code
 License:        GPL3
@@ -51,6 +51,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Mar 19 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.0.6-1
+- Update to version 0.0.6
 * Wed Mar 08 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.0.4-1
 - Update to version 0.0.4
 * Sat Jan 21 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.0.3-1
