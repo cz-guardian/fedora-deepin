@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           startdde
-Version:        3.1.2
+Version:        3.1.5
 Release:        1%{?dist}
 Summary:        Starter of deepin desktop environment
 
@@ -58,6 +58,8 @@ export GOPATH="%{gopath}"
 %{_datadir}/xsessions/*.desktop
 
 %changelog
+* Sat Mar 18 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.5-1
+- Updated to 3.1.5
 * Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.2-1
 - Updated to 3.1.2
 * Sat Jan 21 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.14.1-1
