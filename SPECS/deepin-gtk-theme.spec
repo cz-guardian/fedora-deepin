@@ -1,5 +1,5 @@
 Name:           deepin-gtk-theme
-Version:        15.12.8
+Version:        17.10.0
 Release:        1%{?dist}
 Summary:        Deepin GTK Theme
 
@@ -30,5 +30,7 @@ rm -rf %{buildroot}
 %{_usr}/share/themes/*
 
 %changelog
-* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek
+* Sat Mar 18 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 17.10.0-1
+- Update to 17.10.0
+* Sun Sep 18 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 15.12.8-1
 - Initial package build
