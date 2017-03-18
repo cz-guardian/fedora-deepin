@@ -1,5 +1,5 @@
 Name:           deepin-desktop-base
-Version:        2016.11.29
+Version:        2016.11.30
 Release:        1%{?dist}
 Summary:        Base component for Deepin
 License:        GPL3
@@ -40,11 +40,14 @@ rm -r %{buildroot}/usr/share/python-apt
 rm -rf %{buildroot}
 
 %files
+%{_localstatedir}/cache/image-blur/*.jpg
 %{_sysconfdir}/*
 %{_usr}/lib/*
 %{_usr}/share/*
 
 %changelog
+* Fri Mar 17 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.11.30-1
+- Update package to version 2016.11.30
 * Sun Jan 22 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.11.29-1
 - Update package to version 2016.11.29
 * Fri Dec 16 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.11.28-1
