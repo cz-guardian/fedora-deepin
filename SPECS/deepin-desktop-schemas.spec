@@ -1,5 +1,5 @@
 Name:           deepin-desktop-schemas
-Version:        3.1.1
+Version:        3.1.3
 Release:        1%{?dist}
 Summary:        GSettings deepin desktop-wide schemas
 License:        GPL3
@@ -41,6 +41,8 @@ rm -rf %{buildroot}
 %{_datarootdir}/glib-2.0/schemas/*
 
 %changelog
+* Sat Mar 18 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.3-1
+- Update to version 3.1.3
 * Sat Mar 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.1-1
 - Update to version 3.1.1
 * Wed Jan 25 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.13-2
