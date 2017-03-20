@@ -1,5 +1,5 @@
 Name:           deepin-metacity
-Version:        3.22.3
+Version:        3.22.5
 Release:        1%{?dist}
 Summary:        2D window manager for Deepin
 License:        GPL
@@ -78,6 +78,8 @@ rm -rf %{buildroot}
 %{_libdir}/lib%{name}*.so
 
 %changelog
+* Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.22.5-1
+- Update to 3.22.5
 * Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.22.3-1
 - Update to 3.22.3
 * Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.22.0-2
