@@ -1,8 +1,8 @@
 %global         srcname dde-desktop
 
 Name:           deepin-desktop
-Version:        4.0.1
-Release:        2%{?dist}
+Version:        4.0.5
+Release:        1%{?dist}
 Summary:        Deepin desktop-environment - Desktop module
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
@@ -58,6 +58,8 @@ rm -rf %{buildroot}
 %{_datadir}/dbus-1/services/*.service
 
 %changelog
+* Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.5-1
+- Update to version 4.0.5
 * Fri Jan 27 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.1-2
 - Dependency fix
 * Sat Jan 21 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.1-1
