@@ -47,7 +47,7 @@ export GOPATH="%{gopath}"
 %make_install
 
 %clean
-#rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %doc README.md
@@ -58,7 +58,7 @@ export GOPATH="%{gopath}"
 %{_datadir}/xsessions/*.desktop
 
 %changelog
-* Sat Mar 18 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.5-1
+* Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.5-1
 - Updated to 3.1.5
 * Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.2-1
 - Updated to 3.1.2
