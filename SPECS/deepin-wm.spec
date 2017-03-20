@@ -1,5 +1,5 @@
 Name:           deepin-wm
-Version:        1.9.5
+Version:        1.9.8
 Release:        1%{?dist}
 Summary:        Deepin Window Manager
 License:        GPL3
@@ -12,6 +12,7 @@ Requires:       libcanberra-gtk3
 BuildRequires:  bamf-devel
 BuildRequires:  clutter-gtk-devel
 BuildRequires:  deepin-mutter-devel
+BuildRequires:  gala-devel
 BuildRequires:  gnome-common
 BuildRequires:  gnome-desktop3-devel
 BuildRequires:  granite-devel
@@ -80,6 +81,8 @@ rm -rf %{buildroot}
 %{_libdir}/lib*.so
 
 %changelog
+* Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.9.8-1
+- Update to version 1.9.8
 * Sat Mar 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.9.5-1
 - Update to version 1.9.5
 * Sat Jan 21 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.9.2-1
