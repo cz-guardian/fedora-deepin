@@ -1,7 +1,7 @@
 %global 		    srcname dde-file-manager
 
 Name:           deepin-file-manager
-Version:        1.4.1
+Version:        1.4.10
 Release:        1%{?dist}
 Summary:        Deepin File Manager
 License:        GPL3
@@ -15,6 +15,7 @@ Requires:       file-roller
 Requires:       gvfs-client
 Requires:       xdg-user-dirs
 BuildRequires:  atk-devel
+BuildRequires:  deepin-dock-devel
 BuildRequires:  deepin-tool-kit-devel
 BuildRequires:  dtksettings-devel
 BuildRequires:  ffmpegthumbnailer-devel
@@ -49,6 +50,8 @@ Header files and libraries for %{name}
 %prep
 %autosetup %{version}.tar.gz#%{name} -n %{srcname}-%{version}
 sed -i 's|-0-2||g' %{srcname}*/*.pro usb-device-formatter/usb-device-formatter.pro
+sed -i -e 's/dtkbase-0-2/dtkbase/' -e 's/dtkwidget-0-2/dtkwidget/' dde-dock-plugins/disk-mount/disk-mount.pro
+sed -i '/target.path/s|lib|%{_lib}|' dde-dock-plugins/*/*.pro
 sed -i 's|lrelease|lrelease-qt5|g' %{srcname}*/generate_translations.sh usb-device-formatter/generate_translations.sh
 sed -i 's|qmake|qmake-qt5|g' vendor/prebuild
 
@@ -75,6 +78,7 @@ rm -rf %{buildroot}
 %{_datadir}/polkit-1/actions/*.policy
 %{_datadir}/usb-device-formatter/
 %{_libdir}/*.so.*
+%{_libdir}/dde-dock/plugins/*.so
 %{_sysconfdir}/dbus-1/system.d/*.conf
 %{_sysconfdir}/xdg/autostart/*.desktop
 
@@ -84,6 +88,8 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.4.10-1
+- Update package to 1.4.10
 * Thu Mar 09 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.4.1-1
 - Update package to 1.4.1
 * Sun Jan 22 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.3.8-1
