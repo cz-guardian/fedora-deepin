@@ -1,7 +1,7 @@
 %global         srcname dde-launcher
 
 Name:           deepin-launcher
-Version:        4.0.4
+Version:        4.0.9
 Release:        1%{?dist}
 Summary:        Deepin desktop-environment - Launcher module
 
@@ -49,8 +49,11 @@ rm -rf %{buildroot}
 %{_bindir}/*
 %{_datadir}/%{srcname}/*
 %{_datadir}/dbus-1/services/*.service
+%{_datadir}/icons/hicolor/scalable/apps/*.svg
 
 %changelog
+* Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.9-1
+- Updated to version 4.0.9
 * Sun Jan 22 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.4-1
 - Updated to version 4.0.4
 * Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.3-1
