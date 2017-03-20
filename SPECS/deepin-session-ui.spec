@@ -1,7 +1,7 @@
 %global         srcname dde-session-ui
 
 Name:           deepin-session-ui
-Version:        3.0.23
+Version:        4.0.1
 Release:        1%{?dist}
 Summary:        Deepin desktop-environment - Session UI module
 License:        GPL3
@@ -77,6 +77,8 @@ rm -rf %{buildroot}
 %{_datadir}/xgreeters/*.desktop
 
 %changelog
+* Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.1-1
+- Update to version 4.0.1
 * Sun Jan 22 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.23-1
 - Update to version 3.0.23
 * Sun Dec 11 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.22-1
