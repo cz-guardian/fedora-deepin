@@ -1,8 +1,8 @@
 %global 		srcname go-gir-generator
 
 Name:           deepin-%{srcname}
-Version:        0.9.6
-Release:        4%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        Generate static golang bindings for GObject
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
@@ -16,7 +16,7 @@ Provides:       %{name}
 Provides:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       %{srcname}
 Provides:       %{srcname}%{?_isa} = %{version}-%{release}
-Obsoletes: 		%{srcname} < %{version}-%{release}
+Obsoletes: 		  %{srcname} < %{version}-%{release}
 Obsoletes:      %{srcname}%{?_isa} < %{version}-%{release}
 
 %description
@@ -42,6 +42,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Apr 08 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 1.0.1-1
+- Update to version 1.0.1
 * Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.9.6-4
 - Rewrite of spec file
 * Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.9.6-3
