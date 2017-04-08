@@ -2,7 +2,7 @@
 %global 		debug_package %{nil}
 
 Name:           deepin-%{srcname}
-Version:        0.5.6
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Deepin GoLang Library
 License:        GPL3
@@ -17,7 +17,7 @@ Provides:       %{name}
 Provides:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       %{srcname}
 Provides:       %{srcname}%{?_isa} = %{version}-%{release}
-Obsoletes: 		%{srcname} < %{version}-%{release}
+Obsoletes: 		  %{srcname} < %{version}-%{release}
 Obsoletes:      %{srcname}%{?_isa} < %{version}-%{release}
 
 %description
@@ -45,6 +45,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Apr 08 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 1.0.1-1
+- Update to version 1.0.1
 * Fri Mar 17 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.6-1
 - Update to version 0.5.6
 * Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.5.5-1
