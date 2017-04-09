@@ -1,5 +1,5 @@
 Name:           deepin-notifications
-Version:        3.0.2
+Version:        3.0.3
 Release:        1%{?dist}
 Summary:        System notifications for linuxdeepin desktop environment
 License:        GPL3
@@ -39,6 +39,8 @@ rm -rf %{buildroot}
 %{_datadir}/dbus-1/services/*
 
 %changelog
+* Sun Apr 09 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.3-1
+- Update to 3.0.3
 * Sat Mar 18 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.2-1
 - Updated to 3.0.2
 * Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.0-1
