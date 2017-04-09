@@ -1,7 +1,7 @@
 %global         srcname dde-daemon
 
 Name:           deepin-daemon
-Version:        3.1.5
+Version:        3.1.7
 Release:        1%{?dist}
 Summary:        Daemon handling the DDE session settings
 License:        GPL3
@@ -138,6 +138,8 @@ rm -rf %{buildroot}
 %{_var}/cache/appearance/thumbnail/*
 
 %changelog
+* Sun Apr 09 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.1.7-1
+- Update to 3.1.7
 * Sat Mar 18 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.5-1
 - Update to version 3.1.5
 * Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.3-1
