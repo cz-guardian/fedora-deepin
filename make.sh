@@ -67,3 +67,9 @@ function mockBuild()
 
 buildPackage $PACKAGE
 echo "RESULT IN: ${RESULT_DIR}"
+
+#
+# Notes
+#
+# Run script as mock builder
+# $ bash make.sh ./SPECS/file.spec fedora-25-x86_64 "mock" deepin-test
