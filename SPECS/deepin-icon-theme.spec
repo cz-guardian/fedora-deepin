@@ -1,5 +1,5 @@
 Name:           deepin-icon-theme
-Version:        15.12.35
+Version:        15.12.39
 Release:        1%{?dist}
 Summary:        Deepin Icons
 License:        GPL3
@@ -35,6 +35,8 @@ rm -rf %{buildroot}
 %{_datadir}/icons/Sea/*
 
 %changelog
+* Wed Apr 19 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 15.12.39-1
+- Update to 15.12.39
 * Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 15.12.35-1
 - Update to 15.12.35
 * Fri Mar 03 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 15.12.33-1
