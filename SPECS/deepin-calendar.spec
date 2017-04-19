@@ -1,8 +1,8 @@
 %global 		srcname dde-calendar
 
 Name:           deepin-calendar
-Version:        1.0.3
-Release:        2%{?dist}
+Version:        1.0.7
+Release:        1%{?dist}
 Summary:        Calendar for Deepin Desktop Environment
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
@@ -41,6 +41,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Apr 19 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.7-1
+- Update to version 1.0.7
 * Tue Jan 24 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.3-2
 - Rename to deepin-calendar
 * Mon Dec 19 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.3-1
