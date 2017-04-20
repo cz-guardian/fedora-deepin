@@ -1,7 +1,7 @@
 %global 		srcname dde-dock
 
 Name:           deepin-dock
-Version:        4.1.9
+Version:        4.2.1
 Release:        1%{?dist}
 Summary:        Deepin desktop-environment - Dock module
 License:        GPL3
@@ -62,6 +62,8 @@ rm -rf %{buildroot}
 %{_includedir}/*
 
 %changelog
+* Thu Apr 20 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 4.2.1-1
+- Updated to 4.2.1
 * Sun Apr 09 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 4.1.9-1
 - Updated to 4.1.9
 * Sun Mar 19 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.1.7-1
