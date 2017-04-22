@@ -1,5 +1,5 @@
 Name:           deepin-menu
-Version:        3.0.10
+Version:        3.1.2
 Release:        1%{?dist}
 Summary:        Deepin menu service for building beautiful menus
 License:        GPL3
@@ -73,6 +73,8 @@ rm -rf %{buildroot}
 %{python_sitelib}/*
 
 %changelog
+* Sat Apr 22 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.1.2-1
+- Update package to 3.1.2
 * Thu Mar 09 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.10-1
 - Update package to 3.0.10
 * Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.7-2
