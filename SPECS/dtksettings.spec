@@ -1,5 +1,5 @@
 Name:           dtksettings
-Version:        0.1.5
+Version:        0.1.6
 Release:        1%{?dist}
 Summary:        DtkSettings is a powerfull tool to generation config form json.
 License:        GPL3
@@ -47,6 +47,8 @@ rm -rf %{buildroot}
 %{_libdir}/lib*.so
 
 %changelog
+* Sat Apr 22 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.1.6-1
+- Update to 0.1.6
 * Sat Mar 18 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.1.5-1
 - Update to 0.1.5
 * Sun Mar 05 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.1.3-1
