@@ -1,7 +1,7 @@
 %global 		srcname dde-control-center
 
 Name:           deepin-control-center
-Version:        4.0.10
+Version:        4.1.2
 Release:        1%{?dist}
 Summary:        New control center for linux deepin
 License:        GPL3
@@ -66,6 +66,8 @@ rm -rf %{buildroot}
 %{_datadir}/%{srcname}/*
 
 %changelog
+* Sat Apr 22 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 4.1.2-1
+- Update to version 4.1.2
 * Fri Mar 17 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.10-1
 - Update to version 4.0.10
 * Mon Jan 23 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.2-1
