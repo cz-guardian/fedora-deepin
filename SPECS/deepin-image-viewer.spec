@@ -1,5 +1,5 @@
 Name:           deepin-image-viewer
-Version:        1.2.12
+Version:        1.2.13
 Release:        1%{?dist}
 Summary:        Deepin Image Viewer
 License:        GPL3
@@ -65,6 +65,8 @@ rm -rf %{buildroot}
 %{_qt5_plugindir}/imageformats/*.so
 
 %changelog
+* Fri Apr 21 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 1.2.13-1
+- Update to version 1.2.13
 * Sun Apr 09 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 1.2.12-1
 - Update to version 1.2.12
 * Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.2.1-2
