@@ -1,7 +1,7 @@
 %global srcname qt5integration
 
 Name:           deepin-%{srcname}
-Version:        0.1.3
+Version:        0.1.7
 Release:        1%{?dist}
 Summary:        Qt platform theme integration plugins for DDE
 License:        GPL3
@@ -63,6 +63,8 @@ rm -rf %{buildroot}
 %{_qt5_plugindir}/styles/*.so
 
 %changelog
+* Sun Apr 23 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek - 0.1.7-1
+- Updated to 0.1.7
 * Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek - 0.1.3-1
 - Updated to 0.1.3
 * Mon Jan 23 2017 Jaroslav <cz.guardian@gmail.com> Stepanek - 0.0.6-1
