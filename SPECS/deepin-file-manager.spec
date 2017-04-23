@@ -2,7 +2,7 @@
 
 Name:           deepin-file-manager
 Version:        1.4.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deepin File Manager
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
@@ -88,6 +88,8 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sun Apr 23 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.4.10-2
+- Bump version because of dtksettings update
 * Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.4.10-1
 - Update package to 1.4.10
 * Thu Mar 09 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.4.1-1
