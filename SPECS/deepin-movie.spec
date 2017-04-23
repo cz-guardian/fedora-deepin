@@ -1,6 +1,6 @@
 Name:           deepin-movie
-Version:        2.2.11
-Release:        2%{?dist}
+Version:        2.2.13
+Release:        1%{?dist}
 Summary:        Movie player based on QtAV
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{name}
@@ -79,6 +79,8 @@ rm -rf %{buildroot}
 %{_datadir}/icons/hicolor/*
 
 %changelog
+* Sun Apr 23 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.2.13-1
+- Update to 2.2.13
 * Tue Jan 24 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.2.11-2
 - Fix broken python-bottle dependency
 * Tue Jan 24 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.2.11-1
