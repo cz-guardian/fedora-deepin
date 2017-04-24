@@ -1,5 +1,5 @@
 Name:           deepin-terminal
-Version:        2.2.6
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        Default terminal emulation application for Deepin
 License:        GPL3
@@ -61,6 +61,8 @@ rm -rf %{buildroot}
 %{_datadir}/applications/*.desktop
 
 %changelog
+* Mon Apr 24 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 2.3.1-1
+- Updated to version 2.3.1
 * Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.2.6-1
 - Updated to version 2.2.6
 * Thu Mar 09 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.2.2-1
