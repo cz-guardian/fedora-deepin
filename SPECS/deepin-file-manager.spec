@@ -1,8 +1,8 @@
 %global 		    srcname dde-file-manager
 
 Name:           deepin-file-manager
-Version:        1.4.10
-Release:        2%{?dist}
+Version:        4.1.5
+Release:        1%{?dist}
 Summary:        Deepin File Manager
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
@@ -20,6 +20,7 @@ BuildRequires:  deepin-tool-kit-devel
 BuildRequires:  dtksettings-devel
 BuildRequires:  ffmpegthumbnailer-devel
 BuildRequires:  file-devel
+BuildRequires:  git
 BuildRequires:  gsettings-qt-devel
 BuildRequires:  gtk2-devel
 BuildRequires:  libsecret-devel
@@ -31,6 +32,7 @@ BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  qt5-qtx11extras-devel
+BuildRequires:  xcb-util-wm-devel
 
 Provides:       %{name}%{?_isa} = %{version}-%{release}
 Obsoletes:      %{srcname}%{?_isa} < %{version}-%{release}
@@ -88,6 +90,8 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Apr 24 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 4.1.5-1
+- Update package to 4.1.5
 * Sun Apr 23 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.4.10-2
 - Bump version because of dtksettings update
 * Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.4.10-1
