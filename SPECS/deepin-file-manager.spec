@@ -2,7 +2,7 @@
 
 Name:           deepin-file-manager
 Version:        4.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deepin File Manager
 License:        GPL3
 URL:            https://github.com/linuxdeepin/%{srcname}
@@ -61,6 +61,10 @@ sed -i 's|qmake|qmake-qt5|g' vendor/prebuild
 %qmake_qt5 PREFIX=%{_prefix} QMAKE_CFLAGS_ISYSTEM=
 %make_build
 
+# Clean the conflicting files with dde-desktop
+rm -f ./dde-desktop/data/applications/dde-computer.desktop
+rm -f ./dde-desktop/data/applications/dde-trash.desktop
+
 %install
 %make_install INSTALL_ROOT=%{buildroot}
 
@@ -90,6 +94,8 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Apr 27 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 4.1.5-2
+- Removed conflicting desktop files
 * Mon Apr 24 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 4.1.5-1
 - Update package to 4.1.5
 * Sun Apr 23 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.4.10-2
