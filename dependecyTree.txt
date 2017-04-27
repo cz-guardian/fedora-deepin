@@ -53,6 +53,5 @@
 ./SPECS/deepin-wm.spec
 ./SPECS/deepin-wm-switcher.spec
 ./SPECS/startdde.spec
-./SPECS/deepin-desktop.spec
 ./SPECS/deepin-launcher.spec
 ./SPECS/deepin-session-ui.spec

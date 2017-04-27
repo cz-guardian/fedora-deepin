@@ -21,7 +21,6 @@ This repository contains the following .specs for integrating the deepin desktop
 * deepin-control-center
 * deepin-daemon
 * deepin-dbus-factory
-* deepin-desktop
 * deepin-desktop-base
 * deepin-desktop-schemas
 * deepin-dock
