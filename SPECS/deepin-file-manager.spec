@@ -36,8 +36,8 @@ BuildRequires:  xcb-util-wm-devel
 
 Provides:       %{name}%{?_isa} = %{version}-%{release}
 Obsoletes:      %{srcname}%{?_isa} < %{version}-%{release}
-Provides:       deepin-desktop%{?_isa} = %{version}-%{release}
-Obsoletes:      deepin-desktop%{?_isa} < %{version}-%{release}
+Provides:       deepin-desktop
+Obsoletes:      deepin-desktop =< %{version}-%{release}
 
 %description
 %{summary}
