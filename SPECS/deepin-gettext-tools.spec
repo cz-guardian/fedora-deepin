@@ -1,48 +1,67 @@
-%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%global debug_package %{nil}
-# Broken perl dependency
-%global __requires_exclude ^perl
-
 Name:           deepin-gettext-tools
-Version:        1.0.4
-Release:        2%{?dist}
+Version:        1.0.7
+Release:        1%{?dist}
 Summary:        Deepin Gettext Tools
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/deepin-gettext-tools
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  perl(Config::Tiny)
+BuildRequires:  perl(Exporter::Tiny)
+BuildRequires:  perl(XML::LibXML)
+BuildRequires:  perl(XML::LibXML::PrettyPrint)
 Requires:       gettext
-Requires:       python
-BuildRequires:  python-devel
-
-Provides:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       qt5-linguist
+Requires:       perl(Config::Tiny)
+Requires:       perl(Exporter::Tiny)
+Requires:       perl(XML::LibXML)
+Requires:       perl(XML::LibXML::PrettyPrint)
 
 %description
-%{description}
+The tools of gettext function wrapper.
 
+desktop-ts-convert - handling desktop file translations.
+policy-ts-convert - convert PolicyKit Policy file to the ts file.
+update-pot - scan msgid and generate pot file according to the ini file.
+generate-mo - scan po files and generate mo files according to the ini file.
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
-# Fix python version
-find -iname "*.py" | xargs sed -i 's=\(^#! */usr/bin.*\)python *$=\1python2='
+%setup -q
 
-sed -e 's/sudo cp/cp/' -i src/generate_mo.py
-sed -e 's/qmake/qmake-qt5/' -e '/lupdate/d' -i Makefile
+# fix shebang
+find -iname "*.py" | xargs sed -i '1s|.*|#!%{__python3}|'
+sed -i '1s|.*|#!%{__perl}|' src/desktop_ts_convert.pl
+
+sed -i 's|sudo cp|cp|' src/generate_mo.py
+sed -i 's|lconvert|lconvert-qt5|; s|deepin-lupdate|lupdate-qt5|' src/update_pot.py
 
 %build
 
 %install
-%make_install
+install -d %{buildroot}%{_bindir}
+install -m755 src/desktop_ts_convert.pl %{buildroot}%{_bindir}/deepin-desktop-ts-convert
+install -m755 src/policy_ts_convert.py %{buildroot}%{_bindir}/deepin-policy-ts-convert
+install -m755 src/generate_mo.py %{buildroot}%{_bindir}/deepin-generate-mo
+install -m755 src/update_pot.py %{buildroot}%{_bindir}/deepin-update-pot
 
-%clean
-rm -rf %{buildroot}
+%check
+/bin/perl src/desktop_ts_convert.pl --help
+/bin/python3 src/generate_mo.py --help
+/bin/python3 src/update_pot.py --help
 
 %files
-%{_bindir}/*
-%{_prefix}/lib/*
-
+%doc README.md
+%license LICENSE
+%{_bindir}/deepin-desktop-ts-convert
+%{_bindir}/deepin-policy-ts-convert
+%{_bindir}/deepin-update-pot
+%{_bindir}/deepin-generate-mo
 
 %changelog
+* Tue Jan 02 2018 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.7-1
+- Update to version 1.0.7
 * Tue Jan 24 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.4-2
 - Fixed broken perl dependency
 * Mon Jan 16 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.0.4-1
