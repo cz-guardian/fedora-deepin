@@ -1,31 +1,43 @@
-%global 		srcname dbus-factory
-%global 		debug_package %{nil}
+%global   debug_package   %{nil}
+%global   repo            dbus-factory
+%global   import_path     dbus
 
-Name:           deepin-%{srcname}
-Version:        3.1.4
+Name:           golang-deepin-%{repo}
+Version:        3.1.12
 Release:        1%{?dist}
-Summary:        QML DBus factory for DDE
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{srcname}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+Summary:        Golang DBus factory for Deepin Desktop Environment
+License:        GPLv3+
+URL:            https://github.com/linuxdeepin/dbus-factory
+Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 
-BuildRequires:  deepin-go-dbus-generator
-BuildRequires:  deepin-go-lib
-BuildRequires:  gcc-go
+# e.g. el6 has ppc64 arch without gcc-go, so EA tag is required
+ExclusiveArch:  %{?go_arches:%{go_arches}}%{!?go_arches:%{ix86} x86_64 %{arm}}
+# If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
+BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 
-Provides:       %{name}
-Provides:       %{srcname}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       %{srcname}%{?_isa} = %{version}-%{release}
-Obsoletes: 		%{srcname} < %{version}-%{release}
-Provides:       %{srcname}%{?_isa} < %{version}-%{release}
+BuildRequires:  golang(pkg.deepin.io/lib)
+BuildRequires:  deepin-dbus-generator
+BuildRequires:  jq
+BuildRequires:  libxml2
+Provides:       deepin-go-%{repo} = %{version}-%{release}
+Obsoletes:      deepin-go-%{repo} < %{version}-%{release}
 
 %description
-%{summary}
+Golang DBus factory for Deepin Desktop Environment.
 
+%package devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description devel
+%{summary}.
+
+This package contains library source intended for
+building other packages which use import path with
+%{import_path} prefix.
 
 %prep
-%setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version}
+%setup -q -n %{repo}-%{version}
 
 %build
 %make_build
@@ -33,16 +45,14 @@ Provides:       %{srcname}%{?_isa} < %{version}-%{release}
 %install
 %make_install GOPATH=%{gopath}
 
-%clean
-rm -rf %{buildroot}
-
-%files
-%defattr(-,root,root,-)
+%files devel
 %doc README.md
-%{gopath}/src/dbus/*
-
+%license LICENSE
+%{gopath}/src/dbus/
 
 %changelog
+* Tue Jan 02 2018 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.1.12-1
+- Update to version 3.1.12
 * Wed Apr 19 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.1.4-1
 - Update to version 3.1.4
 * Sat Apr 08 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.1.3-1
