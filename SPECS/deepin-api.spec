@@ -99,10 +99,10 @@ building other packages which use import path with
 %prep
 %setup -q -n %{repo}-%{version}
 
-sed -i 's|/usr/lib|%{_libexecdir}|' misc/*services/*.service \
+sed -i -e 's|/usr/lib|%{_libexecdir}|' misc/*services/*.service \
     misc/systemd/system/deepin-shutdown-sound.service \
     lunar-calendar/main.go \
-    thumbnails/gtk/gtk.go
+    thumbnails/gtk/gtk.go 
 
 sed -i 's|PREFIX}${libdir|LIBDIR|; s|libdir|LIBDIR|' Makefile
 
@@ -140,6 +140,7 @@ fi
 %{_datadir}/dbus-1/system-services/*.service
 %{_datadir}/dbus-1/system.d/*.conf
 %{_datadir}/icons/hicolor/*/actions/*
+%{_datadir}/dde-api/data/pkg_depends
 %{_polkit_qt_policydir}/com.deepin.api.locale-helper.policy
 
 %files -n golang-%{name}-devel
