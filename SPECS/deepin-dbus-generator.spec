@@ -1,36 +1,30 @@
-%global 		srcname go-dbus-generator
-%global 		debug_package %{nil}
+%global repo go-dbus-generator
 
-Name:           deepin-%{srcname}
-Version:        0.6.5
-Release:        5%{?dist}
+Name:           deepin-dbus-generator
+Version:        0.6.6
+Release:        1%{?dist}
 Summary:        Convert dbus interfaces to go-lang or qml wrapper code
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{srcname}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+License:        GPLv3+
+URL:            https://github.com/linuxdeepin/go-dbus-generator
+Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 
-BuildRequires:  deepin-go-lib
+# e.g. el6 has ppc64 arch without gcc-go, so EA tag is required
+ExclusiveArch:  %{?go_arches:%{go_arches}}%{!?go_arches:%{ix86} x86_64 aarch64 %{arm}}
 BuildRequires:  gcc-go
-BuildRequires:  golang-gopkg-check-devel
+BuildRequires:  golang(gopkg.in/check.v1)
+BuildRequires:  golang(pkg.deepin.io/lib)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtdeclarative-devel
-
-Provides:       %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       %{srcname}
-Provides:       %{srcname}%{?_isa} = %{version}-%{release}
-Obsoletes: 		%{srcname} < %{version}-%{release}
+BuildRequires:  pkgconfig(Qt5)
+BuildRequires:  pkgconfig(Qt5Qml)
 
 %description
-%{summary}
-
+Static dbus binding generator for dlib.
 
 %prep
-%setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version} 
+%setup -q -n %{repo}-%{version}
 # qmake path
-sed -i 's/qmake/qmake-qt5/' build_test.go template_qml.go
+sed -i 's|qmake|qmake-qt5|' build_test.go template_qml.go
 
 %build
 export GOPATH="%{gopath}"
@@ -39,16 +33,14 @@ export GOPATH="%{gopath}"
 %install
 %make_install GOPATH="%{gopath}"
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root,-)
 %doc README.md
+%license LICENSE
 %{_bindir}/dbus-generator
 
-
 %changelog
+* Tue Jan 02 2018 Jaroslav <cz.guardian@gmail.com> Stepanek 0.6.6-1
+- Package updated to version 0.6.6
 * Thu Jan 26 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.6.5-5
 - Rewrite of spec file
 * Wed Jan 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 0.6.5-4
