@@ -1,45 +1,46 @@
 Name:           deepin-metacity
-Version:        3.22.8
+Version:        3.22.13
 Release:        1%{?dist}
 Summary:        2D window manager for Deepin
-License:        GPL
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+License:        GPLv2+
+URL:            https://github.com/linuxdeepin/deepin-metacity
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-Requires:       dconf
-Requires:       deepin-desktop-schemas
-BuildRequires:  autoconf-archive
-BuildRequires:  bamf-devel
-BuildRequires:  glib2-devel
-BuildRequires:  gsettings-desktop-schemas-devel
-BuildRequires:  gtk3-devel
+BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  itstool
-BuildRequires:  json-glib-devel
-BuildRequires:  libcanberra-devel
-BuildRequires:  libgtop2-devel
 BuildRequires:  libtool
-BuildRequires:  startup-notification-devel
 BuildRequires:  yelp-tools
+BuildRequires:  autoconf-archive
+BuildRequires:  pkgconfig(libbamf3)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gsettings-desktop-schemas)
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(libcanberra)
+BuildRequires:  pkgconfig(libcanberra-gtk3)
+BuildRequires:  pkgconfig(libgtop-2.0)
+BuildRequires:  pkgconfig(libstartup-notification-1.0)
+BuildRequires:  pkgconfig(sm)
+BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  zenity
-
-Provides:       %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       dconf
+Requires:       deepin-desktop-schemas
+Requires:       control-center-filesystem
 
 %description
-%{summary}
-
+2D window manager for Deepin.
 
 %package devel
-Summary: Development package for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary:        Development package for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-Header files and libraries for %{name}
-
+Header files and libraries for %{name}.
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
+%setup -q
+sed -i '/Window/s|Win|X-Win|' src/metacity-wm.desktop.in
 
 %build
 ./autogen.sh
@@ -50,34 +51,48 @@ Header files and libraries for %{name}
 
 %install
 %make_install PREFIX=%{_prefix}
-#Remove libtool archives.
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+# Remove libtool archives
+find %{buildroot} -name '*.la' -delete
 
-%clean
-rm -rf %{buildroot}
+%find_lang %{name}
 
-%files
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop \
+  %{buildroot}%{_datadir}/gnome/wm-properties/%{name}-wm.desktop
+
+%post
+/sbin/ldconfig
+/usr/bin/update-desktop-database -q ||:
+
+%postun
+/sbin/ldconfig
+/usr/bin/update-desktop-database -q ||:
+
+%files -f %{name}.lang
 %doc README
 %license COPYING
-%{_bindir}/*
-%{_libdir}/*.so.*
-%{_datadir}/GConf/gsettings/*.convert
-%{_datadir}/applications/*.desktop
+%{_bindir}/%{name}*
+%{_libdir}/lib%{name}*.so.*
+%dir %{_datadir}/GConf/
+%dir %{_datadir}/GConf/gsettings/
+%{_datadir}/GConf/gsettings/%{name}-schemas.convert
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/
 %{_datadir}/glib-2.0/schemas/com.deepin.*.xml
 %{_datadir}/gnome-control-center/keybindings/50-%{name}-*.xml
-%{_datadir}/gnome/wm-properties/*.desktop
+%{_datadir}/gnome/wm-properties/%{name}-wm.desktop
 %{_datadir}/help/
-%{_datadir}/locale/
 %{_datadir}/themes/
-%{_mandir}/man1/*
+%{_mandir}/man1/%{name}*
 
 %files devel
 %{_includedir}/%{name}/
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/pkgconfig/lib%{name}*.pc
 %{_libdir}/lib%{name}*.so
 
 %changelog
+* Thu Jan 04 2018 Jaroslav <cz.guardian@gmail.com> Stepanek - 3.22.13-1
+- Update to 3.22.13
 * Wed Apr 19 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.22.8-1
 - Update to 3.22.8
 * Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.22.5-1
