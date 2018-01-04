@@ -1,46 +1,45 @@
 Name:           deepin-desktop-schemas
-Version:        3.1.6
+Version:        3.2.4
 Release:        1%{?dist}
 Summary:        GSettings deepin desktop-wide schemas
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/deepin-desktop-schemas
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildRequires:  python
+BuildRequires:  glib2
 Requires:       dconf
-Requires:       deepin-artwork-themes
 Requires:       deepin-gtk-theme
 Requires:       deepin-sound-theme
-
-Provides:       %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       deepin-artwork-themes
 
 %description
-%{summary}
-
+GSettings deepin desktop-wide schemas.
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
+%setup -q
 
 # fix default background url
-sed -i '/picture-uri/s|default_background.jpg|default.png|' overrides/x86/com.deepin.wrap.gnome.desktop.override
-# don't override GNOME defaults
-rm overrides/x86/{org.gnome.desktop,other}.override
+sed -i '/picture-uri/s|default_background.jpg|default.png|' overrides/common/com.deepin.wrap.gnome.desktop.override
 
 %build
-%make_build
+%make_build ARCH=x86
 
 %install
-%make_install PREFIX="%{_prefix}"
+%make_install PREFIX=%{_prefix}
 
-%clean
-rm -rf %{buildroot}
+%check
+make test
 
 %files
 %doc README.md
-%{_datarootdir}/glib-2.0/schemas/*
+%license LICENSE
+%{_datadir}/glib-2.0/schemas/*
 
 %changelog
+* Thu Jan 04 2018 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.2.4-1
+- Update to version 3.2.4
 * Mon May 01 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.1.6-1
 - Update to version 3.1.6
 * Sun Apr 09 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.1.5-1
