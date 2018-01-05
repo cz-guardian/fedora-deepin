@@ -1,41 +1,38 @@
 Name:           deepin-shortcut-viewer
-Version:        1.02
+Version:        1.3.3
 Release:        1%{?dist}
 Summary:        Deepin Shortcut Viewer
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/deepin-shortcut-viewer
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
-
-Requires:       qt5-qtbase
-BuildRequires:  qt5-qttools-devel
-
-Provides:       %{name}
-
-%global debug_package %{nil}
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(dtkwidget) = 2.0
+Provides:       bundled(CuteLogger)
 
 %description
-Deepin Shortcut Viewer
-
+The program displays a shortcut key window when a JSON data is passed.
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
+%setup -q
 
 %build
-qmake-qt5 PREFIX=%{_usr}
-make
+%qmake_qt5 PREFIX=%{_prefix}
+%make_build
 
 %install
-make INSTALL_ROOT="%{buildroot}" install
-
-%clean
-rm -rf %{buildroot}
+%make_install INSTALL_ROOT="%{buildroot}"
 
 %files
-%{_bindir}/*
-
+%doc README.md
+%license LICENSE
+%{_bindir}/%{name}
 
 %changelog
+* Fri Jan 05 2018 Jaroslav <cz.guardian@gmail.com> Stepanek 1.3.3-1
+- Updated to version 1.3.3
 * Sun Dec 04 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.02-1
 - Updated to version 1.02-1
 * Mon Oct 10 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.01-1
