@@ -1,53 +1,52 @@
 Name:           deepin-wm
-Version:        1.9.8
+Version:        1.9.21
 Release:        1%{?dist}
 Summary:        Deepin Window Manager
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/deepin-wm
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires:  desktop-file-utils
+BuildRequires:  intltool
+BuildRequires:  gnome-common
+BuildRequires:  pkgconfig(clutter-gtk-1.0)
+BuildRequires:  pkgconfig(gnome-desktop-3.0)
+BuildRequires:  pkgconfig(granite)
+BuildRequires:  pkgconfig(gee-0.8)
+BuildRequires:  pkgconfig(gudev-1.0)
+BuildRequires:  pkgconfig(libbamf3)
+BuildRequires:  pkgconfig(libcanberra)
+BuildRequires:  pkgconfig(libcanberra-gtk3)
+BuildRequires:  pkgconfig(libdeepin-mutter)
+BuildRequires:  pkgconfig(libwnck-3.0)
+BuildRequires:  pkgconfig(upower-glib)
+BuildRequires:  pkgconfig(vapigen)
+BuildRequires:  pkgconfig(xkbcommon-x11)
+BuildRequires:  pkgconfig(xkbfile)
 Requires:       deepin-desktop-schemas
 Requires:       gnome-desktop
 Requires:       libcanberra-gtk3
-BuildRequires:  bamf-devel
-BuildRequires:  clutter-gtk-devel
-BuildRequires:  deepin-mutter-devel
-BuildRequires:  gala-devel
-BuildRequires:  gnome-common
-BuildRequires:  gnome-desktop3-devel
-BuildRequires:  granite-devel
-BuildRequires:  intltool
-BuildRequires:  libcanberra-devel
-BuildRequires:  libgee-devel
-BuildRequires:  libgudev-devel
-BuildRequires:  libwnck3-devel
-BuildRequires:  libxkbcommon-x11-devel
-BuildRequires:  libxkbfile-devel
-BuildRequires:  upower-devel
-BuildRequires:  vala
-BuildRequires:  vala-tools
-
-Provides:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       hicolor-icon-theme
 
 %description
-%{summary}
-
+Deepin Window Manager
 
 %package devel
-Summary: Development package for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary:        Development package for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Header files and libraries for %{name}
 
-
 %prep
-%autosetup %{version}.tar.gz#%{name}
+%setup -q
 
 # fix background path
-sed -i 's/default_background.jpg/default.png/' src/Background/BackgroundSource.vala
+sed -i 's|default_background.jpg|default.png|' \
+    src/Background/BackgroundSource.vala
 
 %build
+export CXXFLAGS="$CXXFLAGS -DWNCK_I_KNOW_THIS_IS_UNSTABLE"
 ./autogen.sh
 %configure --disable-schemas-compile
 %make_build
@@ -55,18 +54,34 @@ sed -i 's/default_background.jpg/default.png/' src/Background/BackgroundSource.v
 %install
 %make_install PREFIX="%{_prefix}"
 
-#Remove libtool archives.
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+# Remove libtool archives
+find %{buildroot} -name '*.la' -delete
 
 %find_lang %{name}
 
-%clean
-rm -rf %{buildroot}
+%check
+desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop ||:
+
+%post
+/sbin/ldconfig
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
+/usr/bin/update-desktop-database -q ||:
+
+%postun
+/sbin/ldconfig
+if [ $1 -eq 0 ]; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
+    /usr/bin/gtk-update-icon-cache -f -t -q %{_datadir}/icons/hicolor ||:
+fi
+/usr/bin/update-desktop-database -q ||:
+
+%posttrans
+/usr/bin/gtk-update-icon-cache -f -t -q %{_datadir}/icons/hicolor ||:
 
 %files -f %{name}.lang
 %doc README.md
 %license LICENSE
-%{_bindir}/*
+%{_bindir}/%{name}
 %{_libdir}/lib*.so.*
 %{_libdir}/%{name}/
 %{_datadir}/%{name}/
@@ -76,11 +91,14 @@ rm -rf %{buildroot}
 %{_datadir}/vala/vapi/%{name}*
 
 %files devel
+%dir %{_includedir}/%{name}
 %{_includedir}/%{name}/%{name}.h
 %{_libdir}/pkgconfig/%{name}.pc
-%{_libdir}/lib*.so
+%{_libdir}/lib%{name}.so
 
 %changelog
+* Thu Jan 04 2018 Jaroslav <cz.guardian@gmail.com> Stepanek - 1.9.21-1
+- Update to version 1.9.21
 * Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.9.8-1
 - Update to version 1.9.8
 * Sat Mar 04 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.9.5-1
