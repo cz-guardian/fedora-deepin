@@ -1,64 +1,67 @@
-# for fedora 24
-%global _qt5_qmldir %{_qt5_archdatadir}/qml
-
 Name:           deepin-qml-widgets
-Version:        2.3.4
-Release:        3%{?dist}
+Version:        2.3.6
+Release:        1%{?dist}
 Summary:        Deepin QML widgets
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
-    
-BuildRequires:  deepin-gettext-tools
-BuildRequires:  desktop-file-utils
-BuildRequires:  gettext
-BuildRequires:  gtk2-devel
-BuildRequires:  libxcb-devel
-BuildRequires:  libXcomposite-devel
-BuildRequires:  pkgconfig
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtquick1-devel
-BuildRequires:  qt5-qtwebkit-devel
-BuildRequires:  qt5-qtx11extras-devel
+Group:          Development/Libraries
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/deepin-qml-widgets
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-Provides:       %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
+BuildRequires:  deepin-gettext-tools
+BuildRequires:  pkgconfig(atk)
+BuildRequires:  pkgconfig(dtkwidget) = 2.0
+BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:  pkgconfig(gtk+-2.0)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(pango)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xcb)
+BuildRequires:  pkgconfig(xcb-damage)
+BuildRequires:  pkgconfig(xcomposite)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5OpenGL)
+BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(Qt5WebKit)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5X11Extras)
+Requires:       qt5-qtgraphicaleffects%{?_isa}
+Requires:       qt5-qtquickcontrols%{?_isa}
 
 %description
-%{summary}
-
+Extends QML by providing widgets that is used by Deepin applications.
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
+%setup -q
 
 %build
+deepin-generate-mo locale/locale_config.ini
 %qmake_qt5
 %make_build
 
 %install
 %make_install INSTALL_ROOT=%{buildroot}
 
-pushd locale
-for i in `ls *.po`
- do
-    install -d %{buildroot}%{_datadir}/locale/${i%.*}/LC_MESSAGES/
-    msgfmt $i -o %{buildroot}%{_datadir}/locale/${i%.*}/LC_MESSAGES/%{name}.mo
- done
-popd
+install -d %{buildroot}%{_datadir}/locale/
+cp -r locale/mo/* %{buildroot}%{_datadir}/locale/
 
 %find_lang %{name}
 
-%clean
-rm -rf %{buildroot}
-
 %files -f %{name}.lang
-%defattr(-,root,root,-)
-%{_bindir}/*
-%{_qt5_qmldir}/Deepin/*
-%{_datadir}/dbus-1/services/*.service
+%doc README.md
+%license LICENSE
+%{_bindir}/deepin-dialog
+%{_qt5_qmldir}/Deepin/Locale/
+%{_qt5_qmldir}/Deepin/StyleResources/
+%{_qt5_qmldir}/Deepin/Widgets/
+%{_datadir}/dbus-1/services/com.deepin.dialog.service
 
 %changelog
+* Fri Jan 27 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.3.6-1
+- Update to 2.3.6
 * Fri Jan 27 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.3.4-3
 - Rewrite of spec file
 * Thu Jan 12 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2.3.4-2
