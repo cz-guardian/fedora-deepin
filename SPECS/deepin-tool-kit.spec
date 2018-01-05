@@ -1,38 +1,36 @@
 Name:           deepin-tool-kit
-Version:        0.2.9
-Release:        2%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Base development tool of all C++/Qt Developer work on Deepin
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/deepin-tool-kit
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  dtksettings-devel
-BuildRequires:  libXrender-devel
+BuildRequires:  gsettings-qt-devel
 BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qtbase-static
 BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtx11extras-devel
+BuildRequires:  libXrender-devel
 BuildRequires:  startup-notification-devel
+BuildRequires:  systemd-devel
 BuildRequires:  xcb-util-devel
-
-Provides:       %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
+%{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
 %description
-%{summary}
-
+Base development tool of all C++/Qt Developer work on Deepin.
 
 %package devel
-Summary: Development package for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary:        Development package for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-Header files and libraries for %{name}
-
+Header files and libraries for %{name}.
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
-sed -i 's/lrelease/lrelease-qt5/g' tool/translate_generation.sh
+%setup -q
+sed -i 's|lrelease|lrelease-qt5|g' tool/translate_generation.sh
 sed -i -E '/test|examples/d' dtk.pro
 
 %build
@@ -42,14 +40,15 @@ sed -i -E '/test|examples/d' dtk.pro
 %install
 %make_install INSTALL_ROOT="%{buildroot}"
 
-%clean
-rm -rf %{buildroot}
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
 
 %files
 %doc README.md Specification.md
 %license LICENSE
 %{_libdir}/lib*.so.*
-%{_datadir}/dtkwidget/translations/*.qm
+%{_datadir}/dtkwidget1/translations/*.qm
 
 %files devel
 %{_includedir}/libdtk-*/
@@ -57,6 +56,8 @@ rm -rf %{buildroot}
 %{_libdir}/lib*.so
 
 %changelog
+* Fri Jan 05 2018 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 1.0.0-1
+- Update to version 1.0.0
 * Sun Apr 23 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 0.2.9-2
 - Bump version because of dtksettings update
 * Thu Apr 20 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 0.2.9-1
