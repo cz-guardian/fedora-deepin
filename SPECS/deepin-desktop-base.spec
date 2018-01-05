@@ -1,18 +1,20 @@
 Name:           deepin-desktop-base
-Version:        2016.12.6
+Version:        2017.11.1
 Release:        1%{?dist}
 Summary:        Base component for Deepin
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/deepin-desktop-base
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 Recommends:     deepin-wallpapers
 
-Provides:       %{name}
-
 %description
-This package provides base components for Deepin desktop environment.
+This package provides some components for Deepin desktop environment.
 
+- deepin logo
+- deepin desktop version
+- login screen background image
+- language information
 
 %prep
 %setup -q
@@ -42,7 +44,6 @@ ln -sfv %{_datadir}/deepin/desktop-version %{buildroot}/etc/deepin-version
 %{_datadir}/backgrounds/deepin/desktop.jpg
 %dir %{_datadir}/deepin/
 %{_datadir}/deepin/desktop-version
-%dir %{_datadir}/distro-info/
 %{_datadir}/distro-info/deepin.csv
 %{_datadir}/i18n/i18n_dependent.json
 %{_datadir}/i18n/language_info.json
@@ -50,6 +51,8 @@ ln -sfv %{_datadir}/deepin/desktop-version %{buildroot}/etc/deepin-version
 %{_var}/cache/image-blur/*.jpg
 
 %changelog
+* Fri Jan 05 2018 Jaroslav <cz.guardian@gmail.com> Stepanek 2017.11.1-1
+- Update package to version 2017.11.1
 * Tue Aug 08 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.12.6-1
 - Update package to version 2016.12.6
 * Fri Mar 17 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 2016.11.30-1
