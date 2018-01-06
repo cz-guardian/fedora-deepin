@@ -1,7 +1,7 @@
 %global repo go-gir-generator
 
 Name:           deepin-gir-generator
-Version:        1.0.1
+Version:        1.0.2
 Release:        1%{?dist}
 Summary:        Generate static golang bindings for GObject
 License:        GPLv3
