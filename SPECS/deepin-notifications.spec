@@ -1,26 +1,25 @@
 Name:           deepin-notifications
-Version:        3.0.4
+Version:        3.1.2
 Release:        1%{?dist}
 Summary:        System notifications for linuxdeepin desktop environment
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/deepin-notifications
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  deepin-tool-kit-devel
-BuildRequires:  gtk2-devel
-
-Provides:       %{name}%{?_isa} = %{version}-%{release}
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Sql)
+BuildRequires:  pkgconfig(Qt5Svg)
+BuildRequires:  pkgconfig(dtkwidget) = 2.0
+BuildRequires:  pkgconfig(gtk+-2.0)
 
 %description
-%{summary}
-
+System notifications for linuxdeepin desktop environment.
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
-# Fix paths
-sed -i 's/lib/libexec/' deepin-notifications.pro files/com.deepin.Notifications.service.in
+%setup -q
+sed -i 's|lib|libexec|' deepin-notifications.pro \
+    files/com.deepin.Notifications.service.in
 
 %build
 %qmake_qt5 PREFIX=%{_prefix}
@@ -29,16 +28,16 @@ sed -i 's/lib/libexec/' deepin-notifications.pro files/com.deepin.Notifications.
 %install
 %make_install INSTALL_ROOT=%{buildroot}
 
-%clean
-rm -rf %{buildroot}
-
 %files
 %doc README.md
 %license LICENSE
-%{_libexecdir}/%{name}/*
-%{_datadir}/dbus-1/services/*
+%dir %{_libexecdir}/%{name}
+%{_libexecdir}/%{name}/%{name}
+%{_datadir}/dbus-1/services/com.deepin.Notifications.service
 
 %changelog
+* Fri Jan 05 2018 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.1.2-1
+- Update to 3.1.2
 * Sat Apr 22 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.0.4-1
 - Update to 3.0.4
 * Sun Apr 09 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.3-1
