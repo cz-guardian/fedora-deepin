@@ -1,30 +1,32 @@
 Name:           deepin-wm-switcher
-Version:        1.1.0
-Release:        2%{?dist}
+Version:        1.1.9
+Release:        1%{?dist}
 Summary:        Window manager switcher for Deepin
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/deepin-wm-switcher
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires:  cmake(Qt5)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5X11Extras)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(xcb-keysyms)
+BuildRequires:  pkgconfig(x11)
 Requires:       deepin-daemon
-Requires:       deepin-metacity    
 Requires:       deepin-wm
-BuildRequires:  cmake
-BuildRequires:  glib2-devel
-BuildRequires:  libX11-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtx11extras-devel
-BuildRequires:  xcb-util-keysyms-devel
-
-Provides:       %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       deepin-metacity
 
 %description
-%{summary}
+Deepin Window Manager monitoring and auto-switching service.
 
+It is capable of:
+
+- monitoring health of 3d wm and falling back to 2d if bad things happened.
+- detecting platform capability and choose 2d/3d wm accordingly.
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
+%setup -q
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release
@@ -33,15 +35,14 @@ Provides:       %{name}%{?_isa} = %{version}-%{release}
 %install
 %make_install
 
-%clean
-rm -rf %{buildroot}
-
 %files
 %doc README.md
 %license LICENSE
-%{_bindir}/*
+%{_bindir}/%{name}
 
 %changelog
+* Sun Jan 07 2018 Jaroslav <cz.guardian@gmail.com> Stepanek 1.1.9-1
+- Update to 1.1.9
 * Fri Jan 27 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 1.1.0-2
 - Rewrite of spec file
 * Sat Oct 01 2016 Jaroslav <cz.guardian@gmail.com> Stepanek 1.1.0-1
