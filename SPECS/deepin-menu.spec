@@ -1,78 +1,69 @@
 Name:           deepin-menu
-Version:        3.1.2
+Version:        3.2.0
 Release:        1%{?dist}
-Summary:        Deepin menu service for building beautiful menus
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
-    
-Requires:       python-qt5
-BuildRequires:  deepin-qt-dbus-factory-devel
-BuildRequires:  deepin-tool-kit-devel
+Summary:        Deepin menu service
+License:        GPLv3+
+URL:            https://github.com/linuxdeepin/deepin-menu
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires:  desktop-file-utils
+BuildRequires:  pkgconfig(dtkwidget) = 2.0
+BuildRequires:  pkgconfig(dframeworkdbus)
+BuildRequires:  pkgconfig(Qt5)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(Qt5X11Extras)
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtx11extras-devel
-
-Provides:       %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       python-qt5
 
 %description
-%{summary}
-
+Deepin menu service for building beautiful menus.
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
+%setup -q
 
-# fix python version
-find -iname "*.py" | xargs sed -i '1s|python$|python2|'
+# Remove python shebang
+find -iname "*.py" | xargs sed -i '/env python/d'
 
 # Modify lib path to reflect the platform
-sed -i 's|/usr/lib|%{_libexecdir}|' data/com.deepin.menu.service \
+sed -i 's|/usr/bin|%{_libexecdir}|' data/com.deepin.menu.service \
     deepin-menu.desktop deepin-menu.pro
 
 # Fix setup.py install path
 sed -i '/data_files/s|list_files.*)|"")|' setup.py
 
 %build
-%{__python2} setup.py build
-%{qmake_qt5} DEFINES+=QT_NO_DEBUG_OUTPUT
-%{make_build}
+%__python2 setup.py build
+%qmake_qt5 DEFINES+=QT_NO_DEBUG_OUTPUT
+%make_build
 
 %install
-%{__python2} setup.py install -O1 --skip-build --prefix=%{_prefix} --root=%{buildroot}
-%{make_install} INSTALL_ROOT="%{buildroot}"
+%__python2 setup.py install -O1 --skip-build --prefix=%{_prefix} --root=%{buildroot}
+%make_install INSTALL_ROOT="%{buildroot}"
 
 install -d %{buildroot}%{_datadir}/dbus-1/services/
 install -m644 data/*.service %{buildroot}%{_datadir}/dbus-1/services/
 
 install -d %{buildroot}%{_datadir}/applications/
-desktop-file-install --remove-key=OnlyShowIn --mode=644 \
-    --dir=%{buildroot}%{_datadir}/applications deepin-menu.desktop
+install -m644 %{name}.desktop %{buildroot}%{_datadir}/applications/
 
 install -d %{buildroot}/etc/xdg/autostart/
-ln -sfv %{_datadir}/applications/%{name}.desktop \
+ln -sfv ../../..%{_datadir}/applications/%{name}.desktop \
     %{buildroot}%{_sysconfdir}/xdg/autostart/
-
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
-
-%clean
-rm -rf %{buildroot}
 
 %files
 %doc README.md
 %license LICENSE
-%{_datadir}/applications/*.desktop
+%{_sysconfdir}/xdg/autostart/%{name}.desktop
+%{_libexecdir}/%{name}
+%{python_sitelib}/deepin_menu*
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/dbus-1/services/com.deepin.menu.service
-%{_libexecdir}/*
-%{_sysconfdir}/xdg/autostart/*.desktop
-%{python_sitelib}/*
 
 %changelog
+* Sun Jan 07 2018 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek - 3.2.0-1
+- Update package to 3.2.0
 * Sat Apr 22 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.1.2-1
 - Update package to 3.1.2
 * Thu Mar 09 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.0.10-1
