@@ -1,84 +1,100 @@
-%global         srcname dde-daemon
+%global repo dde-daemon
+%global ds_url https://github.com/linuxdeepin/default-settings
 
 Name:           deepin-daemon
-Version:        3.1.9
+Version:        3.2.8
 Release:        1%{?dist}
 Summary:        Daemon handling the DDE session settings
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{srcname}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
-Source1:        dde-daemon.sysusers
-Source2:        polkit-gnome-authentication-agent-1-deepin.desktop
-    
-Requires:       acpid
-Requires:       bluez-libs
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/dde-daemon
+Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
+Source1:        %{ds_url}/archive/2016.9.8/default-settings-2016.9.8.tar.gz
+Source2:        deepin-daemon.sysusers
+Patch0:         https://raw.github.com/jouyouyun/tap-gesture-patches/master/patches/dde-daemon_3.2.3.patch
+Patch1:         dde-daemon-3.2.8_fix.patch
+
+ExclusiveArch:  %{?go_arches:%{go_arches}}%{!?go_arches:%{ix86} x86_64 aarch64 %{arm}}
+# https://github.com/golang/go/issues/21947
+ExcludeArch:    ppc64le
+BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
+BuildRequires:  deepin-gettext-tools
+BuildRequires:  deepin-gir-generator
+BuildRequires:  fontpackages-devel
+BuildRequires:  librsvg2-tools
+BuildRequires:  pam-devel
+BuildRequires:  pkgconfig(alsa)
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(gnome-keyring-1)
+BuildRequires:  pkgconfig(gdk-pixbuf-xlib-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(libbamf3)
+BuildRequires:  pkgconfig(libcanberra)
+BuildRequires:  pkgconfig(libnl-3.0)
+BuildRequires:  pkgconfig(libnl-genl-3.0)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(libudev)
+BuildRequires:  pkgconfig(gudev-1.0)
+BuildRequires:  pkgconfig(librsvg-2.0)
+BuildRequires:  pkgconfig(libinput)
+BuildRequires:  pkgconfig(poppler-glib)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xi)
+BuildRequires:  pkgconfig(xtst)
+BuildRequires:  pkgconfig(xcursor)
+BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(xkbfile)
+BuildRequires:  golang-deepin-dbus-factory-devel
+BuildRequires:  golang(pkg.deepin.io/lib)
+BuildRequires:  golang(pkg.deepin.io/lib/fsnotify)
+BuildRequires:  golang(pkg.deepin.io/dde/api/dxinput)
+BuildRequires:  golang(github.com/linuxdeepin/go-x11-client)
+BuildRequires:  golang(github.com/BurntSushi/xgb)
+BuildRequires:  golang(github.com/BurntSushi/xgbutil)
+BuildRequires:  golang(github.com/axgle/mahonia)
+BuildRequires:  golang(github.com/msteinert/pam)
+BuildRequires:  golang(github.com/nfnt/resize)
+BuildRequires:  golang(github.com/cryptix/wav)
+BuildRequires:  golang(gopkg.in/alecthomas/kingpin.v2)
+BuildRequires:  golang(gopkg.in/yaml.v2)
+
 Requires:       deepin-desktop-base
 Requires:       deepin-desktop-schemas
 Requires:       deepin-grub2-themes
 Requires:       deepin-notifications
+Requires:       acpid
+Requires:       bluez-libs
 Requires:       gvfs
+Requires:       iw
 Requires:       libudisks2
-Requires:       polkit-gnome
+Requires:       deepin-polkit-agent
 Requires:       qt5-qtaccountsservice
 Requires:       rfkill
 Requires:       upower
 Requires:       xdotool
+Recommends:     NetworkManager-vpnc-gnome
+Recommends:     NetworkManager-pptp-gnome
+Recommends:     NetworkManager-l2tp-gnome
+Recommends:     NetworkManager-strongswan-gnome
+Recommends:     NetworkManager-openvpn-gnome
+Recommends:     NetworkManager-openconnect-gnome
 Recommends:     iso-codes
 Recommends:     mobile-broadband-provider-info
-Recommends:     NetworkManager-l2tp-gnome
-Recommends:     NetworkManager-openconnect-gnome
-Recommends:     NetworkManager-openvpn-gnome
-Recommends:     NetworkManager-pptp-gnome
-Recommends:     NetworkManager-strongswan-gnome
-Recommends:     NetworkManager-vpnc-gnome
-BuildRequires:  deepin-api-devel
-BuildRequires:  deepin-go-gir-generator
-BuildRequires:  deepin-dbus-factory
-BuildRequires:  deepin-go-lib
-BuildRequires:  gettext
-BuildRequires:  git
-BuildRequires:  golang
-BuildRequires:  golang-github-BurntSushi-xgb-devel
-BuildRequires:  golang-github-BurntSushi-xgbutil-devel
-BuildRequires:  golang-github-howeyc-fsnotify-devel
-BuildRequires:  golang-github-mattn-go-sqlite3-devel
-BuildRequires:  libgnome-keyring-devel
-BuildRequires:  pkgconfig(fontconfig)
-BuildRequires:  pkgconfig(gdk-pixbuf-xlib-2.0)
-BuildRequires:  pkgconfig(gio-2.0)
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(gudev-1.0)
-BuildRequires:  pkgconfig(libbamf3)
-BuildRequires:  pkgconfig(libcanberra)
-BuildRequires:  pkgconfig(libinput)
-BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(librsvg-2.0)
-BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xcursor)
-BuildRequires:  pkgconfig(xfixes)
-BuildRequires:  pkgconfig(xi)
-BuildRequires:  pkgconfig(xkbfile)
-BuildRequires:  pkgconfig(xtst)
-BuildRequires:  poppler-glib-devel
-BuildRequires:  systemd-devel
-
-Provides:       %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       %{srcname}
-Provides:       %{srcname}%{?_isa} = %{version}-%{release}
-Obsoletes:      %{srcname} < 3.0.25.2-1
-Obsoletes:      %{srcname}%{?_isa} < 3.0.25.2-1
+Recommends:     google-noto-mono-fonts
+Recommends:     google-noto-sans-fonts
 
 %description
-%{summary}
-
+Daemon handling the DDE session settings
 
 %prep
-%setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version}
+%setup -q -a1 -n %{repo}-%{version}
+%patch0 -p1 -b dde-daemon-3.2.3
+%patch1 -p1
 
 # Fix library exec path
 sed -i '/deepin/s|lib|libexec|' Makefile
+sed -i 's|lib/NetworkManager|libexec|' network/utils_test.go
 sed -i 's|/usr/lib|%{_libexecdir}|' \
     misc/*services/*.service \
     misc/applications/deepin-toggle-desktop.desktop \
@@ -91,53 +107,80 @@ sed -i 's|/usr/lib|%{_libexecdir}|' \
     accounts/user.go
 
 # Fix grub.cfg path
-sed -i '/MenuFile/s|grub/|grub2/|' grub2/grub2.go
+sed -i 's|boot/grub|boot/grub2|' grub2/{theme,log,entry,config}.go
+sed -i 's|default_background.jpg|default.png|' accounts/user.go
 
 %build
 export GOPATH="$(pwd)/build:%{gopath}"
-
-go get gopkg.in/alecthomas/kingpin.v2 \
-  github.com/disintegration/imaging \
-  github.com/BurntSushi/freetype-go/freetype \
-  github.com/BurntSushi/freetype-go/freetype/truetype \
-  github.com/BurntSushi/graphics-go/graphics \
-  github.com/fsnotify/fsnotify \
-  golang.org/x/sys/unix
-
 %make_build
 
 %install
 %make_install
-install -Dm644 %{S:1} %{buildroot}/usr/lib/sysusers.d/deepin-daemon.conf
-install -Dm644 %{S:2} %{buildroot}/etc/xdg/autostart/polkit-gnome-authentication-agent-1-deepin.desktop
 
-%find_lang %{srcname}
+install -Dm644 %{S:2} %{buildroot}/usr/lib/sysusers.d/deepin-daemon.conf
+
+# fix systemd/logind config
+install -d %{buildroot}/usr/lib/systemd/logind.conf.d/
+cat > %{buildroot}/usr/lib/systemd/logind.conf.d/10-%{name}.conf <<EOF
+[Login]
+HandlePowerKey=ignore
+HandleSuspendKey=ignore
+EOF
+
+# install default settings
+pushd default-settings-2016.9.8
+install -Dm644 usr.share.d/deepin-default-settings/fontconfig.json \
+    %{buildroot}%{_datadir}/deepin-default-settings/fontconfig.json
+
+install -d %{buildroot}%{_fontconfig_templatedir} %{buildroot}%{_fontconfig_confdir}
+cp usr.share.d/fontconfig/conf.avail/*.conf %{buildroot}%{_fontconfig_templatedir}/
+for i in $(ls %{buildroot}%{_fontconfig_templatedir} | grep conf$); do
+  ln -sf %{_fontconfig_templatedir}/$i %{buildroot}%{_fontconfig_confdir}/$i
+done
+popd
+
+%find_lang %{repo}
 
 %post
-systemd-sysusers deepin-daemon.conf
+if [ $1 -ge 1 ]; then
+  systemd-sysusers deepin-daemon.conf
+  %{_sbindir}/alternatives --install %{_bindir}/x-terminal-emulator \
+    x-terminal-emulator %{_libexecdir}/%{name}/default-terminal 30
+fi
 
 %preun
-rm -f /var/cache/deepin/mark-setup-network-services
+if [ $1 -eq 0 ]; then
+  %{_sbindir}/alternatives --remove x-terminal-emulator \
+    %{_libexecdir}/%{name}/default-terminal
+fi
 
-%clean
-rm -rf %{buildroot}
+%postun
+if [ $1 -eq 0 ]; then
+  rm -f /var/cache/deepin/mark-setup-network-services
+  rm -f /var/log/deepin.log 
+fi
 
-%files -f %{srcname}.lang
+%files -f %{repo}.lang
 %doc README.md
 %license LICENSE
-%{_datadir}/%{srcname}/*
+%{_libexecdir}/%{name}/
+%{_sysusersdir}/%{name}.conf
+%{_prefix}/lib/systemd/logind.conf.d/10-%{name}.conf
 %{_datadir}/dbus-1/services/*.service
 %{_datadir}/dbus-1/system-services/*.service
 %{_datadir}/dbus-1/system.d/*.conf
-%{_datadir}/dde/data/*
-%{_datadir}/icons/hicolor/*/apps/*
+%{_datadir}/icons/hicolor/*/status/*
+%{_datadir}/%{repo}/
+%{_datadir}/dde/
 %{_datadir}/polkit-1/actions/*.policy
-%{_libexecdir}/%{name}/
-%{_prefix}/lib/sysusers.d/*.conf
-%{_sysconfdir}/xdg/autostart/*.desktop
-%{_var}/cache/appearance/thumbnail/*
+%{_datadir}/deepin-default-settings/
+%{_fontconfig_templatedir}/*.conf
+%{_fontconfig_confdir}/*.conf
+%{_var}/cache/appearance/
 
 %changelog
+* Fri Jan 05 2018 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.2.8-1
+- Update to 3.2.8
 * Sat Apr 22 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.1.9-1
 - Update to 3.1.9
 * Sun Apr 09 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 3.1.7-1
