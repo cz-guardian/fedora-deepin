@@ -1,39 +1,35 @@
-%global         srcname dde-launcher
+%global repo dde-launcher
 
 Name:           deepin-launcher
-Version:        4.0.9
+Version:        4.3.0
 Release:        1%{?dist}
 Summary:        Deepin desktop-environment - Launcher module
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/dde-launcher
+Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{srcname}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
-    
+BuildRequires:  pkgconfig(dtkcore)
+BuildRequires:  pkgconfig(dtkwidget) >= 2.0
+BuildRequires:  pkgconfig(dframeworkdbus)
+BuildRequires:  pkgconfig(gsettings-qt)
+BuildRequires:  pkgconfig(xcb-ewmh)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Svg)
+BuildRequires:  pkgconfig(Qt5X11Extras)
+BuildRequires:  gsettings-qt-devel
+BuildRequires:  qt5-linguist
 Requires:       deepin-menu
 Requires:       deepin-daemon
-Requires:       deepin-file-manager-backend
 Requires:       startdde
-BuildRequires:  deepin-tool-kit-devel
-BuildRequires:  deepin-qt-dbus-factory-devel
-BuildRequires:  gsettings-qt-devel
-BuildRequires:  gtk2-devel
-BuildRequires:  qt5-linguist
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  qt5-qtx11extras-devel
-BuildRequires:  xcb-util-wm-devel
-
-Provides:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       %{srcname}%{?_isa} = %{version}-%{release}
-Obsoletes:      %{srcname}%{?_isa} < %{version}-%{release}
+Requires:       hicolor-icon-theme
 
 %description
-%{summary}
-
+Deepin desktop-environment - Launcher module
 
 %prep
-%setup %{version}.tar.gz#%{name} -q -n %{srcname}-%{version}
-sed -i 's/lrelease/lrelease-qt5/g' translate_generation.sh
+%setup -q -n %{repo}-%{version}
+sed -i 's|lrelease|lrelease-qt5|g' translate_generation.sh
 
 %build
 %qmake_qt5 PREFIX=%{_prefix} WITHOUT_UNINSTALL_APP=1
@@ -42,16 +38,28 @@ sed -i 's/lrelease/lrelease-qt5/g' translate_generation.sh
 %install
 %make_install INSTALL_ROOT=%{buildroot}
 
-%clean
-rm -rf %{buildroot}
+%post
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
+
+%postun
+if [ $1 -eq 0 ]; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
+    /usr/bin/gtk-update-icon-cache -f -t -q %{_datadir}/icons/hicolor ||:
+fi
+
+%posttrans
+/usr/bin/gtk-update-icon-cache -f -t -q %{_datadir}/icons/hicolor ||:
 
 %files
-%{_bindir}/*
-%{_datadir}/%{srcname}/*
+%license LICENSE
+%{_bindir}/%{repo}
+%{_datadir}/%{repo}/
 %{_datadir}/dbus-1/services/*.service
-%{_datadir}/icons/hicolor/scalable/apps/*.svg
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Sun Jan 07 2018 Jaroslav <cz.guardian@gmail.com> Stepanek 4.3.0-1
+- Updated to version 4.3.0
 * Mon Mar 20 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.9-1
 - Updated to version 4.0.9
 * Sun Jan 22 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 4.0.4-1
