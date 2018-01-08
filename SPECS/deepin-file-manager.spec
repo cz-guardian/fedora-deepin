@@ -1,97 +1,172 @@
-%global 		    srcname dde-file-manager
+%global repo dde-file-manager
 
 Name:           deepin-file-manager
-Version:        4.1.5
-Release:        2%{?dist}
+Version:        4.4.7
+Release:        1%{?dist}
 Summary:        Deepin File Manager
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{srcname}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/dde-file-manager
+Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 
-Requires:       deepin-manual
+BuildRequires:  desktop-file-utils
+BuildRequires:  deepin-gettext-tools
+BuildRequires:  deepin-dock-devel
+BuildRequires:  file-devel
+BuildRequires:  pkgconfig(atk)
+BuildRequires:  pkgconfig(dtkwidget) == 2.0
+BuildRequires:  pkgconfig(dframeworkdbus)
+BuildRequires:  pkgconfig(gtk+-2.0)
+BuildRequires:  pkgconfig(gsettings-qt)
+BuildRequires:  pkgconfig(libsecret-1)
+BuildRequires:  pkgconfig(poppler-cpp)
+BuildRequires:  pkgconfig(polkit-agent-1)
+BuildRequires:  pkgconfig(polkit-qt5-1)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Concurrent)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Svg)
+BuildRequires:  pkgconfig(Qt5Multimedia)
+BuildRequires:  pkgconfig(Qt5X11Extras)
+BuildRequires:  qt5-qtbase-private-devel
+%{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
+BuildRequires:  pkgconfig(taglib)
+BuildRequires:  pkgconfig(uchardet)
+BuildRequires:  pkgconfig(xcb-util)
+BuildRequires:  pkgconfig(xcb-ewmh)
+BuildRequires:  qt5-linguist
+BuildRequires:  gsettings-qt-devel
+
+# run command by QProcess
 Requires:       deepin-shortcut-viewer
 Requires:       deepin-terminal
+Requires:       deepin-desktop
 Requires:       file-roller
 Requires:       gvfs-client
+Requires:       samba
 Requires:       xdg-user-dirs
-BuildRequires:  atk-devel
-BuildRequires:  deepin-dock-devel
-BuildRequires:  deepin-tool-kit-devel
-BuildRequires:  dtksettings-devel
-BuildRequires:  ffmpegthumbnailer-devel
-BuildRequires:  file-devel
-BuildRequires:  git
-BuildRequires:  gsettings-qt-devel
-BuildRequires:  gtk2-devel
-BuildRequires:  libsecret-devel
-BuildRequires:  polkit-devel
-BuildRequires:  polkit-qt5-1-devel
-BuildRequires:  poppler-cpp-devel
-BuildRequires:  qt5-linguist
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtmultimedia-devel
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  qt5-qtx11extras-devel
-BuildRequires:  xcb-util-wm-devel
-
-Provides:       %{name}%{?_isa} = %{version}-%{release}
-Obsoletes:      %{srcname}%{?_isa} < %{version}-%{release}
-Provides:       deepin-desktop
-Obsoletes:      deepin-desktop =< %{version}-%{release}
+Requires:       gstreamer-plugins-good
+Recommends:     deepin-manual
 
 %description
-%{summary}
-
+File manager front end of Deepin OS.
 
 %package devel
 Summary:        Development package for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-Header files and libraries for %{name}
+Header files and libraries for %{name}.
 
+%package -n deepin-desktop
+Summary:        Deepin desktop environment - desktop module
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Obsoletes:      deepin-desktop%{?_isa} < %{version}-%{release}
+
+%description -n deepin-desktop
+Deepin desktop environment - desktop module.
 
 %prep
-%autosetup %{version}.tar.gz#%{name} -n %{srcname}-%{version}
-sed -i 's|-0-2||g' %{srcname}*/*.pro usb-device-formatter/usb-device-formatter.pro
-sed -i -e 's/dtkbase-0-2/dtkbase/' -e 's/dtkwidget-0-2/dtkwidget/' dde-dock-plugins/disk-mount/disk-mount.pro
-sed -i '/target.path/s|lib|%{_lib}|' dde-dock-plugins/*/*.pro
-sed -i 's|lrelease|lrelease-qt5|g' %{srcname}*/generate_translations.sh usb-device-formatter/generate_translations.sh
-sed -i 's|qmake|qmake-qt5|g' vendor/prebuild
+%setup -q -n %{repo}-%{version}
+
+# fix file permissions
+find -type f -perm 775 -exec chmod 644 {} \;
+sed -i 's|lrelease|lrelease-qt5|' %{repo}*/generate_translations.sh \
+  usb-device-formatter/generate_translations.sh \
+  dde-desktop/translate_generation.sh
+sed -i '/target.path/s|lib|%{_lib}|' dde-dock-plugins/disk-mount/disk-mount.pro \
+  dde-dock-plugins/trash/trash.pro
+sed -i '/deepin-daemon/s|lib|libexec|' dde-zone/mainwindow.h
+sed -i 's|lib/gvfs|libexec|' %{repo}-lib/gvfs/networkmanager.cpp
+sed -i '/PLUGINDIR/s|view|views|' \
+  %{repo}-plugins/pluginPreview/dde-video-preview-plugin/dde-video-preview-plugin.pro
+sed -i 's|%{_datadir}|%{_libdir}|' dde-sharefiles/appbase.pri
 
 %build
-%qmake_qt5 PREFIX=%{_prefix} QMAKE_CFLAGS_ISYSTEM=
+%qmake_qt5 PREFIX=%{_prefix} QMAKE_CFLAGS_ISYSTEM= IS_PLATFORM_FEDORA=YES
 %make_build
 
 %install
 %make_install INSTALL_ROOT=%{buildroot}
 
-%clean
-rm -rf %{buildroot}
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{repo}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/dde-computer.desktop ||:
+desktop-file-validate %{buildroot}%{_datadir}/applications/dde-trash.desktop ||:
+
+%post
+/sbin/ldconfig
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
+/usr/bin/update-desktop-database -q ||:
+
+%post -n deepin-desktop
+/usr/bin/update-desktop-database -q ||:
+
+%postun
+/sbin/ldconfig
+if [ $1 -eq 0 ]; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
+    /usr/bin/gtk-update-icon-cache -f -t -q %{_datadir}/icons/hicolor ||:
+fi
+/usr/bin/update-desktop-database -q ||:
+
+%postun -n deepin-desktop
+/usr/bin/update-desktop-database -q ||:
+
+%posttrans
+/usr/bin/gtk-update-icon-cache -f -t -q %{_datadir}/icons/hicolor ||:
 
 %files
-%{_bindir}/dde-*
-%{_bindir}/usb-device-formatter*
-%{_datadir}/%{srcname}/
-%{_datadir}/applications/*.desktop
-%{_datadir}/dbus-1/interfaces/*.xml
-%{_datadir}/dbus-1/services/*.service
-%{_datadir}/dbus-1/system-services/*.service
-%{_datadir}/dman/*/
-%{_datadir}/icons/hicolor/scalable/apps/*.svg
-%{_datadir}/polkit-1/actions/*.policy
-%{_datadir}/usb-device-formatter/
-%{_libdir}/*.so.*
+%doc README.md
+%license LICENSE
+%config(noreplace) %{_sysconfdir}/dbus-1/system.d/com.deepin.filemanager.daemon.conf
+%config(noreplace) %{_sysconfdir}/xdg/autostart/%{repo}-xdg-autostart.desktop
+%config(noreplace) %{_sysconfdir}/xdg/autostart/%{repo}-dialog-autostart.desktop
+%{_bindir}/%{repo}
+%{_bindir}/%{repo}-daemon
+%{_bindir}/%{repo}-pkexec
+%{_bindir}/dde-property-dialog
+%attr(755,-,-) %{_bindir}/dde-xdg-user-dirs-update.sh
+%{_bindir}/usb-device-formatter
+%{_bindir}/usb-device-formatter-pkexec
+%{_libdir}/lib%{repo}.so.*
 %{_libdir}/dde-dock/plugins/*.so
-%{_sysconfdir}/dbus-1/system.d/*.conf
-%{_sysconfdir}/xdg/autostart/*.desktop
+%{_libdir}/%{repo}/
+%{_datadir}/%{repo}/
+%{_datadir}/dman/%{repo}/
+%{_datadir}/icons/hicolor/scalable/apps/*.svg
+%{_datadir}/applications/%{repo}.desktop
+%{_datadir}/dbus-1/interfaces/com.deepin.filemanager.filedialog.xml
+%{_datadir}/dbus-1/interfaces/com.deepin.filemanager.filedialogmanager.xml
+%{_datadir}/dbus-1/services/com.deepin.filemanager.filedialog.service
+%{_datadir}/dbus-1/services/org.freedesktop.FileManager.service
+%{_datadir}/dbus-1/system-services/com.deepin.filemanager.daemon.service
+%dir %{_datadir}/usb-device-formatter
+%{_datadir}/usb-device-formatter/translations/
+%{_polkit_qt_policydir}/com.deepin.filemanager.daemon.policy
+%{_polkit_qt_policydir}/com.deepin.pkexec.dde-file-manager.policy
+%{_polkit_qt_policydir}/com.deepin.pkexec.usb-device-formatter.policy
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%{_includedir}/%{repo}/
+%{_includedir}/%{repo}/gvfs/
+%{_includedir}/%{repo}/%{repo}-plugins/
+%{_includedir}/%{repo}/private/
+%{_libdir}/pkgconfig/%{repo}.pc
+%{_libdir}/lib%{repo}.so
+
+%files -n deepin-desktop
+%{_bindir}/dde-desktop
+%{_datadir}/applications/dde-computer.desktop
+%{_datadir}/applications/dde-trash.desktop
+%dir %{_datadir}/dde-desktop
+%{_datadir}/dde-desktop/translations/
+%{_datadir}/dbus-1/services/com.deepin.dde.desktop.service
+
 
 %changelog
+* Sun Jan 07 2018 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek - 4.4.7-1
+- Update to 4.4.7
 * Thu Apr 27 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 4.1.5-2
 - Added desktop replacement
 * Mon Apr 24 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 4.1.5-1
