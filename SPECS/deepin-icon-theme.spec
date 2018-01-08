@@ -1,40 +1,48 @@
 Name:           deepin-icon-theme
-Version:        15.12.42
+Version:        15.12.52
 Release:        1%{?dist}
-Summary:        Deepin Icons
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
-
+Summary:        Icons for the Deepin Desktop Environment
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/deepin-icon-theme
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
-
-BuildRequires:  inkscape
 BuildRequires:  python-devel
 
-Provides:       %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
-
 %description
-%{summary}
-
+Icons for the Deepin Desktop Environment.
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
-sed -i 's/flattr/Flattr/' deepin/index.theme
+%setup -q
 
 %build
 
 %install
-%make_install DESTDIR="%{buildroot}"
+%make_install PREFIX=%{_prefix}
 
-%clean
-rm -rf %{buildroot}
+%post
+touch --no-create %{_datadir}/icons/deepin &>/dev/null || :
+touch --no-create %{_datadir}/icons/Sea &>/dev/null || :
+
+%postun
+if [ $1 -eq 0 ] ; then
+  touch --no-create %{_datadir}/icons/deepin &>/dev/null
+  /usr/bin/gtk-update-icon-cache %{_datadir}/icons/deepin &>/dev/null || :
+  touch --no-create %{_datadir}/icons/Sea &>/dev/null
+  /usr/bin/gtk-update-icon-cache %{_datadir}/icons/Sea &>/dev/null || :
+fi
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/deepin &>/dev/null || :
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/Sea &>/dev/null || :
 
 %files
-%{_datadir}/icons/deepin/*
-%{_datadir}/icons/Sea/*
+%license LICENSE
+%{_datadir}/icons/deepin/
+%{_datadir}/icons/Sea/
 
 %changelog
+* Mon Jan 08 2018 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 15.12.52-1
+- Update to 15.12.52
 * Tue May 23 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 15.12.42-1
 - Update to 15.12.42
 * Wed Apr 19 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 15.12.39-1
