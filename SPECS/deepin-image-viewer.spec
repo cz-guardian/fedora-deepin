@@ -1,34 +1,39 @@
 Name:           deepin-image-viewer
-Version:        1.2.13
+Version:        1.2.16.8
 Release:        1%{?dist}
 Summary:        Deepin Image Viewer
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
-    
-BuildRequires:  qt5-linguist
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtx11extras-devel
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  deepin-tool-kit-devel
-BuildRequires:  freeimage-devel
-BuildRequires:  LibRaw-devel
-BuildRequires:  libexif-devel
-BuildRequires:  startup-notification-devel
-BuildRequires:  xcb-util-devel
+License:        GPLv3
+URL:            https://github.com/linuxdeepin/deepin-image-viewer
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        %{name}-appdata.xml
 
-Provides:       %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
+BuildRequires:  freeimage-devel
+BuildRequires:  qt5-linguist
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Concurrent)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5OpenGL)
+BuildRequires:  pkgconfig(Qt5PrintSupport)
+BuildRequires:  pkgconfig(Qt5Sql)
+BuildRequires:  pkgconfig(Qt5Svg)
+BuildRequires:  pkgconfig(Qt5X11Extras)
+BuildRequires:  pkgconfig(dtkwidget) = 2.0
+BuildRequires:  pkgconfig(gio-unix-2.0)
+BuildRequires:  pkgconfig(libraw)
+BuildRequires:  pkgconfig(libexif)
+BuildRequires:  pkgconfig(libstartup-notification-1.0)
+BuildRequires:  pkgconfig(xcb-util)
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+Requires:       hicolor-icon-theme
 
 %description
-%{summary}
-
+Deepin Image Viewer
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
-
-sed -i 's/lrelease/lrelease-qt5/g' viewer/generate_translations.sh
-sed -i 's|<exif-data.h|<libexif/exif-data.h|' viewer/utils/imageutils_libexif.h
+%setup -q
+sed -i 's|lrelease|lrelease-qt5|g' viewer/generate_translations.sh
 
 %build
 %qmake_qt5 PREFIX=%{_prefix}
@@ -36,6 +41,11 @@ sed -i 's|<exif-data.h|<libexif/exif-data.h|' viewer/utils/imageutils_libexif.h
 
 %install
 %make_install INSTALL_ROOT=%{buildroot}
+install -Dm644 %SOURCE1 %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.xml
 
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
@@ -51,20 +61,22 @@ fi
 %posttrans
 /usr/bin/gtk-update-icon-cache -f -t -q %{_datadir}/icons/hicolor ||:
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%{_bindir}/*
-%{_datadir}/%{name}/
-%{_datadir}/applications/*.desktop
-%{_datadir}/dbus-1/services/*.service
-%{_datadir}/dman/%{name}/
-%{_datadir}/icons/deepin/apps/scalable/*.svg
-%{_datadir}/icons/hicolor/scalable/apps/*.svg
+%doc README.md
+%license LICENSE
+%{_bindir}/%{name}
 %{_qt5_plugindir}/imageformats/*.so
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/dbus-1/services/*.service
+%{_datadir}/%{name}/
+%{_datadir}/dman/%{name}/
+%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/icons/deepin/apps/scalable/%{name}.svg
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Tue Jan 09 2018 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek - 1.2.16.8-1
+- Update to version 1.2.16.8
 * Fri Apr 21 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 1.2.13-1
 - Update to version 1.2.13
 * Sun Apr 09 2017 Jaroslav <jaroslav.stepanek@tinos.cz> Stepanek 1.2.12-1
