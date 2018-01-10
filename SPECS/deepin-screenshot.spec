@@ -1,47 +1,48 @@
 Name:           deepin-screenshot
-Version:        3.1.15
+Version:        4.0.10.4
 Release:        1%{?dist}
-Summary:        Easy-to-use screenshot tool for linuxdeepin desktop environment
-License:        GPL3
-URL:            https://github.com/linuxdeepin/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#%{name}
-    
-Requires:       deepin-menu
-Requires:       deepin-qml-widgets
-Requires:       gnome-python2-libwnck
-Requires:       python-qt5
-Requires:       python2-xpybutil
-Requires:       qt5-qtdeclarative
-Requires:       qt5-qtgraphicaleffects
-Requires:       qt5-qtmultimedia
-Requires:       qt5-qtquickcontrols
-Requires:       qt5-qtsvg
-BuildRequires:  deepin-gettext-tools
-BuildRequires:  gettext
-BuildRequires:  python-devel
+Summary:        Deepin Screenshot Tool
+License:        GPLv3
+Url:            https://github.com/linuxdeepin/deepin-screenshot
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        %{name}-appdata.xml
 
-BuildArch:      noarch
-
-Provides:       %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
+BuildRequires:  pkgconfig(dtkwidget) = 2.0
+BuildRequires:  pkgconfig(dtkwm)
+BuildRequires:  pkgconfig(xtst)
+BuildRequires:  pkgconfig(xcb-util)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5X11Extras)
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+Requires:       desktop-file-utils
+Requires:       hicolor-icon-theme
+Recommends:     deepin-shortcut-viewer
 
 %description
-%{summary}
-
+Provide a quite easy-to-use screenshot tool. Features:
+  * Global hotkey to triggle screenshot tool
+  * Take screenshot of a selected area
+  * Easy to add text and line drawings onto the screenshot
 
 %prep
-%autosetup %{version}.tar.gz#%{name}
-
-# fix python version
-find -iname "*.py" | xargs sed -i '1s|python$|python2|'
+%setup -q
 
 %build
+%qmake_qt5 PREFIX=%{_prefix}
 %make_build
 
 %install
-%make_install
+%make_install INSTALL_ROOT=%{buildroot}
+install -Dm644 %SOURCE1 %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
-%find_lang %{name}
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.xml
 
 %preun
 if [ $1 -eq 0 ]; then
@@ -49,26 +50,37 @@ if [ $1 -eq 0 ]; then
 fi
 
 %post
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
+/usr/bin/update-desktop-database -q ||:
 if [ $1 -eq 1 ]; then
   /usr/sbin/alternatives --install %{_bindir}/x-window-screenshot \
     x-window-screenshot %{_bindir}/%{name} 20
 fi
 
-%clean
-rm -rf %{buildroot}
+%postun
+if [ $1 -eq 0 ]; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
+    /usr/bin/gtk-update-icon-cache -f -t -q %{_datadir}/icons/hicolor ||:
+fi
+/usr/bin/update-desktop-database -q ||:
 
-%files -f %{name}.lang
-%defattr(-,root,root,-)
+%posttrans
+/usr/bin/gtk-update-icon-cache -f -t -q %{_datadir}/icons/hicolor ||:
+
+%files
 %doc README.md
 %license LICENSE
-%{_bindir}/*
-%{_datadir}/%{name}/
+%{_bindir}/%{name}
 %{_datadir}/dman/%{name}/
-%{_datadir}/applications/*.desktop
-%{_datadir}/icons/hicolor/scalable/apps/*.svg
-
+%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/dbus-1/services/com.deepin.Screenshot.service
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_datadir}/icons/deepin/apps/scalable/%{name}.svg
 
 %changelog
+* Wed Jan 10 2018 Jaroslav <cz.guardian@gmail.com> Stepanek - 4.0.10.4-1
+- Update to 4.0.10.4
 * Mon May 01 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.15-1
 - Update to 3.1.15
 * Mon Apr 24 2017 Jaroslav <cz.guardian@gmail.com> Stepanek 3.1.14-1
