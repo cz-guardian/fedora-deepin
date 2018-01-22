@@ -1,5 +1,5 @@
 Name:           dtkwm
-Version:        2.0.5
+Version:        2.0.6
 Release:        1%{?dist}
 Summary:        Deepin graphical user interface library
 License:        GPLv3
@@ -52,9 +52,11 @@ Header files and libraries for %{name}.
 
 %files devel
 %{_includedir}/libdtk-*/
-%{_libdir}/pkgconfig/*.pc
 %{_libdir}/*.so
+%{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Jan 22 2018 Jaroslav <cz.guardian@gmail.com> Stepanek - 2.0.6-1
+- Update to 2.0.6
 * Wed Jan 10 2018 Jaroslav <cz.guardian@gmail.com> Stepanek - 2.0.5-1
 - Initial package build

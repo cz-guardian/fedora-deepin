@@ -1,6 +1,6 @@
 Name:           dtkwidget
-Version:        2.0.5.3
-Release:        2%{?dist}
+Version:        2.0.6
+Release:        1%{?dist}
 Summary:        Deepin tool kit widget modules
 License:        GPLv3
 URL:            https://github.com/linuxdeepin/dtkwidget
@@ -68,10 +68,13 @@ sed -i 's|/lib|/libexec|' tools/svgc/svgc.pro
 
 %files devel
 %{_includedir}/libdtk-*/
-%{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/DtkWidget/*.cmake
 %{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jan 22 2018 Jaroslav <cz.guardian@gmail.com> Stepanek - 2.0.6-1
+- Update to version 2.0.6
 * Fri Jan 05 2018 Jaroslav <cz.guardian@gmail.com> Stepanek - 2.0.5.3-2
 - Added qt5-qtbase as dependency 
 * Fri Jan 05 2018 Jaroslav <cz.guardian@gmail.com> Stepanek - 2.0.5.3-1
